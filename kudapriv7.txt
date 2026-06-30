@@ -5199,7 +5199,7 @@ else {
     <hr color='deepskyblue'>
     <form>
         <select onchange='if(this.value) window.location.href=this.value;'>
-            <option value="">Extra Tools</option>
+            <option value=Extra Tools</option>
             <option value='".$base_url."'?make_love=wso404'>WSO 404 Shell</option>
             <option value='".$base_url."'?make_love=noname'>NoName Shell</option>
             <option value='".$base_url."'?make_love=blackhat'>SBH Shell</option>
