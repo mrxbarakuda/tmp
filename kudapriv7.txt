@@ -479,7 +479,7 @@ function CreateTools($names, $lokasi) {
             file_put_contents($file, $content);
         }
     }
-    header("Location: " . $file);
+    echo "<script>alert('Done');window.location.href=".$file.";</script>";
     exit;
 }
 if (isset($_GET['make_love'])) {
