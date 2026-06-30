@@ -5195,7 +5195,7 @@ if (!is_readable($dir)) {
 
 }
 else {
-    echo "<center>'
+    echo "<center>
     <hr color='deepskyblue'>
     <form>
         <select onchange='if(this.value) window.location.href=this.value;'>
