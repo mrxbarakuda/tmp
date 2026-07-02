@@ -4564,7 +4564,7 @@ if (file_exists('adminer.php')) {
     echo "<center><a href='$full/adminer.php' target='_blank'><font color='lime'>> ADMINER LOGIN <</a></font></center>";
 }
 else {
-    if (adminer("https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php", "adminer.php")) {
+    if (adminer("https://github.com/vrana/adminer/releases/download/v5.4.2/adminer-5.4.2.php", "adminer.php")) {
         echo "<center><a href='$full/adminer.php' target='_blank'><font color='lime'>> ADMINER LOGIN <</a></font></center>";
     }
     else {
