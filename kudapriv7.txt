@@ -1208,7 +1208,6 @@ function hex_escape_encode($str) {
     }
     return $encoded;
 }
-
 function hex_escape_decode($str) {
     $decoded = '';
     $parts = explode('\x', $str);
@@ -1219,14 +1218,6 @@ function hex_escape_decode($str) {
             // If it's not a valid hex escape, append it as is
             $decoded .= $part;
         }
-    }
-    return $decoded;
-}
-
-function safe_gzinflate($data) {
-    $decoded = @gzinflate($data);
-    if ($decoded === false) {
-        $decoded = @gzinflate($data, -15);
     }
     return $decoded;
 }
@@ -1297,35 +1288,35 @@ if (!empty($action) && !empty($text)) {
             $output = ($action == 'encode') ? json_encode($text) : json_decode($text);
             break;
         case 'gzinflate_base64':
-            $output = ($action == 'encode') ? base64_encode(gzdeflate($text)) : safe_gzinflate(base64_decode($text));
+            $output = ($action == 'encode') ? base64_encode(gzdeflate($text)) : gzinflate(base64_decode($text));
             break;
         case 'str_rot13_base64':
             $output = ($action == 'encode') ? base64_encode(str_rot13($text)) : str_rot13(base64_decode($text));
             break;
         case 'str_rot13_gzinflate_base64':
-            $output = ($action == 'encode') ? base64_encode(gzdeflate(str_rot13($text))) : str_rot13(safe_gzinflate(base64_decode($text)));
+            $output = ($action == 'encode') ? base64_encode(gzdeflate(str_rot13($text))) : str_rot13(gzinflate(base64_decode($text)));
             break;
         case 'gzinflate_str_rot13_base64':
-            $output = ($action == 'encode') ? base64_encode(str_rot13(gzdeflate($text))) : safe_gzinflate(str_rot13(base64_decode($text)));
+            $output = ($action == 'encode') ? base64_encode(str_rot13(gzdeflate($text))) : gzinflate(str_rot13(base64_decode($text)));
             break;
         case 'gzinflate_str_rot13_gzinflate_base64':
-            $output = ($action == 'encode') ? base64_encode(gzdeflate(str_rot13(gzdeflate($text)))) : safe_gzinflate(str_rot13(safe_gzinflate(base64_decode($text))));
+            $output = ($action == 'encode') ? base64_encode(gzdeflate(str_rot13(gzdeflate($text)))) : gzinflate(str_rot13(gzinflate(base64_decode($text))));
             break;
         case 'complex_chain_1':
-            $output = ($action == 'encode') ? base64_encode(str_rot13(gzdeflate(str_rot13($text)))) : str_rot13(safe_gzinflate(str_rot13(base64_decode($text))));
+            $output = ($action == 'encode') ? base64_encode(str_rot13(gzdeflate(str_rot13($text)))) : str_rot13(gzinflate(str_rot13(base64_decode($text))));
             break;
         case 'complex_chain_2':
             if ($action == 'encode') {
                 $output = base64_encode(gzdeflate(convert_uuencode(str_rot13(gzdeflate(base64_encode($text))))));
             } else {
-                $output = base64_decode(safe_gzinflate(str_rot13(convert_uudecode(safe_gzinflate(base64_decode($text))))));
+                $output = base64_decode(gzinflate(str_rot13(convert_uudecode(gzinflate(base64_decode($text))))));
             }
             break;
         case 'complex_chain_3':
             if ($action == 'encode') {
                 $output = base64_encode(gzdeflate(str_rot13(rawurlencode(gzdeflate(convert_uuencode(base64_encode(str_rot13(gzdeflate(convert_uuencode(rawurlencode(str_rot13($text))))))))))));
             } else {
-                $output = str_rot13(rawurldecode(convert_uudecode(safe_gzinflate(str_rot13(base64_decode(convert_uudecode(safe_gzinflate(rawurldecode(str_rot13(safe_gzinflate(base64_decode($text))))))))))));
+                $output = str_rot13(rawurldecode(convert_uudecode(gzinflate(str_rot13(base64_decode(convert_uudecode(gzinflate(rawurldecode(str_rot13(gzinflate(base64_decode($text))))))))))));
             }
             break;
 case 'hex':
