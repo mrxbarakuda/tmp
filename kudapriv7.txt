@@ -1,6 +1,6 @@
 <?php
 /*==================================#
-#          Kuda Priv7 Shell         #
+#            Priv7 Shell            #
 # Copyright (c) 2017 - Mr.xBarakuda #
 #===================================#
 #--------Code by Mr.xBarakuda-------#
@@ -179,7 +179,7 @@ $_COOKIE = array_map('kudax_ss', $_COOKIE);
 <head>
 <link rel ="icon" href="https://ia800901.us.archive.org/20/items/logo_DRF_icon/logo_DRF_icon.ico">
 <link rel="stylesheet" type="text/css" href="https://ia601903.us.archive.org/1/items/tes_20240803/kedip.css">
-<title>Kuda Priv7 Shell</title>
+<title>Priv7 Shell</title>
 <meta name="robots" content="none,noarchive">
 <meta name="author" content="Mr.xBarakuda">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -600,11 +600,24 @@ $gid = $gid['gid'];
 }
 echo "<center>";
 echo "<pre style='color: #ff4a54;' class='kedip'>
-   __  ___           ___                __           __    
-  /  |/  /___ __ __ / _ )___ ________ _/ /____ _____/ /__ _
- / /|_/ / __/ \ \ // _  / _ `/ __/ _ `/  '_/ // / _  / _ `/
-/_/  /_/_/ (_)_\_\/____/\_,_/_/  \_,_/_/\_\\_,_/\_,_/\_,_/ 
-                        Priv7 Shell                        
+                           ___________ _
+                      __/   .::::.-'-(/-/)
+                    _/:  .::::.-' .-'\/\_`,
+                   /:  .::::./   -._-.  d\|
+                    /: (""""/    '.  (__/||
+                     \::).-'  -._  \/ \\/\|
+             __ _ .-'`)/  '-'. . '. |  (i_O
+         .-'      \       -'      '\|
+    _ _./      .-'|       '.  (    \\
+ .-'   :      '_  \         '-'\  /|/
+/      )\_      '- )_________.-|_/^\
+(   .-'   )-._-:  /        \(/\'-._ `.
+ (   )  _//_/|:  /          `\()   `\_\
+  ( (   \()^_/)_/             )/      \\
+   )     \\ \(_)             //        )\
+         _o\ \\\            (o_       |__\
+         \ /  \\\__          )_\
+               ^)__\ [ Priv7 Shell By Mr.xBarakuda ]
 </pre>";
 echo "</center>";
 echo "<hr color=deepskyblue>";
