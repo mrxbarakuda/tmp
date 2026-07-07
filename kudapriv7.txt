@@ -177,7 +177,7 @@ $_COOKIE = array_map('kudax_ss', $_COOKIE);
 ?>
 <html>
 <head>
-<link rel ="icon" href="https://ia800901.us.archive.org/20/items/logo_DRF_icon/logo_DRF_icon.ico">
+<link rel="icon" href="https://ia800901.us.archive.org/20/items/logo_DRF_icon/logo_DRF_icon.ico">
 <link rel="stylesheet" type="text/css" href="https://ia601903.us.archive.org/1/items/tes_20240803/kedip.css">
 <title>Priv7 Shell</title>
 <meta name="robots" content="none,noarchive">
@@ -597,24 +597,11 @@ $gid = $gid['gid'];
 }
 echo "<center>";
 echo "<pre style='color: #ff4a54;' class='kedip'>
-                           ___________ _
-                      __/   .::::.-'-(/-/)
-                    _/:  .::::.-' .-'\/\_`,
-                   /:  .::::./   -._-.  d\|
-                    /: (""""/    '.  (__/||
-                     \::).-'  -._  \/ \\/\|
-             __ _ .-'`)/  '-'. . '. |  (i_O
-         .-'      \       -'      '\|
-    _ _./      .-'|       '.  (    \\
- .-'   :      '_  \         '-'\  /|/
-/      )\_      '- )_________.-|_/^\
-(   .-'   )-._-:  /        \(/\'-._ `.
- (   )  _//_/|:  /          `\()   `\_\
-  ( (   \()^_/)_/             )/      \\
-   )     \\ \(_)             //        )\
-         _o\ \\\            (o_       |__\
-         \ /  \\\__          )_\
-               ^)__\ [ Priv7 Shell By Mr.xBarakuda ]
+  __  __          ___                _           _      
+ |  \/  |_ _ __ _| _ ) __ _ _ _ __ _| |___  _ __| |__ _ 
+ | |\/| | '_|\ \ / _ \/ _` | '_/ _` | / / || / _` / _` |
+ |_|  |_|_|(_)_\_\___/\__,_|_| \__,_|_\_\\_,_\__,_\__,_|
+                        Priv7 Shell
 </pre>";
 echo "</center>";
 echo "<hr color=deepskyblue>";
