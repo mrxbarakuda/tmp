@@ -589,6 +589,7 @@ function reverse($url) {
   } else {
     $dir = getcwd();
   }
+  $n4me = "TXIueEJhcmFrdWRh";
   $kernel = php_uname();
   $ip = gethostbyname($_SERVER['HTTP_HOST']);
   $sport = $_SERVER['SERVER_PORT'];
@@ -4871,7 +4872,7 @@ echo '</form></table></td></tr></center>';
     </form>
     </center>";
   }
-  echo "<center>Copyright &copy; 2017 - ".date("Y")."<a href='https://www.google.com/search?q=intext:Mr.xBarakuda' target='_blank'><font color='deepskyblue'> Mr.xBarakuda</a></font><font color='red'> &#9822;</font></center>";
+  echo "<center>Copyright &copy; 2017 - ".date("Y")."<a href='https://www.google.com/search?q=intext:Mr.xBarakuda' target='_blank'><span style='color: deepskyblue;'> ".base64_decode($n4me)."</a></span><span style='color: red;'> &#9822;</span></center>";
 }
 echo "</body></html>";
 ?>
