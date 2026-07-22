@@ -234,6 +234,7 @@ if (!file_exists('.htaccess')) {
   fwrite($ht, $isian);
   fclose($ht);
 }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
